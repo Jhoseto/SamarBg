@@ -11,4 +11,12 @@ public class ViewPageController {
     }
 
 
+    @GetMapping("/user-settings")
+    public String showUserSettings(){
+        return "user-settings";
+    }
+    @GetMapping("/userdetail")
+    public String showUserDetail(){
+        return "userdetail";
+    }
 }

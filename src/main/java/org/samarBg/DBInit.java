@@ -37,7 +37,7 @@ public class DBInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        intNewOffer();
+        //intNewOffer();
        // intUsers();
     }
 

@@ -5,12 +5,14 @@ import org.samarBg.model.entities.AccessoryOfferEntity;
 import org.samarBg.model.entities.HorseOfferEntity;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
+import org.samarBg.view.OfferDetailsViewModel;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfferService {
@@ -77,5 +79,21 @@ public class OfferService {
         offer.setCreateDate(accessory.getCreated());
         return offer;
     }
+
+
+    public OfferDetailsViewModel getOfferById(Long offerId) {
+        Optional<HorseOfferEntity> horseOfferOptional = horseOfferRepository.findById(offerId);
+        if (horseOfferOptional.isPresent()) {
+            return (OfferDetailsViewModel) mapHorseToOffer(horseOfferOptional.get());
+        } else {
+            Optional<AccessoryOfferEntity> accessoryOfferOptional = accessoriesOfferRepository.findById(offerId);
+            if (accessoryOfferOptional.isPresent()) {
+                return (OfferDetailsViewModel) mapAccessoryToOffer(accessoryOfferOptional.get());
+            } else {
+                throw new IllegalArgumentException("Offer with ID " + offerId + " not found.");
+            }
+        }
+    }
+
 }
 
