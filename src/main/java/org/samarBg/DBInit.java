@@ -84,7 +84,9 @@ public class DBInit implements CommandLineRunner {
                 .setCity(CityEnum.RAZGRAD)
                 .setPhone("0886913296")
                 .setPrice(BigDecimal.valueOf(2100))
-                .setDescription("Много здрав и красив кон. Гледал съм го като писано яйце")
+                .setDescription("Много здрав и красив кон. Гледал съм го като писано яйце. " +
+                        "Хранен е само с италиански салати и сме го поили на Балиевата вОда. " +
+                        "Към него подарявам бонус 5 човала фураж !")
                 .setImages(images);
         setCurrentTimeStamps(horseOffer);
         horseOfferRepository.save(horseOffer);

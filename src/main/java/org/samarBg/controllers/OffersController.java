@@ -1,7 +1,9 @@
 package org.samarBg.controllers;
 
 
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.model.entities.HorseOfferEntity;
+import org.samarBg.repository.AccessoriesOfferRepository;
+import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.service.OfferService;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.stereotype.Controller;
@@ -15,9 +17,15 @@ import java.util.List;
 public class OffersController {
 
     private final OfferService offerService;
+    private final HorseOfferRepository horseOfferRepository;
+    private final AccessoriesOfferRepository accessoriesOfferRepository;
 
-    public OffersController(OfferService offerService) {
+    public OffersController(OfferService offerService,
+                            HorseOfferRepository horseOfferRepository,
+                            AccessoriesOfferRepository accessoriesOfferRepository) {
         this.offerService = offerService;
+        this.horseOfferRepository = horseOfferRepository;
+        this.accessoriesOfferRepository = accessoriesOfferRepository;
     }
 
     @GetMapping("/allads")
@@ -34,9 +42,15 @@ public class OffersController {
     @GetMapping("/offerdetail/{offerId}")
     public String showOfferDetailPage(@PathVariable Long offerId, Model model) {
         OfferViewModel offer = offerService.findById(offerId);
+        HorseOfferEntity horse = new HorseOfferEntity();
+
         if (offer != null) {
+            offer.setOfferViewCount(offer.getOfferViewCount() + 1);
+            // Запазване на обявата с новия брой на прегледите
+            offerService.saveInOffers(offer);
+
             model.addAttribute("offer", offer);
-           offer.setOfferViewCount(offer.getUserOffersCount()+1);
+
             return "offerdetail";
         } else {
             return "redirect:/allads"; // или друга страница за грешка

@@ -56,6 +56,7 @@ public class OfferService {
         offer.setHorseCategory(horse.getHorseCategory());
         offer.setSex(horse.getSex());
         offer.setPrice(horse.getPrice());
+        offer.setPhone(horse.getPhone());
         offer.setOfferName(horse.getOfferName());
         offer.setCity(horse.getCity());
         offer.setDescription(horse.getDescription());
@@ -69,17 +70,18 @@ public class OfferService {
     }
 
     private OfferViewModel mapAccessoryToOffer(AccessoryOfferEntity accessory) {
-        // Преобразуване на информацията за аксесоара в обява
+
         OfferViewModel offer = new OfferViewModel();
         UserEntity user = new UserEntity();
         String defaultImageUrl = "/impl/defOfferImg.png";
 
-        // Извличане на необходимата информация от обекта за аксесоар
+        // Извличане на информация от обекта за аксесоар
         offer.setId(accessory.getId());
         offer.setImageUrl(accessory.getImageUrl() != null ? accessory.getImageUrl() : defaultImageUrl);
         offer.setOfferCategory(accessory.getCategory());
         offer.setAccessoriesCategory(accessory.getAccessoriesCategory());
         offer.setPrice(accessory.getPrice());
+        offer.setPhone(accessory.getPhone());
         offer.setCity(accessory.getCity());
         offer.setOfferName(accessory.getOfferName());
         offer.setDescription(accessory.getDescription());
@@ -99,6 +101,28 @@ public class OfferService {
             Optional<AccessoryOfferEntity> accessoryOfferOptional = accessoriesOfferRepository.findById(offerId);
             if (accessoryOfferOptional.isPresent()) {
                 return mapAccessoryToOffer(accessoryOfferOptional.get());
+            } else {
+                throw new IllegalArgumentException("Offer with ID " + offerId + " not found.");
+            }
+        }
+    }
+
+
+    public void saveInOffers(OfferViewModel offerViewModel) {
+        Long offerId = offerViewModel.getId();
+        Optional<HorseOfferEntity> horseOfferOptional = horseOfferRepository.findById(offerId);
+        if (horseOfferOptional.isPresent()) {
+            HorseOfferEntity horseOfferEntity = horseOfferOptional.get();
+            horseOfferEntity.setOfferViewCounter(offerViewModel.getOfferViewCount());
+
+            horseOfferRepository.save(horseOfferEntity);
+        } else {
+            Optional<AccessoryOfferEntity> accessoryOfferOptional = accessoriesOfferRepository.findById(offerId);
+            if (accessoryOfferOptional.isPresent()) {
+                AccessoryOfferEntity accessoryOfferEntity = accessoryOfferOptional.get();
+                accessoryOfferEntity.setOfferViewCounter(offerViewModel.getOfferViewCount());
+
+                accessoriesOfferRepository.save(accessoryOfferEntity);
             } else {
                 throw new IllegalArgumentException("Offer with ID " + offerId + " not found.");
             }

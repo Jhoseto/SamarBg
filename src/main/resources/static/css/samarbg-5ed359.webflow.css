@@ -1425,6 +1425,8 @@ img {
 }
 
 .uui-text-size-medium-2 {
+  max-height: 13.7025%;
+  max-width: 100%;
   border-top: 3px solid var(--untitled-ui--warning300);
   color: var(--untitled-ui--gray500);
   letter-spacing: normal;
@@ -1575,7 +1577,7 @@ img {
 }
 
 .uui-text-size-large {
-  color: var(--untitled-ui--gray600);
+  color: var(--untitled-ui--gray900);
   letter-spacing: normal;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
   font-size: 1.125rem;
@@ -1624,6 +1626,7 @@ img {
 .uui-padding-vertical-xhuge-2 {
   border: 1px solid var(--brown11);
   border-radius: 14px;
+  margin-top: 60px;
   padding: 7px 20px 7rem;
 }
 
@@ -2167,8 +2170,8 @@ img {
 
 .container-4 {
   clear: none;
-  border: 5px #945631;
-  border-radius: 0;
+  border: 3px solid #945631;
+  border-radius: 17px;
   flex: 0 auto;
   order: -1;
   align-self: flex-start;
@@ -2212,7 +2215,7 @@ img {
 .text-block-10 {
   color: #945631;
   text-align: center;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #945631;
   justify-content: center;
   align-self: flex-end;
   padding-top: 10px;
@@ -2303,26 +2306,50 @@ img {
 }
 
 .div-block-19.align-center-2 {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: none;
   display: block;
+}
+
+.div-block-19.as {
+  perspective: 1046px;
+  perspective-origin: 0%;
+  transform-origin: 0%;
+  background-color: rgba(203, 198, 198, 0);
+  background-image: url('../images/red-glossy-labels-tag-for-sale-price-luxury-modern-design-png.webp');
+  background-position: 50%;
+  background-repeat: repeat-x;
+  background-size: cover;
+  margin-top: 40px;
+  margin-left: 5px;
+  margin-right: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transform: perspective(221px);
+}
+
+.div-block-19.as:hover {
+  transform: perspective(221px);
 }
 
 .text-block-11 {
   outline-offset: 0px;
   color: #945631;
   text-align: center;
-  outline: 3px solid #945631;
+  border-bottom: 1px solid #945631;
+  outline: 3px #945631;
   flex: 0 auto;
   align-self: center;
-  padding-top: 5px;
-  padding-bottom: 1px;
+  padding-top: 0;
+  padding-bottom: 5px;
   font-family: Droid Serif, serif;
   font-size: 22px;
   font-weight: 700;
 }
 
 .div-block-20 {
+  border: 3px solid var(--brown11);
   background-color: #fcda9d;
-  border: 3px solid #000;
   border-radius: 10px;
   margin-top: 10px;
   padding: 0 10px 10px;
@@ -2340,11 +2367,13 @@ img {
 }
 
 .textcena {
+  color: #fff;
   align-self: flex-end;
   font-size: 18px;
 }
 
 .cena {
+  color: #fff;
   margin-left: 10px;
   font-size: 25px;
   font-weight: 700;
@@ -2367,7 +2396,7 @@ img {
 }
 
 .text-block-12 {
-  color: #945631;
+  color: #7d2f00;
   margin-top: 60px;
   font-family: Droid Serif, serif;
   font-size: 25px;
@@ -2391,7 +2420,7 @@ img {
   color: #945631;
   flex: 1;
   margin-top: 20px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-family: Droid Serif, serif;
   font-size: 16px;
   font-weight: 600;
   display: inline-flex;
@@ -2411,15 +2440,21 @@ img {
 
 .text-block-14 {
   color: #945631;
-  border-top: 1px solid #945631;
+  text-align: left;
+  border-top: 1px #945631;
   flex-flow: row;
+  flex: 1;
   margin-top: 10px;
   padding-top: 10px;
   display: block;
 }
 
+.text-block-14._122 {
+  text-align: right;
+}
+
 .div-block-21 {
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .text-block-15 {
@@ -2428,6 +2463,8 @@ img {
   border-bottom: 1px solid #945631;
   padding-top: 20px;
   padding-bottom: 10px;
+  font-family: Droid Serif, serif;
+  font-size: 16px;
 }
 
 .text-block-16 {
@@ -2448,7 +2485,7 @@ img {
 .div-block-22 {
   height: 150%;
   margin-top: 350px;
-  margin-bottom: 48px;
+  margin-bottom: 20px;
   position: relative;
 }
 
@@ -2500,6 +2537,7 @@ img {
   align-items: stretch;
   margin-left: auto;
   margin-right: auto;
+  font-family: Droid Serif, serif;
   display: flex;
 }
 
@@ -2510,6 +2548,10 @@ img {
 
 .form-block-2 {
   margin-bottom: 0;
+}
+
+.div-block-25 {
+  display: flex;
 }
 
 @media screen and (max-width: 991px) {
