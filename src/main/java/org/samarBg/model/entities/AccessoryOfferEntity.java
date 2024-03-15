@@ -1,6 +1,7 @@
 package org.samarBg.model.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import org.samarBg.model.entities.enums.AccessoriesEnum;
 import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.OfferCategoryEnum;
@@ -35,6 +36,7 @@ public class AccessoryOfferEntity extends BaseEntity {
     private BigDecimal price;
 
     @Column(nullable = false)
+    @Size(max = 350)
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -43,6 +45,14 @@ public class AccessoryOfferEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "accessoryOffer", cascade = CascadeType.ALL)
     private List<OfferImageEntity> images;
+
+    @Column
+    private int offerViewCounter;
+
+
+
+
+
 
     public String getOfferName() {
         return offerName;
@@ -132,5 +142,35 @@ public class AccessoryOfferEntity extends BaseEntity {
     public AccessoryOfferEntity setImages(List<OfferImageEntity> images) {
         this.images = images;
         return this;
+    }
+
+    public int getOfferViewCounter() {
+        return offerViewCounter;
+    }
+
+    public AccessoryOfferEntity setOfferViewCounter(int offerViewCounter) {
+        this.offerViewCounter = offerViewCounter;
+        return this;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AccessoryOfferEntity{" +
+                "offerName='" + offerName + '\'' +
+                ", category=" + category +
+                ", authorName='" + authorName + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", phone='" + phone + '\'' +
+                ", city=" + city +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", accessoriesCategory=" + accessoriesCategory +
+                ", images=" + images +
+                ", offerViewCounter=" + offerViewCounter +
+                ", id=" + id +
+                ", created=" + created +
+                ", modified=" + modified +
+                '}';
     }
 }

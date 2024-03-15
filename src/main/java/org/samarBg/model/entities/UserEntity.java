@@ -21,6 +21,7 @@ public class UserEntity extends BaseEntity {
     private boolean isActive;
     private String imageUrl;
     private String userConfirmationCode;
+    private int UserOffersCount;
 
     @ElementCollection
     private Set<Long> favoriteOfferIds = new HashSet<>();
@@ -127,6 +128,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setUserRoles(Set<UserRoleEnum> userRoles) {
         this.userRoles = userRoles;
+        return this;
+    }
+
+    public int getUserOffersCount() {
+        return UserOffersCount;
+    }
+
+    public UserEntity setUserOffersCount(int userOffersCount) {
+        UserOffersCount = userOffersCount;
         return this;
     }
 }

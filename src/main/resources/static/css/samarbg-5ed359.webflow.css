@@ -1518,6 +1518,7 @@ img {
 
 .adswindow {
   box-shadow: 0 2px 20px 3px var(--untitled-ui--gray900);
+  cursor: pointer;
   border: 1px #000;
   border-radius: 0;
   text-decoration: none;
@@ -2158,7 +2159,7 @@ img {
   grid-auto-columns: 1fr;
   justify-content: center;
   align-items: flex-start;
-  margin: 20px 20px 140px;
+  margin: 100px 20px 140px;
   display: flex;
   position: static;
   left: auto;
@@ -2171,7 +2172,7 @@ img {
   flex: 0 auto;
   order: -1;
   align-self: flex-start;
-  margin-top: 0;
+  margin-top: 100px;
   margin-left: 0;
   margin-right: auto;
   display: block;
@@ -2505,6 +2506,10 @@ img {
 .link-block-2 {
   text-decoration: none;
   display: block;
+}
+
+.form-block-2 {
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 991px) {

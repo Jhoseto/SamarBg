@@ -3,9 +3,9 @@ package org.samarBg.service;
 
 import org.samarBg.model.entities.AccessoryOfferEntity;
 import org.samarBg.model.entities.HorseOfferEntity;
+import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
-import org.samarBg.view.OfferDetailsViewModel;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +45,7 @@ public class OfferService {
 
     private OfferViewModel mapHorseToOffer(HorseOfferEntity horse) {
         // Преобразуване на информацията за коня в обява
+        UserEntity user = new UserEntity();
         OfferViewModel offer = new OfferViewModel();
         String defaultImageUrl = "/impl/defOfferImg.png";
 
@@ -53,18 +54,24 @@ public class OfferService {
         offer.setImageUrl(horse.getImageUrl() != null ? horse.getImageUrl() : defaultImageUrl);
         offer.setOfferCategory(horse.getCategory());
         offer.setHorseCategory(horse.getHorseCategory());
+        offer.setSex(horse.getSex());
         offer.setPrice(horse.getPrice());
         offer.setOfferName(horse.getOfferName());
         offer.setCity(horse.getCity());
         offer.setDescription(horse.getDescription());
         offer.setAuthorName(horse.getAuthorName());
         offer.setCreateDate(horse.getCreated());
+        offer.setModifiedDate(horse.getModified());
+        offer.setOfferViewCount(horse.getOfferViewCounter());
+        offer.setUserRegistrationDate(user.getCreated());
+        offer.setUserOffersCount(user.getUserOffersCount());
         return offer;
     }
 
     private OfferViewModel mapAccessoryToOffer(AccessoryOfferEntity accessory) {
         // Преобразуване на информацията за аксесоара в обява
         OfferViewModel offer = new OfferViewModel();
+        UserEntity user = new UserEntity();
         String defaultImageUrl = "/impl/defOfferImg.png";
 
         // Извличане на необходимата информация от обекта за аксесоар
@@ -77,18 +84,21 @@ public class OfferService {
         offer.setOfferName(accessory.getOfferName());
         offer.setDescription(accessory.getDescription());
         offer.setCreateDate(accessory.getCreated());
+        offer.setOfferViewCount(accessory.getOfferViewCounter());
+        offer.setUserRegistrationDate(user.getCreated());
+        offer.setUserOffersCount(user.getUserOffersCount());
         return offer;
     }
 
 
-    public OfferDetailsViewModel getOfferById(Long offerId) {
+    public OfferViewModel findById(Long offerId) {
         Optional<HorseOfferEntity> horseOfferOptional = horseOfferRepository.findById(offerId);
         if (horseOfferOptional.isPresent()) {
-            return (OfferDetailsViewModel) mapHorseToOffer(horseOfferOptional.get());
+            return mapHorseToOffer(horseOfferOptional.get());
         } else {
             Optional<AccessoryOfferEntity> accessoryOfferOptional = accessoriesOfferRepository.findById(offerId);
             if (accessoryOfferOptional.isPresent()) {
-                return (OfferDetailsViewModel) mapAccessoryToOffer(accessoryOfferOptional.get());
+                return mapAccessoryToOffer(accessoryOfferOptional.get());
             } else {
                 throw new IllegalArgumentException("Offer with ID " + offerId + " not found.");
             }

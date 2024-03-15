@@ -1,9 +1,6 @@
 package org.samarBg.view;
 
-import org.samarBg.model.entities.enums.AccessoriesEnum;
-import org.samarBg.model.entities.enums.CityEnum;
-import org.samarBg.model.entities.enums.HorseCategoryEnum;
-import org.samarBg.model.entities.enums.OfferCategoryEnum;
+import org.samarBg.model.entities.enums.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -15,12 +12,18 @@ public class OfferViewModel {
     private OfferCategoryEnum offerCategory;
     private HorseCategoryEnum horseCategory;
     private AccessoriesEnum accessoriesCategory;
+    private SexEnum sex;
     private BigDecimal price;
+    private String phone;
     private CityEnum city;
     private String offerName;
     private String description;
     private String authorName;
+    private int offerViewCount;
+    private Instant userRegistrationDate;
+    private int userOffersCount;
     private Instant createDate;
+    private Instant modifiedDate;
 
 
     public Long getId() {
@@ -41,10 +44,6 @@ public class OfferViewModel {
         return this;
     }
 
-    public HorseCategoryEnum getHorseCategory() {
-        return horseCategory;
-    }
-
     public OfferCategoryEnum getOfferCategory() {
         return offerCategory;
     }
@@ -52,6 +51,10 @@ public class OfferViewModel {
     public OfferViewModel setOfferCategory(OfferCategoryEnum offerCategory) {
         this.offerCategory = offerCategory;
         return this;
+    }
+
+    public HorseCategoryEnum getHorseCategory() {
+        return horseCategory;
     }
 
     public OfferViewModel setHorseCategory(HorseCategoryEnum horseCategory) {
@@ -68,12 +71,30 @@ public class OfferViewModel {
         return this;
     }
 
+    public SexEnum getSex() {
+        return sex;
+    }
+
+    public OfferViewModel setSex(SexEnum sex) {
+        this.sex = sex;
+        return this;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
 
     public OfferViewModel setPrice(BigDecimal price) {
         this.price = price;
+        return this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public OfferViewModel setPhone(String phone) {
+        this.phone = phone;
         return this;
     }
 
@@ -113,6 +134,24 @@ public class OfferViewModel {
         return this;
     }
 
+    public int getOfferViewCount() {
+        return offerViewCount;
+    }
+
+    public OfferViewModel setOfferViewCount(int offerViewCount) {
+        this.offerViewCount = offerViewCount;
+        return this;
+    }
+
+    public Instant getUserRegistrationDate() {
+        return userRegistrationDate;
+    }
+
+    public OfferViewModel setUserRegistrationDate(Instant userRegistrationDate) {
+        this.userRegistrationDate = userRegistrationDate;
+        return this;
+    }
+
     public Instant getCreateDate() {
         return createDate;
     }
@@ -122,21 +161,44 @@ public class OfferViewModel {
         return this;
     }
 
+    public Instant getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public OfferViewModel setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
+        return this;
+    }
+
+
+    public int getUserOffersCount() {
+        return userOffersCount;
+    }
+
+    public OfferViewModel setUserOffersCount(int userOffersCount) {
+        this.userOffersCount = userOffersCount;
+        return this;
+    }
 
     @Override
     public String toString() {
-        return "OfferThumbnailViewModel{" +
+        return "OfferViewModel{" +
                 "id=" + id +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", offerCategory=" + offerCategory +
                 ", horseCategory=" + horseCategory +
                 ", accessoriesCategory=" + accessoriesCategory +
+                ", sex=" + sex +
                 ", price=" + price +
+                ", phone='" + phone + '\'' +
                 ", city=" + city +
                 ", offerName='" + offerName + '\'' +
                 ", description='" + description + '\'' +
                 ", authorName='" + authorName + '\'' +
+                ", userOfferCount=" + offerViewCount +
+                ", userRegistrationDate=" + userRegistrationDate +
                 ", createDate=" + createDate +
+                ", modifiedDate=" + modifiedDate +
                 '}';
     }
 }

@@ -17,7 +17,7 @@ public class OfferImageEntity {
     @JoinColumn(name = "horse_offer_id")
     private HorseOfferEntity horseOffer;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "accessory_offer_id")
     private AccessoryOfferEntity accessoryOffer;
 

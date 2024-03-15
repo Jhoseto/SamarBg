@@ -37,7 +37,7 @@ public class DBInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        //intNewOffer();
+        intNewOffer();
        // intUsers();
     }
 
@@ -78,7 +78,7 @@ public class DBInit implements CommandLineRunner {
 
         horseOffer.setOfferName("Продавам мъжки кон. Изгодно !!!")
                 .setCategory(OfferCategoryEnum.HORSES)
-                .setHorseCategory(HorseCategoryEnum.DONKEY)
+                .setHorseCategory(HorseCategoryEnum.HORSE)
                 .setSex(SexEnum.MALE)
                 .setAuthorName("Bai Marin")
                 .setCity(CityEnum.RAZGRAD)
