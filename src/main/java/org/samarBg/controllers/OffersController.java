@@ -32,17 +32,30 @@ public class OffersController {
     public String getAllOffers(Model model) {
         List<OfferViewModel> offers = offerService.getAllOffers();
 
-
         model.addAttribute("offers", offers);
         return "allads";
+    }
+    @GetMapping("/allHorses")
+    public String getAllHorses(Model model) {
+        List<OfferViewModel> offers = offerService.getAllHorsesOffers();
+
+        model.addAttribute("offers", offers);
+        return "allHorses";
+    }
+
+    @GetMapping("/allAccessories")
+    public String getAllAccessory(Model model) {
+        List<OfferViewModel> offers = offerService.getAllAccessoryOffers();
+
+        model.addAttribute("offers", offers);
+        return "allAccessories";
     }
 
 
 
     @GetMapping("/offerdetail/{offerId}")
-    public String showOfferDetailPage(@PathVariable Long offerId, Model model) {
+    public String showAllOfferDetailPage(@PathVariable Long offerId, Model model) {
         OfferViewModel offer = offerService.findById(offerId);
-        HorseOfferEntity horse = new HorseOfferEntity();
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
@@ -57,7 +70,40 @@ public class OffersController {
         }
     }
 
+    @GetMapping("/allHorses/{offerId}")
+    public String showHorseOfferDetailPage(@PathVariable Long offerId, Model model) {
+        OfferViewModel offer = offerService.findById(offerId);
+        HorseOfferEntity horse = new HorseOfferEntity();
 
+        if (offer != null) {
+            offer.setOfferViewCount(offer.getOfferViewCount() + 1);
+            // Запазване на обявата с новия брой на прегледите
+            offerService.saveInOffers(offer);
+
+            model.addAttribute("offers", offer);
+
+            return "offerdetail";
+        } else {
+            return "redirect:/allHorses"; // или друга страница за грешка
+        }
+    }
+
+    @GetMapping("/allAccessories/{offerId}")
+    public String showAccessoryOfferDetailPage(@PathVariable Long offerId, Model model) {
+        OfferViewModel offer = offerService.findById(offerId);
+
+        if (offer != null) {
+            offer.setOfferViewCount(offer.getOfferViewCount() + 1);
+            // Запазване на обявата с новия брой на прегледите
+            offerService.saveInOffers(offer);
+
+            model.addAttribute("offers", offer);
+
+            return "offerdetail";
+        } else {
+            return "redirect:/allAccessories"; // или друга страница за грешка
+        }
+    }
 
 }
 

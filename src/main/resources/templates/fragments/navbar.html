@@ -37,7 +37,7 @@
                                     <a href="/allads" class="nav-link"><span class="text-span-2">Всички обяви</span></a>
                                 </li>
                                 <li data-w-id="36168b5e-d710-7012-4b61-f02eed2fe4ae" class="list-item-4">
-                                    <a href="#" class="nav-link"><span class="text-span-3" th:if="${not @currentUser.isGuest}">Нова обява</span></a>
+                                    <a href="#" class="nav-link"><span class="text-span-3" th:if="${@currentUser.isLoggedIn()}">Нова обява</span></a>
                                 </li>
                                 <li>
                                     <div data-delay="0" data-hover="true" class="nav-dropdown w-dropdown">
@@ -46,8 +46,8 @@
                                             <div class="text-block">Категории</div>
                                         </div>
                                         <nav class="nav-dropdown-list shadow-three mobile-shadow-hide w-dropdown-list">
-                                            <a href="#" data-w-id="36168b5e-d710-7012-4b61-f02eed2fe4b9" class="dropdown-link w-dropdown-link">Животни</a>
-                                            <a data-w-id="36168b5e-d710-7012-4b61-f02eed2fe4bb" href="#" class="dropdown-link-2 w-dropdown-link">Аксесоари</a>
+                                            <a href="/allHorses" data-w-id="36168b5e-d710-7012-4b61-f02eed2fe4b9" class="dropdown-link w-dropdown-link" >Животни</a>
+                                            <a data-w-id="36168b5e-d710-7012-4b61-f02eed2fe4bb" href="/allAccessories" class="dropdown-link-2 w-dropdown-link">Аксесоари</a>
                                         </nav>
                                     </div>
                                 </li>
@@ -55,16 +55,16 @@
                                     <div class="nav-divider"></div>
                                 </li>
                                 <li>
-                                    <a href="/login" aria-current="page" class="nav-link-accent w--current" th:if="${@currentUser.isGuest}">ВХОД</a>
+                                    <a href="/login" aria-current="page" class="nav-link-accent w--current" th:if="${not @currentUser.isLoggedIn()}">ВХОД</a>
                                 </li>
                                 <li class="list-item-5">
-                                    <a href="/registration" class="nav-link-accent" th:if="${@currentUser.isGuest}">РЕГИСТРАЦИЯ</a>
+                                    <a href="/registration" class="nav-link-accent" th:if="${not @currentUser.isLoggedIn()}">РЕГИСТРАЦИЯ</a>
                                 </li>
                             </ul>
                         </nav>
                         <div class="usernameblock"><img width="44" id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c6-ed2fe49a" alt="" th:src="${@currentUser.getUserImage()}" loading="lazy" class="image-11">
                             <a id="w-node-_9f4ecf65-ecfb-c0a9-f158-1ac91d31a110-ed2fe49a" th:href="${@currentUser.isLoggedIn() ? '/userdetail' : ''}" class="w-inline-block"  >
-                            <div id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c7-ed2fe49a" class="text-block-3" th:text="${@currentUser.name}">Гост</div>
+                            <div id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c7-ed2fe49a" class="text-block-3" th:text="${@currentUser.getName()}">Гост</div>
                             </a>
                             <div data-delay="0" data-hover="true" id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c9-ed2fe49a" class="nav-dropdown w-dropdown">
                                 <div class="nav-dropdown-toggle w-dropdown-toggle" th:if="${@currentUser.isLoggedIn()}">
@@ -76,7 +76,7 @@
                                     <a href="#" class="dropdown-link-3 w-dropdown-link">Моите обяви</a>
                                     <a href="#" class="dropdown-link-3 w-dropdown-link">Любими</a>
                                     <a href="/user-settings" class="dropdown-link-3 w-dropdown-link">Настройки</a>
-                                    <a th:if="${not @currentUser.isGuest()}" th:href="@{/users/logout}" class="dropdown-link-3 w-dropdown-link">Изход</a>
+                                    <a th:if="${@currentUser.isLoggedIn()}" th:href="@{/users/logout}" class="dropdown-link-3 w-dropdown-link">Изход</a>
                                 </nav>
                             </div>
                         </div>

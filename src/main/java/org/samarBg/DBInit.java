@@ -37,7 +37,7 @@ public class DBInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        intNewOffer();
+        //intNewOffer();
        // intUsers();
     }
 
@@ -65,7 +65,7 @@ public class DBInit implements CommandLineRunner {
     }
 
 
-    private void intNewOffer(){
+    private void intHorseOffer(){
         HorseOfferEntity horseOffer = new HorseOfferEntity();
         List<OfferImageEntity> images = new ArrayList<>();
         OfferImageEntity image = new OfferImageEntity();

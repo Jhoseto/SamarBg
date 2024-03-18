@@ -3,6 +3,7 @@ package org.samarBg.controllers;
 
 import jakarta.validation.Valid;
 import org.samarBg.model.entities.UserEntity;
+import org.samarBg.security.CurrentUser;
 import org.samarBg.view.UserLoginViewModel;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.service.UserService;
@@ -39,8 +40,7 @@ public class LoginPageController {
 
     @PostMapping("/users/login")
     public String login(@Valid @ModelAttribute("userModel") UserLoginViewModel userModel,
-                        BindingResult bindingResult,
-                        RedirectAttributes redirectAttributes) {
+                        RedirectAttributes redirectAttributes, CurrentUser currentUser) {
 
         boolean isAuthenticated = userService.authenticate(userModel.getEmail(), userModel.getPassword());
 

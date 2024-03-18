@@ -21,7 +21,7 @@
 </head>
 <body class="body-2">
 <div
-        th:replace="fragments/navbar::navbar">
+        th:replace="~{fragments/navbar::navbar}">
 </div>
   <section class="div-registration">
     <div id="w-node-b755e184-0d1c-5211-524b-a78ef88cf6ab-c122e762" class="imagegridreg"><img class="regimg1" src="images/lasso-1202578_1280.jpg" alt="Feature image" style="opacity:0" sizes="(max-width: 479px) 2.777777910232544px, (max-width: 767px) 8vw, (max-width: 991px) 11vw, (max-width: 9846px) 13vw, 1280px" data-w-id="b755e184-0d1c-5211-524b-a78ef88cf6ac" id="w-node-b755e184-0d1c-5211-524b-a78ef88cf6ac-c122e762" loading="lazy" srcset="images/lasso-1202578_1280-p-500.jpg 500w, images/lasso-1202578_1280-p-800.jpg 800w, images/lasso-1202578_1280-p-1080.jpg 1080w, images/lasso-1202578_1280.jpg 1280w"><img class="regimg3" src="images/cowboy-940081_1280.jpg" alt="Feature image" style="opacity:0" sizes="(max-width: 479px) 2.777777910232544px, (max-width: 767px) 8vw, (max-width: 991px) 11vw, (max-width: 9846px) 13vw, 1280px" data-w-id="b755e184-0d1c-5211-524b-a78ef88cf6ad" id="w-node-b755e184-0d1c-5211-524b-a78ef88cf6ad-c122e762" loading="lazy" srcset="images/cowboy-940081_1280-p-500.jpg 500w, images/cowboy-940081_1280-p-800.jpg 800w, images/cowboy-940081_1280-p-1080.jpg 1080w, images/cowboy-940081_1280.jpg 1280w"><img class="regimg4" src="images/male-model-4887354_1280.jpg" alt="Feature image" style="opacity:0" sizes="(max-width: 479px) 2.777777910232544px, (max-width: 767px) 8vw, (max-width: 991px) 11vw, 15vw" data-w-id="b755e184-0d1c-5211-524b-a78ef88cf6ae" id="w-node-b755e184-0d1c-5211-524b-a78ef88cf6ae-c122e762" loading="lazy" srcset="images/male-model-4887354_1280-p-500.jpg 500w, images/male-model-4887354_1280-p-800.jpg 800w, images/male-model-4887354_1280.jpg 853w"><img class="regimg5" src="images/saddle-792822_1280.jpg" alt="Feature image" style="opacity:0" sizes="(max-width: 479px) 2.777777910232544px, (max-width: 767px) 8vw, (max-width: 991px) 11vw, (max-width: 9846px) 13vw, 1280px" data-w-id="b755e184-0d1c-5211-524b-a78ef88cf6af" id="w-node-b755e184-0d1c-5211-524b-a78ef88cf6af-c122e762" loading="lazy" srcset="images/saddle-792822_1280-p-500.jpg 500w, images/saddle-792822_1280-p-800.jpg 800w, images/saddle-792822_1280-p-1080.jpg 1080w, images/saddle-792822_1280.jpg 1280w"><img class="regimg2" src="images/cowgirl-1497258_1280.jpg" alt="Feature image" style="opacity:0" sizes="(max-width: 479px) 2.777777910232544px, (max-width: 767px) 8vw, (max-width: 991px) 11vw, 15vw" data-w-id="b755e184-0d1c-5211-524b-a78ef88cf6b0" id="w-node-b755e184-0d1c-5211-524b-a78ef88cf6b0-c122e762" loading="lazy" srcset="images/cowgirl-1497258_1280-p-500.jpg 500w, images/cowgirl-1497258_1280-p-800.jpg 800w, images/cowgirl-1497258_1280.jpg 853w"></div>
@@ -30,7 +30,7 @@
         <form method="post"
               th:action="@{/user/registration}"
               th:object="${user}"
-              name="email-form" data-name="Email Form" style="opacity:0" data-w-id="ab70efbe-e0c0-b1f7-1b68-eb13d47d0a90" id="registrationForm" class="form" data-wf-page-id="65df6f3c4934f182c122e762" data-wf-element-id="ab70efbe-e0c0-b1f7-1b68-eb13d47d0a90">
+              name="email-form" style="opacity:0" data-w-id="ab70efbe-e0c0-b1f7-1b68-eb13d47d0a90" id="registrationForm" class="form" data-wf-page-id="65df6f3c4934f182c122e762" data-wf-element-id="ab70efbe-e0c0-b1f7-1b68-eb13d47d0a90">
           <h1 class="heading">Регистрация</h1>
           <label for="NameField" class="field-label">Име</label>
           <input th:field="*{username}" class="text-field w-input" maxlength="256" name="name" data-name="Name" style="opacity:0" placeholder="Потребителско име ..." data-w-id="ab70efbe-e0c0-b1f7-1b68-eb13d47d0a93" type="text" id="NameField" required="">
@@ -56,7 +56,7 @@
   </section>
   <section class="footer">
     <div
-            th:replace="fragments/footer::footer">
+            th:replace="~{fragments/footer::footer}">
     </div>
   </section>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=65dbafc99f6b400b3852fc07" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>

@@ -1,31 +1,42 @@
 package org.samarBg.security;
 
 import org.samarBg.model.entities.enums.UserRoleEnum;
-import org.samarBg.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
-@SessionScope
 public class CurrentUser {
-    private final String GUEST = "Гост";
+    private static final String GUEST = "Гост";
+    private static final String GUEST_IMAGE_PATH = "images/userNameIcon1.png";
 
     private String name = GUEST;
-    private String userImage;
-    private boolean isGuest = true;
+    private String userImage = GUEST_IMAGE_PATH;
+    private boolean loggedIn = false;
     private List<UserRoleEnum> userRoles = new ArrayList<>();
-    @Autowired
-    UserRepository userRepository;
+    private HttpSession session;
 
-    public String getGUEST() {
-        return GUEST;
-    }
     public boolean isLoggedIn() {
-        return !isGuest();
+        return loggedIn;
     }
+
+    public void authenticate(String userName, List<UserRoleEnum> roles, String userImage) {
+        this.name = userName;
+        this.userRoles.clear();
+        this.userRoles.addAll(roles);
+        this.userImage = (userImage != null && !userImage.isEmpty()) ? userImage : GUEST_IMAGE_PATH;
+        this.loggedIn = true;
+    }
+
+    public void logout() {
+        this.name = GUEST;
+        this.userRoles.clear();
+        this.userImage = GUEST_IMAGE_PATH;
+        this.loggedIn = false;
+    }
+
     public String getName() {
         return name;
     }
@@ -39,26 +50,13 @@ public class CurrentUser {
         return userImage;
     }
 
-    public void setUserImage(String userImage) {
-        if (userImage == null || userImage.isEmpty()) {
-            this.userImage = "images/userNameIcon1.png";
-        } else {
-            this.userImage = userImage;
-        }
+    public CurrentUser setUserImage(String userImage) {
+        this.userImage = userImage;
+        return this;
     }
 
-    public boolean isGuest() {
-        return isGuest;
-    }
-
-    public CurrentUser setGuest(boolean guest) {
-        if (guest) {
-            this.name = GUEST;
-            this.userRoles.clear();
-            // Задаване на пътя до стандартното изображение за госта
-            this.userImage = "images/userNameIcon1.png";
-        }
-        isGuest = guest;
+    public CurrentUser setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
         return this;
     }
 
@@ -66,9 +64,8 @@ public class CurrentUser {
         return userRoles;
     }
 
-    public CurrentUser setUserRoles(List<UserRoleEnum> newUserRoles) {
-        userRoles.clear();
-        userRoles.addAll(newUserRoles);
+    public CurrentUser setUserRoles(List<UserRoleEnum> userRoles) {
+        this.userRoles = userRoles;
         return this;
     }
 }

@@ -1,19 +1,21 @@
 package org.samarBg.service.impl;
 
 import org.samarBg.model.entities.UserEntity;
-import org.samarBg.model.entities.UserRoleEntity;
 import org.samarBg.model.entities.enums.UserRoleEnum;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.security.CurrentUser;
 import org.samarBg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+
 @Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
@@ -21,7 +23,9 @@ public class UserServiceImpl implements UserService {
     private CurrentUser currentUser;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, CurrentUser currentUser) {
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder,
+                           CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.currentUser = currentUser;
@@ -39,6 +43,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+
     @Override
     public void loginUser(String email) {
         Optional<UserEntity> userEntityOpt = userRepository.findByEmail(email);
@@ -48,20 +53,45 @@ public class UserServiceImpl implements UserService {
             List<UserRoleEnum> userRoles = new ArrayList<>(user.getUserRoles());
 
             currentUser
-                    .setGuest(false)
                     .setName(user.getUsername())
                     .setUserRoles(userRoles)
-                    .setUserImage(user.getImageUrl());
+                    .setUserImage(user.getImageUrl())
+                    .setLoggedIn(true)
+                    .authenticate(user.getUsername(), userRoles, user.getImageUrl());
+
         }
     }
 
+
+    @Override
+    public void changeProfileImage(String username, String fileName, HttpSession session) {
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+
+        userOptional.ifPresent(user -> {
+            user.setImageUrl(fileName);
+            userRepository.save(user);
+
+            // If the user is currently logged in, update the session with the new image URL
+            if (currentUser.isLoggedIn() && currentUser.getName().equals(username)) {
+                currentUser.setUserImage(fileName);
+                session.setAttribute("currentUser", currentUser);
+            }
+        });
+    }
+
+
     @Override
     public void logoutCurrentUser() {
-        currentUser.setGuest(true);
+        currentUser.logout();
     }
 
     @Override
     public boolean confirmEmail(Long userId, String code) {
         return false;
+    }
+
+    @Override
+    public void changeProfileImage(String username, String fileName) {
+
     }
 }

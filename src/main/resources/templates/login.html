@@ -21,7 +21,7 @@
 </head>
 <body class="body-3">
 <div
-        th:replace="fragments/navbar::navbar">
+        th:replace="~{fragments/navbar::navbar}">
 </div>
   <section class="divlogin">
     <div id="w-node-afba11c9-31cd-0576-6b37-248232e37172-47e68c8c" class="div-block-9">
@@ -33,9 +33,9 @@
           <h1 class="heading">Вход</h1>
           <label for="EmailField"
                  class="field-label-2">Email Address</label>
-          <input th:field="*{email}" class="w-input" maxlength="256" name="Email" data-name="Email" style="opacity:0" placeholder="Електронна поща..." data-w-id="afba11c9-31cd-0576-6b37-248232e3717c" type="email" id="EmailField" required="">
+          <input th:field="*{email}" class="w-input" maxlength="256" name="email" data-name="Email" style="opacity:0" placeholder="Електронна поща..." data-w-id="afba11c9-31cd-0576-6b37-248232e3717c" type="email" id="EmailField" required="">
           <label for="Password" class="field-label-3">Парола</label>
-          <input th:field="*{password}" class="w-input" maxlength="256" name="Password" data-name="Password" style="opacity:0" placeholder="Парола..." data-w-id="afba11c9-31cd-0576-6b37-248232e3717f" type="password" id="Password" required="">
+          <input th:field="*{password}" class="w-input" maxlength="256" name="password" data-name="Password" style="opacity:0" placeholder="Парола..." data-w-id="afba11c9-31cd-0576-6b37-248232e3717f" type="password" id="Password" required="">
           <a href="/forgotten_password" class="link-2">Забравена парола...</a>
           <input type="submit" data-wait="Please wait..." data-w-id="afba11c9-31cd-0576-6b37-248232e37183" style="opacity:0;-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);transform-style:preserve-3d" class="submit-button w-button" value="Потвърди">
         </form>
@@ -52,7 +52,7 @@
   <section class="footer">
     <div>
     <div
-            th:replace="fragments/footer::footer">
+            th:replace="~{fragments/footer::footer}">
     </div>
     </div>
   </section>

@@ -43,6 +43,29 @@ public class OfferService {
         return allOffers;
     }
 
+    public List<OfferViewModel> getAllAccessoryOffers() {
+        List<OfferViewModel> allAccessoryOffers = new ArrayList<>();
+
+        // Извличане на всички обяви за аксесоари от репозиторията и мапиране към обекти от тип AccessoryOfferEntity
+        List<AccessoryOfferEntity> accessoryOffers = accessoriesOfferRepository.findAll();
+        for (AccessoryOfferEntity accessoryOffer : accessoryOffers) {
+            allAccessoryOffers.add(mapAccessoryToOffer(accessoryOffer));
+        }
+
+        return allAccessoryOffers;
+    }
+
+    public List<OfferViewModel> getAllHorsesOffers() {
+        List<OfferViewModel> allHorsesOffers = new ArrayList<>();
+
+        // Извличане на всички обяви за коне от репозиторията и мапиране към обекти от тип HorseOfferEntity
+        List<HorseOfferEntity> horseOffers = horseOfferRepository.findAll();
+        for (HorseOfferEntity horseOffer : horseOffers) {
+            allHorsesOffers.add(mapHorseToOffer(horseOffer));
+        }
+        return allHorsesOffers;
+    }
+
     private OfferViewModel mapHorseToOffer(HorseOfferEntity horse) {
         // Преобразуване на информацията за коня в обява
         UserEntity user = new UserEntity();

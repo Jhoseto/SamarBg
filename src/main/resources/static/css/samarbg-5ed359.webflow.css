@@ -353,10 +353,6 @@ img {
   padding: 20px 0 86px;
   display: block;
   position: relative;
-  top: auto;
-  bottom: 0%;
-  left: 0%;
-  right: 0%;
 }
 
 .footer-wrapper {
@@ -1627,6 +1623,7 @@ img {
   border: 1px solid var(--brown11);
   border-radius: 14px;
   margin-top: 60px;
+  margin-bottom: 75px;
   padding: 7px 20px 7rem;
 }
 
