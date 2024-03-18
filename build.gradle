@@ -25,9 +25,11 @@ dependencies {
     implementation 'org.springframework:spring-context'
 
 
-    implementation 'org.springframework.security:spring-security-config:3.2.0.RELEASE'
+    implementation 'org.springframework.security:spring-security-config:4.2.20.RELEASE'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.2.RELEASE'
-    implementation 'org.springframework.security:spring-security-crypto:5.7.5'
+    implementation 'org.springframework.security:spring-security-crypto:5.2.1.RELEASE'
+    implementation 'org.springframework.security:spring-security-core'
+
 
 
 
