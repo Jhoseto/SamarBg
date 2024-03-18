@@ -1,17 +1,13 @@
 package org.samarBg.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 @Configuration
-@EnableWebSecurity
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -28,20 +24,23 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .authorizeRequests()
                 // Разрешаване на статичните ресурси
-                .antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/impl/**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/impl/**", "/video/**").permitAll()
                 .antMatchers(
                         "/index",
                         "/allAccessories",
                         "/allHorses",
                         "/allads",
                         "/forgotten_password",
+                        "/users/login",
                         "/login",
-                        "/registration").permitAll()
+                        "user/registration",
+                        "/registration")
+                .permitAll()
                 // Забраняване на всичко останало за неаутентифицирани потребители
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/users/login") // URL адрес на страницата за вход
+                .loginPage("/login") // URL адрес на страницата за вход
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/index")
@@ -60,10 +59,5 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new Pbkdf2PasswordEncoder();
     }
 }

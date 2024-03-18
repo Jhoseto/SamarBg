@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void changeProfileImage(String username, String fileName, HttpSession session) {
+    public void changeProfileImage(String username, String fileName) {
         Optional<UserEntity> userOptional = userRepository.findByUsername(username);
 
         userOptional.ifPresent(user -> {
@@ -74,7 +73,7 @@ public class UserServiceImpl implements UserService {
             // If the user is currently logged in, update the session with the new image URL
             if (currentUser.isLoggedIn() && currentUser.getName().equals(username)) {
                 currentUser.setUserImage(fileName);
-                session.setAttribute("currentUser", currentUser);
+
             }
         });
     }
@@ -90,8 +89,5 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
-    public void changeProfileImage(String username, String fileName) {
 
-    }
 }

@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.2'
+    id 'org.springframework.boot' version '2.5.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
@@ -22,22 +22,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework:spring-context'
+    implementation 'org.springframework.security:spring-security-crypto:5.5.2'
 
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
-    implementation 'org.springframework.security:spring-security-config:4.2.20.RELEASE'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.2.RELEASE'
-    implementation 'org.springframework.security:spring-security-crypto:5.2.1.RELEASE'
+    //implementation 'org.springframework.security:spring-security-config:5.3.13.RELEASE'
     implementation 'org.springframework.security:spring-security-core'
 
-
-
-
-    implementation 'org.modelmapper:modelmapper:2.3.0'
+    implementation 'org.modelmapper:modelmapper:2.4.4'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-
-    implementation 'javax.servlet:javax.servlet-api:4.0.1'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    //compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    //developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'com.mysql:mysql-connector-j:8.3.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

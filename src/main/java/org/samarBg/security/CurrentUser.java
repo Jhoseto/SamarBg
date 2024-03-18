@@ -3,7 +3,7 @@ package org.samarBg.security;
 import org.samarBg.model.entities.enums.UserRoleEnum;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,6 @@ public class CurrentUser {
     private String userImage = GUEST_IMAGE_PATH;
     private boolean loggedIn = false;
     private List<UserRoleEnum> userRoles = new ArrayList<>();
-    private HttpSession session;
 
     public boolean isLoggedIn() {
         return loggedIn;

@@ -1,9 +1,9 @@
 package org.samarBg.model.entities;
 
-import jakarta.persistence.*;
 import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.UserRoleEnum;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

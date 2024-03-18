@@ -1,15 +1,14 @@
 package org.samarBg.controllers;
 
-import jakarta.validation.Valid;
 import org.samarBg.model.entities.BaseEntity;
 import org.samarBg.model.entities.UserEntity;
 import org.samarBg.model.entities.UserRoleEntity;
 import org.samarBg.model.entities.enums.UserRoleEnum;
-import org.samarBg.view.UserRegistrationViewModel;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.repository.UserRoleRepository;
 import org.samarBg.service.ConfirmationLinkService;
 import org.samarBg.service.EmailService;
+import org.samarBg.view.UserRegistrationViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;

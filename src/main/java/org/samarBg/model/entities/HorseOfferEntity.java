@@ -1,15 +1,14 @@
 package org.samarBg.model.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.HorseCategoryEnum;
 import org.samarBg.model.entities.enums.OfferCategoryEnum;
 import org.samarBg.model.entities.enums.SexEnum;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "horse_offers")

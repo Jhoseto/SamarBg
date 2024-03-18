@@ -1,6 +1,7 @@
 package org.samarBg.view;
 
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
+
 public class UserRegistrationViewModel {
 
 

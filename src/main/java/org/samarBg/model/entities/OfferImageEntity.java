@@ -1,6 +1,6 @@
 package org.samarBg.model.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "offer_images")

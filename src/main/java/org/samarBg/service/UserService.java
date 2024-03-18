@@ -2,7 +2,7 @@ package org.samarBg.service;
 
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
+
 
 @Service
 public interface UserService {
@@ -11,7 +11,7 @@ public interface UserService {
 
     void loginUser (String email);
 
-    void changeProfileImage(String username, String fileName, HttpSession session);
+
 
     void logoutCurrentUser ();
     boolean confirmEmail(Long userId, String code);

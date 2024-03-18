@@ -1,7 +1,8 @@
 package org.samarBg.model.entities;
 
-import jakarta.persistence.*;
 import org.samarBg.model.entities.enums.UserRoleEnum;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user_role")

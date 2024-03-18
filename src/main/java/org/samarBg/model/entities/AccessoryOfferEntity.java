@@ -1,11 +1,11 @@
 package org.samarBg.model.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import org.samarBg.model.entities.enums.AccessoriesEnum;
 import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.OfferCategoryEnum;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 

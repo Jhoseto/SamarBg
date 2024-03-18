@@ -15,6 +15,7 @@ public class SamarbgConfiguration {
     public ModelMapper modelMapper (){
         return new ModelMapper();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Pbkdf2PasswordEncoder();

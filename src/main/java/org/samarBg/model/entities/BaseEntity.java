@@ -1,8 +1,6 @@
 package org.samarBg.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.time.Instant;
 
 
