@@ -4,7 +4,6 @@ import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.HorseCategoryEnum;
 import org.samarBg.model.entities.enums.OfferCategoryEnum;
 import org.samarBg.model.entities.enums.SexEnum;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -153,6 +152,9 @@ public class HorseOfferEntity extends BaseEntity {
     }
 
     public HorseOfferEntity setImages(List<OfferImageEntity> images) {
+        if (images.size() > 5) {
+            throw new IllegalArgumentException("Максималният брой снимки за обява е 5");
+        }
         this.images = images;
         return this;
     }

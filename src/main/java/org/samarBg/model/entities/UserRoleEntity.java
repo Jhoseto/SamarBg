@@ -1,11 +1,10 @@
 package org.samarBg.model.entities;
 
 import org.samarBg.model.entities.enums.UserRoleEnum;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_role")
+@Table(name = "user_roles")
 public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

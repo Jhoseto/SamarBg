@@ -30,6 +30,10 @@ public class UserProfileController {
         this.currentUser = currentUser;
     }
 
+    @GetMapping("/userdetail")
+    public String showUserDetail(){
+        return "userdetail";
+    }
 
     @GetMapping("/user-settings")
     public String showUserSettings(){

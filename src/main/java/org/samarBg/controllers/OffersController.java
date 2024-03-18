@@ -35,6 +35,7 @@ public class OffersController {
         model.addAttribute("offers", offers);
         return "allads";
     }
+
     @GetMapping("/allHorses")
     public String getAllHorses(Model model) {
         List<OfferViewModel> offers = offerService.getAllHorsesOffers();

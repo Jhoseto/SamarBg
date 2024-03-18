@@ -1,11 +1,13 @@
 package org.samarBg.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -24,31 +26,37 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .authorizeRequests()
                 // Разрешаване на статичните ресурси
-                .antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/impl/**", "/video/**").permitAll()
+                .antMatchers(
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/fonts/**",
+                        "/impl/**",
+                        "/video/**").permitAll()
                 .antMatchers(
                         "/index",
                         "/allAccessories",
                         "/allHorses",
                         "/allads",
                         "/forgotten_password",
+                        "/user/registration",
+                        "/registration",
                         "/users/login",
                         "/login",
-                        "user/registration",
-                        "/registration")
-                .permitAll()
+                        "/confirm").permitAll()
                 // Забраняване на всичко останало за неаутентифицирани потребители
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login") // URL адрес на страницата за вход
-                .usernameParameter("email")
-                .passwordParameter("password")
+                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                 .defaultSuccessUrl("/index")
                 .failureForwardUrl("/login")
                 .and()
                 .logout()
                 .logoutUrl("/users/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/index")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll();

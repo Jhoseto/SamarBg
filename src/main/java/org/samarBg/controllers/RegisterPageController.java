@@ -51,7 +51,7 @@ public class RegisterPageController {
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new UserRegistrationViewModel());
+        model.addAttribute("userFields", new UserRegistrationViewModel());
         return "registration";
     }
 
@@ -162,7 +162,7 @@ public class RegisterPageController {
 
     // Генериране на уникален код за потвърждение на имейл
     private String generateConfirmationCode() {
-        // Генериране на уникален код за потвърждение (например, UUID)
+        // Генериране на уникален код за потвърждение (UUID)
         return UUID.randomUUID().toString();
     }
 }

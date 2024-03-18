@@ -2,7 +2,6 @@ package org.samarBg.model.entities;
 
 import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.UserRoleEnum;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,11 +23,12 @@ public class UserEntity extends BaseEntity {
     private int UserOffersCount;
 
     @ElementCollection
+    @Column
     private Set<Long> favoriteOfferIds = new HashSet<>();
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role")
+    @Column
     private Set<UserRoleEnum> userRoles = new HashSet<>();
 
 

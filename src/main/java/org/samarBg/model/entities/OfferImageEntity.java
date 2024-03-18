@@ -1,7 +1,9 @@
 package org.samarBg.model.entities;
 
-import javax.persistence.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.*;
 @Entity
 @Table(name = "offer_images")
 public class OfferImageEntity {
@@ -10,7 +12,7 @@ public class OfferImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "image_path", nullable = false)
+    @Column( nullable = false)
     private String imagePath;
 
     @ManyToOne

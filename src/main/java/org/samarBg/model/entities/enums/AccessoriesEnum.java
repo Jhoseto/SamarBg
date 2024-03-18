@@ -3,7 +3,7 @@ package org.samarBg.model.entities.enums;
 public enum AccessoriesEnum {
     HORSES("Коне"),
     ACCESSORIES("Аксесоари"),
-    PODKOVI("Подкови"),
+    HORSESHOES("Подкови"),
     SAMARI("Самари"),
     SHOES("Обувки"),
     HATS("Шапки");

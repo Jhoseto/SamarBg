@@ -1,5 +1,4 @@
 package org.samarBg.model.entities;
-
 import javax.persistence.*;
 import java.time.Instant;
 

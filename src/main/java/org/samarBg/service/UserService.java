@@ -13,7 +13,7 @@ public interface UserService {
 
 
 
-    void logoutCurrentUser ();
+   // void logoutCurrentUser ();
     boolean confirmEmail(Long userId, String code);
 
     void changeProfileImage(String username, String fileName);

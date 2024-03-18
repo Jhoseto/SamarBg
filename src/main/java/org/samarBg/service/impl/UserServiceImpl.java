@@ -6,10 +6,8 @@ import org.samarBg.repository.UserRepository;
 import org.samarBg.security.CurrentUser;
 import org.samarBg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +17,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private CurrentUser currentUser;
+    //private CurrentUser currentUser;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
@@ -27,7 +25,7 @@ public class UserServiceImpl implements UserService {
                            CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.currentUser = currentUser;
+        //this.currentUser = currentUser;
     }
 
     @Override
@@ -51,12 +49,12 @@ public class UserServiceImpl implements UserService {
             UserEntity user = userEntityOpt.get();
             List<UserRoleEnum> userRoles = new ArrayList<>(user.getUserRoles());
 
-            currentUser
-                    .setName(user.getUsername())
-                    .setUserRoles(userRoles)
-                    .setUserImage(user.getImageUrl())
-                    .setLoggedIn(true)
-                    .authenticate(user.getUsername(), userRoles, user.getImageUrl());
+//            currentUser
+//                    .setName(user.getUsername())
+//                    .setUserRoles(userRoles)
+//                    .setUserImage(user.getImageUrl())
+//                    .setLoggedIn(true)
+//                    .authenticate(user.getUsername(), userRoles, user.getImageUrl());
 
         }
     }
@@ -71,18 +69,18 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
 
             // If the user is currently logged in, update the session with the new image URL
-            if (currentUser.isLoggedIn() && currentUser.getName().equals(username)) {
-                currentUser.setUserImage(fileName);
-
-            }
+//            if (currentUser.isLoggedIn() && currentUser.getName().equals(username)) {
+//                currentUser.setUserImage(fileName);
+//
+//            }
         });
     }
 
 
-    @Override
-    public void logoutCurrentUser() {
-        currentUser.logout();
-    }
+//    @Override
+//    public void logoutCurrentUser() {
+//        currentUser.logout();
+//    }
 
     @Override
     public boolean confirmEmail(Long userId, String code) {

@@ -1,9 +1,9 @@
 package org.samarBg.model.entities;
 
+
 import org.samarBg.model.entities.enums.AccessoriesEnum;
 import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.OfferCategoryEnum;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -46,12 +46,9 @@ public class AccessoryOfferEntity extends BaseEntity {
     @OneToMany(mappedBy = "accessoryOffer", cascade = CascadeType.ALL)
     private List<OfferImageEntity> images;
 
+
     @Column
     private int offerViewCounter;
-
-
-
-
 
 
     public String getOfferName() {
@@ -140,6 +137,9 @@ public class AccessoryOfferEntity extends BaseEntity {
     }
 
     public AccessoryOfferEntity setImages(List<OfferImageEntity> images) {
+        if (images.size() > 5) {
+            throw new IllegalArgumentException("Максималният брой снимки за обява е 5");
+        }
         this.images = images;
         return this;
     }
