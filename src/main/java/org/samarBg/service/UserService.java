@@ -72,13 +72,4 @@ public class UserService  {
         return null;
     }
 
-
-//    @Override
-//    public void logoutCurrentUser() {
-//        currentUser.logout();
-//    }
-
-
-
-
 }

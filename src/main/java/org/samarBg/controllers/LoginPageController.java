@@ -78,7 +78,7 @@ public class LoginPageController {
 
     }
 
-//    @GetMapping("/users/logout")
+//    @PostMapping ("/user/logout")
 //    public String logout() {
 //        userService.logoutCurrentUser();
 //        return "redirect:/index";
