@@ -6,7 +6,9 @@ import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.repository.UserRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +24,8 @@ public class DBInit implements CommandLineRunner {
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
 
+
+
     public DBInit(HorseOfferRepository horseOfferRepository,
                   AccessoriesOfferRepository accessoriesOfferRepository,
                   UserRepository userRepository,
@@ -33,6 +37,9 @@ public class DBInit implements CommandLineRunner {
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+
+
 
     @Override
     public void run(String... args) throws Exception {

@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsername(String username);
     Optional<UserEntity> findByUserConfirmationCode(String confirmationCode);
     Optional<UserEntity> findByIsActive(boolean isActive);
-    Optional<String>findUserImageByUsername(String username);
+    Optional<UserEntity>findUserImageByUsername(String username);
 
 
 

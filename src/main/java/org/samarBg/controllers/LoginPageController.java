@@ -2,16 +2,19 @@ package org.samarBg.controllers;
 
 
 import org.samarBg.model.entities.UserEntity;
-import org.samarBg.repository.UserRepository;
-import org.samarBg.security.CurrentUser;
 import org.samarBg.service.UserService;
 import org.samarBg.view.UserLoginViewModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -19,16 +22,18 @@ import java.util.Optional;
 public class LoginPageController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
-    public LoginPageController(UserService userService, UserRepository userRepository) {
+
+    @Autowired
+    private TokenBasedRememberMeServices rememberMeServices;
+
+    @Autowired
+    public LoginPageController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
-
     @ModelAttribute("userModel")
-    public UserLoginViewModel userModel (){
+    public UserLoginViewModel userModel() {
         return new UserLoginViewModel();
     }
 
@@ -37,36 +42,40 @@ public class LoginPageController {
         return "login";
     }
 
-    @PostMapping("/users/login")
+
+    @PostMapping("/user/login")
     public String login(@Valid @ModelAttribute("userModel") UserLoginViewModel userModel,
-                        RedirectAttributes redirectAttributes, CurrentUser currentUser) {
+                        RedirectAttributes redirectAttributes,
+                        HttpServletResponse response,
+                        HttpServletRequest request) {
 
-        boolean isAuthenticated = userService.authenticate(userModel.getEmail(), userModel.getPassword());
+        // Аутентикация на потребителя чрез Spring Security
+        Authentication authentication = userService.authenticateUser(userModel.getEmail(), userModel.getPassword());
+        Optional<UserEntity> userOptional = userService.findUserByEmail(userModel.getEmail());
+        UserEntity user = userOptional.get();
 
-        if (!isAuthenticated) {
-            redirectAttributes.addFlashAttribute("error", "Грешен имейл или парола.");
-            return "redirect:/login";
-        } else {
-            Optional<UserEntity> userOptional = userRepository.findByEmail(userModel.getEmail());
+        if (authentication != null) {
+            // Потребителят е аутентикиран
 
-            if (userOptional.isPresent()) {
-                UserEntity user = userOptional.get();
-                if (user.isActive()) {
-                    // Потребителят е активен
-                    userService.loginUser(userModel.getEmail());
-                    return "redirect:/";
-                } else {
-                    // Потребителят не е активен
-                    redirectAttributes.addFlashAttribute("error", "Вашият акаунт не е активен. За да го активирате трябва да кликнете" +
-                            " на изпратения от нас ЛИНК за активация");
-                    return "redirect:/login";
-                }
+
+            if (user.isActive()) {
+                // Потребителят е активен
+                // Създаване на кукито за сесия
+                rememberMeServices.loginSuccess(request, response, authentication);
+
+                return "redirect:/";
             } else {
-                // Потребителят не е намерен в системата, добавете съобщение за грешка и пренасочете потребителя към формата за вход
-                redirectAttributes.addFlashAttribute("error", "Потребител с този имейл адрес не е намерен.");
+                // Потребителят не е активен
+                redirectAttributes.addFlashAttribute("error", "Вашият акаунт не е активен. За да го активирате, " +
+                        "кликнете на изпратения от нас ЛИНК за активация");
                 return "redirect:/login";
             }
+        }else {
+
+            redirectAttributes.addFlashAttribute("error", "Грешенa парола !");
+            return "redirect:/login";
         }
+
     }
 
 //    @GetMapping("/users/logout")

@@ -1,13 +1,16 @@
 package org.samarBg.config;
 
+import org.samarBg.security.KeyGenerator;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 @Configuration
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -34,6 +37,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         "/impl/**",
                         "/video/**").permitAll()
                 .antMatchers(
+                        "/",
                         "/index",
                         "/allAccessories",
                         "/allHorses",
@@ -41,25 +45,36 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         "/forgotten_password",
                         "/user/registration",
                         "/registration",
-                        "/users/login",
+                        "/user/login",
                         "/login",
                         "/confirm").permitAll()
                 // Забраняване на всичко останало за неаутентифицирани потребители
                 .anyRequest().authenticated()
+
+//                .and()
+//                .formLogin()
+//                .loginPage("/user/login") // URL адрес на страницата за вход
+//                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+//                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
+//                .defaultSuccessUrl("/index")
+//                .failureForwardUrl("/login")
+
                 .and()
-                .formLogin()
-                .loginPage("/login") // URL адрес на страницата за вход
-                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                .defaultSuccessUrl("/index")
-                .failureForwardUrl("/login")
+                .rememberMe() // Запомняне на потребителя
+                .key(rememberMeKey()) // Уникален ключ за запомняне
+
                 .and()
                 .logout()
-                .logoutUrl("/users/logout")
+                .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/index")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .permitAll();
+                .deleteCookies(rememberMeKey())
+                .permitAll()
+
+
+                .and()
+                .sessionManagement() // Настройка на управлението на сесиите
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS); // Сесията не се създава автоматичн
     }
 
     @Override
@@ -68,4 +83,17 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
+
+
+
+    @Bean
+    public String rememberMeKey() {
+        return KeyGenerator.generateKey();
+    }
+
+    @Bean
+    public TokenBasedRememberMeServices tokenBasedRememberMeServices() {
+        return new TokenBasedRememberMeServices(rememberMeKey(), userDetailsService);
+    }
+
 }

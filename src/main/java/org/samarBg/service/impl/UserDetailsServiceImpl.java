@@ -12,19 +12,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDetailsServiceSecurityImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     private final UserRepository userRepository;
 
-    public UserDetailsServiceSecurityImpl(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Потребител с този имейл адрес не е намерен: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Потребител с този имейл адрес "+ email+" не е намерен: " ));
         return mapToUserDetails (userEntity); // Връщаме реален обект UserDetails, който трябва да представя потребителя.
     }
 
