@@ -1,6 +1,7 @@
 package org.samarBg.config;
 
 import org.samarBg.security.KeyGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,19 +10,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
 
-    public ApplicationSecurityConfiguration(UserDetailsService userDetailsService,
+    @Autowired
+    public ApplicationSecurityConfiguration(UserDetailsService customUserDetailsService,
                                             PasswordEncoder passwordEncoder) {
-        this.userDetailsService = userDetailsService;
+        this.customUserDetailsService = customUserDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -83,7 +84,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService)
+                .userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
 
@@ -96,7 +97,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Bean
     public TokenBasedRememberMeServices tokenBasedRememberMeServices() {
-        return new TokenBasedRememberMeServices(rememberMeKey(), userDetailsService);
+        return new TokenBasedRememberMeServices(rememberMeKey(), customUserDetailsService);
     }
 
 }

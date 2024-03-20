@@ -21,20 +21,20 @@ public class CurrentUser {
         return loggedIn;
     }
 
-    public void authenticate(String userName, List<UserRoleEnum> roles, String userImage) {
-        this.name = userName;
-        this.userRoles.clear();
-        this.userRoles.addAll(roles);
-        this.userImage = (userImage != null && !userImage.isEmpty()) ? userImage : GUEST_IMAGE_PATH;
-        this.loggedIn = true;
-    }
-
-    public void logout() {
-        this.name = GUEST;
-        this.userRoles.clear();
-        this.userImage = GUEST_IMAGE_PATH;
-        this.loggedIn = false;
-    }
+//    public void authenticate(String userName, List<UserRoleEnum> roles, String userImage) {
+//        this.name = userName;
+//        this.userRoles.clear();
+//        this.userRoles.addAll(roles);
+//        this.userImage = (userImage != null && !userImage.isEmpty()) ? userImage : GUEST_IMAGE_PATH;
+//        this.loggedIn = true;
+//    }
+//
+//    public void logout() {
+//        this.name = GUEST;
+//        this.userRoles.clear();
+//        this.userImage = GUEST_IMAGE_PATH;
+//        this.loggedIn = false;
+//    }
 
     public String getName() {
         return name;

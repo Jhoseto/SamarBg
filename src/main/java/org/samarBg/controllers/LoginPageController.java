@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +39,7 @@ public class LoginPageController {
     }
 
     @GetMapping("/login")
-    public String showLogin(){
+    public String showLogin(Model model){
         return "login";
     }
 
@@ -54,12 +55,14 @@ public class LoginPageController {
         Optional<UserEntity> userOptional = userService.findUserByEmail(userModel.getEmail());
         UserEntity user = userOptional.get();
 
+
         if (authentication != null) {
             // Потребителят е аутентикиран
 
 
             if (user.isActive()) {
                 // Потребителят е активен
+
                 // Създаване на кукито за сесия
                 rememberMeServices.loginSuccess(request, response, authentication);
 

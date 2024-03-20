@@ -44,16 +44,16 @@ public class UserService  {
 
 
 
-
-    public void changeProfileImage(String username, String fileName) {
-        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
-
-        userOptional.ifPresent(user -> {
-            user.setImageUrl(fileName);
-            userRepository.save(user);
-
-        });
-    }
+//
+//    public void changeProfileImage(String username, String fileName) {
+//        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+//
+//        userOptional.ifPresent(user -> {
+//            user.setImageUrl(fileName);
+//            userRepository.save(user);
+//
+//        });
+//    }
 
 
     public Optional<UserEntity> findUserByEmail(String email) {
@@ -71,5 +71,4 @@ public class UserService  {
         }
         return null;
     }
-
 }

@@ -61,7 +61,7 @@ public class DBInit implements CommandLineRunner {
 
         UserEntity admin = new UserEntity();
         admin.setUsername("Konstantin")
-                .setPassword(passwordEncoder.encode("Parola123"))
+                .setPassword(passwordEncoder.encode("Pass12"))
                 .setEmail("konstantinse33@gmail.com")
                 .setImageUrl("images/usersImg/konstantinImg.jpg")
                 .setCity(CityEnum.valueOf(String.valueOf(CityEnum.SMOLYAN)))

@@ -10,6 +10,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public String handleException(Exception ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("error", ex.getMessage());
-        return "redirect:/login"; // или към друга страница по ваш избор
+        return "redirect:/login"; // или към друга страница
     }
 }
