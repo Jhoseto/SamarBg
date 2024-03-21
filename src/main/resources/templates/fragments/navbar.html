@@ -64,9 +64,10 @@
                                 </li>
                             </ul>
                         </nav>
-                        <div class="usernameblock"><img width="44" id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c6-ed2fe49a" alt="" th:src="${@loggedInUser != null ? @customUserDetails.imageUrl : 'images/userNameIcon1.png' }" loading="lazy" class="image-11">
-                            <a id="w-node-_9f4ecf65-ecfb-c0a9-f158-1ac91d31a110-ed2fe49a" th:href="${#authorization.expression('isAuthenticated()') ? '/user-detail' : '/index'}" class="w-inline-block"  >
-                            <div id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c7-ed2fe49a" class="text-block-3" th:text="${#authentication.name != 'anonymousUser' ? #authentication.name : 'Гост'}">Гост</div>
+                        <div class="usernameblock">
+                            <img width="44" id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c6-ed2fe49a" alt="" th:src="${@userService.getCurrentUser()?.getImageUrl() != null ? @userService.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" class="image-11">
+                            <a id="w-node-_9f4ecf65-ecfb-c0a9-f158-1ac91d31a110-ed2fe49a" th:href="${#authorization.expression('isAuthenticated()') ? '/user-detail' : '/index'}" class="w-inline-block">
+                                <div id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c7-ed2fe49a" class="text-block-3" th:text="${@userService.getCurrentUser()?.getUsername() != null ? @userService.getCurrentUser().getUsername() : 'Гост'}">Гост</div>
                             </a>
                             <div data-delay="0" data-hover="true" id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c9-ed2fe49a" class="nav-dropdown w-dropdown">
                                 <div  th:if="${#authorization.expression('isAuthenticated()')}" class="nav-dropdown-toggle w-dropdown-toggle" >

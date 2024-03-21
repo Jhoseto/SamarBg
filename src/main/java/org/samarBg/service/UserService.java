@@ -71,4 +71,20 @@ public class UserService  {
         }
         return null;
     }
+
+    public UserEntity getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+            if (userOptional.isPresent()) {
+                return userOptional.get();
+            } else {
+                // Потребителят не е намерен по потребителско име, опитвайки се да го намерите по имейл
+                Optional<UserEntity> userByEmailOptional = userRepository.findByEmail(username);
+                return userByEmailOptional.orElse(null);
+            }
+        }
+        return null;
+    }
 }

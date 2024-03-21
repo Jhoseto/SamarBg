@@ -29,11 +29,42 @@
       <div class="div-block-16">
         <h1 class="heading-2">Настройки на профила</h1>
         <div class="form1 w-form">
-          <form id="cityForm" name="email-form" data-name="Email Form" method="post" class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="8c51e80b-1c0a-6c39-4ff7-a4a4bafc8bfd"><label for="field" class="field-label-8">Име</label><input class="w-input" maxlength="256" name="field" data-name="Име" placeholder="Въведете вашето реално име..." type="text" id="field"><label for="email" class="field-label-6">Email Address</label><input class="w-input" maxlength="256" name="email" data-name="Email" placeholder="" type="email" id="email" required=""><label for="field-3" class="field-label-6">Телефон</label><input class="w-input" maxlength="256" name="field-3" data-name="Field 3" placeholder="Въведете телефон за връзка..." type="text" id="field-3"><label for="CityField" class="field-label-7">Изберете населено място</label><select id="CityField" name="CityField" data-name="CityField" class="select-field w-select">
-              <option value="none"> -</option>
+          <form id="cityForm" name="email-form" data-name="Email Form" method="post" class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="8c51e80b-1c0a-6c39-4ff7-a4a4bafc8bfd">
+            <label for="field" class="field-label-8">Име</label>
+            <input class="w-input" maxlength="256" name="field" data-name="Име" placeholder="Въведете вашето реално име..." type="text" id="field">
+
+            <label for="field-3" class="field-label-6">Телефон</label>
+            <input class="w-input" maxlength="256" name="field-3" data-name="Field 3" th:placeholder="${@userService.getCurrentUser()?.getPhone() != null ? @userService.getCurrentUser().getUsername() : 'Въведете телефон за връзка...'}" type="text" id="field-3">
+
+            <label for="CityField" class="field-label-7">Изберете населено място</label>
+            <select id="CityField" name="CityField" data-name="CityField" class="select-field w-select">
               <option value="BLAGOEVGRAD">Благоевград</option>
               <option value="BURGAS">Бургас</option>
               <option value="VARNA">Варна</option>
+              <option value="VELIKO_TARNOVO">Велико Търново</option>
+              <option value="VIDIN">Видин</option>
+              <option value="VRATSA">Враца</option>
+              <option value="GABROVO">Габрово</option>
+              <option value="DOBRICH">Добрич</option>
+              <option value="KARDZHALI">Кърджали</option>
+              <option value="KYUSTENDIL">Кюстендил</option>
+              <option value="LOVECH">Ловеч</option>
+              <option value="MONTANA">Монтана</option>
+              <option value="PAZARDZHIK">Пазарджик</option>
+              <option value="PERNIK">Перник</option>
+              <option value="PLEVEN">Плевен</option>
+              <option value="PLOVDIV">Пловдив</option>
+              <option value="RAZGRAD">Разград</option>
+              <option value="RUSE">Русе</option>
+              <option value="SILISTRA">Силистра</option>
+              <option value="SLIVEN">Сливен</option>
+              <option value="SMOLYAN">Смолян</option>
+              <option value="SOFIA">София</option>
+              <option value="STARA_ZAGORA">Стара Загора</option>
+              <option value="TARGOVISHTE">Търговище</option>
+              <option value="HASKOVO">Хасково</option>
+              <option value="SHUMEN">Шумен</option>
+              <option value="YAMBOL">Ямбол</option>
             </select>
             <a href="#" class="button savesettings w-button">Запази настройките</a>
           </form>
@@ -46,9 +77,19 @@
         </div>
         <h1 class="heading-3">Смяна на паролата</h1>
         <div class="form2 w-form">
-          <form id="new-password-2-form" name="email-form" data-name="Email Form" method="post" class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="9c516cee-2868-693c-4e1f-f3a281d8b7d3"><label for="field-2" class="field-label-8">Текуща парола</label><input class="w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Вашата текуща парола..." type="password" id="field-2"><label for="new-password" class="field-label-6">Нова парола</label><input class="w-input" maxlength="256" name="new-password" data-name="new password" placeholder="Въведете новата парола..." type="password" id="new-password" required=""><label for="new-password-2" class="field-label-7">Повторна парола</label><input class="w-input" maxlength="256" name="new-password2" data-name="new password2" placeholder="Повторете новата парола..." type="password" id="new-password-2" required="">
+          <form id="new-password-2-form" name="email-form" data-name="Email Form" method="post" class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="9c516cee-2868-693c-4e1f-f3a281d8b7d3">
+            <label for="field-2" class="field-label-8">Текуща парола</label>
+            <input class="w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Вашата текуща парола..." type="password" id="field-2">
+
+            <label for="new-password" class="field-label-6">Нова парола</label>
+            <input class="w-input" maxlength="256" name="new-password" data-name="new password" placeholder="Въведете новата парола..." type="password" id="new-password" required="">
+
+            <label for="new-password-2" class="field-label-7">Повторна парола</label>
+            <input class="w-input" maxlength="256" name="new-password2" data-name="new password2" placeholder="Повторете новата парола..." type="password" id="new-password-2" required="">
+
             <a href="#" class="button savesettings w-button">Запази новата парола</a>
           </form>
+
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
           </div>
