@@ -154,7 +154,7 @@ public class RegisterPageController {
         System.out.println("Email sended to "+newUser.getEmail());
     }
 
-    //Времето на създаване и ъпдейтване на профила
+    //Времето на създаване и ъпдейтване
     public static void setCurrentTimeStamps(BaseEntity baseEntity){
         baseEntity.setCreated(Instant.now());
         baseEntity.setModified(Instant.now());

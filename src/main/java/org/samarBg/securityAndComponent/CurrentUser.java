@@ -1,4 +1,4 @@
-package org.samarBg.security;
+package org.samarBg.securityAndComponent;
 
 import org.samarBg.model.entities.enums.UserRoleEnum;
 import org.springframework.stereotype.Component;

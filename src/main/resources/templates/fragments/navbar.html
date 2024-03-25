@@ -57,10 +57,10 @@
                                     <div class="nav-divider"></div>
                                 </li>
                                 <li>
-                                    <a href="/login" aria-current="page" class="nav-link-accent w--current" th:if="${not #authorization.expression('isAuthenticated()')}">ВХОД</a>
+                                    <a href="/login" aria-current="page" class="nav-link-accent w--current" sec:authorize="!isAuthenticated()">ВХОД</a>
                                 </li>
                                 <li class="list-item-5">
-                                    <a href="/registration" class="nav-link-accent" th:if="${not #authorization.expression('isAuthenticated()')}">РЕГИСТРАЦИЯ</a>
+                                    <a href="/registration" class="nav-link-accent" sec:authorize="!isAuthenticated()">РЕГИСТРАЦИЯ</a>
                                 </li>
                             </ul>
                         </nav>

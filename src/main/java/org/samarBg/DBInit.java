@@ -95,6 +95,7 @@ public class DBInit implements CommandLineRunner {
                         "Хранен е само с италиански салати и сме го поили на Балиевата вОда. " +
                         "Към него подарявам бонус 5 човала фураж !")
                 .setImages(images);
+
         setCurrentTimeStamps(horseOffer);
         horseOfferRepository.save(horseOffer);
 

@@ -7,12 +7,10 @@ public class UserRegistrationViewModel {
 
     @NotNull
     @Size(min = 5, max = 20, message = "Невалидно подребителско име! Въведете име с минимум 5 символа.")
-    //@UniqueUsername(message = "Вече съществува потребител с това име. Изберете друго")
     private String username;
 
     @NotNull
     @Email(message = "Невалиден формат за Емейл!")
-   // @UniqueEmail(message = "Електронната поща, която въведохте, вече е регистрирана")
     private String email;
 
     @NotNull

@@ -1,5 +1,7 @@
 package org.samarBg.view;
 
+import org.owasp.encoder.Encode;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,7 +18,7 @@ public class UserLoginViewModel {
 
 
     public String getEmail() {
-        return email;
+        return Encode.forHtml(email);
     }
 
     public UserLoginViewModel setEmail(String email) {
@@ -25,7 +27,7 @@ public class UserLoginViewModel {
     }
 
     public String getPassword() {
-        return password;
+        return Encode.forHtml(password);
     }
 
 

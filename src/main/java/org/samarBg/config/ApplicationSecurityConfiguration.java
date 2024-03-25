@@ -1,6 +1,6 @@
 package org.samarBg.config;
 
-import org.samarBg.security.KeyGenerator;
+import org.samarBg.securityAndComponent.KeyGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,15 +24,16 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                                             PasswordEncoder passwordEncoder) {
         this.customUserDetailsService = customUserDetailsService;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .authorizeRequests()
                 // Разрешаване на статичните ресурси
                 .antMatchers(
+                        "/images/usersImg/**",
                         "/css/**",
                         "/js/**",
                         "/images/**",
@@ -55,19 +56,11 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // Забраняване на всичко останало за неаутентифицирани потребители
                 .anyRequest().authenticated()
 
-//                .and()
-//                .formLogin()
-//                .loginPage("/user/login") // URL адрес на страницата за вход
-//                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-//                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-//                .defaultSuccessUrl("/index")
-//                .failureForwardUrl("/login")
-
-                .and()
+            .and()
                 .rememberMe() // Запомняне на потребителя
                 .key(rememberMeKey()) // Уникален ключ за запомняне
 
-                .and()
+            .and()
                 .logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/index")
@@ -75,11 +68,42 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .deleteCookies("JSESSIONID", "remember-me") // Изтриване на бисквитките за запомняне и сесията
                 .permitAll()
 
+                // Настройка на управлението на сесиите
+            .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // Сесията не се създава автоматично
 
-                .and()
-                .sessionManagement() // Настройка на управлението на сесиите
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS); // Сесията не се създава автоматичн
+                // Обработка на изключенията
+            .and()
+                .exceptionHandling()
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    response.sendRedirect("/login?error=AccessDenied >>>it is only available to administrators<<<");
+                })
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.sendRedirect("/login?error=AccessDenied >>>Need to LOGIN IN first !<<<");
+                })
+
+                // други настройки за сигурност...
+            .and()
+                //CSFR защита
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and();
+
+//                // Ограничава изпълнението на скриптове само от текущия домейн
+//                .headers()
+//                .contentSecurityPolicy("script-src 'self' 'unsafe-inline' 'unsafe-eval' static/js/");
+////
+//                // Установява Strict Transport Security (HSTS) за повишаване на сигурността при HTTPS
+//            .and()
+//                .httpStrictTransportSecurity()
+//                .includeSubDomains(true)
+//                .maxAgeInSeconds(31536000);
     }
+
+
+
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -87,7 +111,6 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
-
 
 
     @Bean

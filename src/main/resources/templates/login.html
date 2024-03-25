@@ -39,8 +39,9 @@
           <a href="/forgotten_password" class="link-2">Забравена парола...</a>
           <input type="submit" data-wait="Please wait..." data-w-id="afba11c9-31cd-0576-6b37-248232e37183" style="opacity:0;-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(-720DEG) rotateZ(0) skew(0, 0);transform-style:preserve-3d" class="submit-button w-button" value="Потвърди">
         </form>
-        <div th:if="${error}" class="error-message">
-          <p th:text="${error}" class="error-text" style="color: #dc3838;" ></p>
+        <div>
+          <p th:if="${error}" th:text="${error}" class="error-text" style="color: #dc3838;"></p>
+          <p th:if="${param.error != null}" th:text="${param.error}" class="error-text" style="color: #dc3838;"></p>
         </div>
         <div th:if="${message}" class="error-message">
           <p th:text="${message}" class="error-text" style="color: #30b02e;" ></p>

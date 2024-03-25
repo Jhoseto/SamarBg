@@ -80,11 +80,5 @@ public class LoginPageController {
         }
 
     }
-
-//    @PostMapping ("/user/logout")
-//    public String logout() {
-//        userService.logoutCurrentUser();
-//        return "redirect:/index";
-//    }
 }
 

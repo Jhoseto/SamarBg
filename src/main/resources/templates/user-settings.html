@@ -29,15 +29,20 @@
       <div class="div-block-16">
         <h1 class="heading-2">Настройки на профила</h1>
         <div class="form1 w-form">
-          <form id="cityForm" name="email-form" data-name="Email Form" method="post" class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="8c51e80b-1c0a-6c39-4ff7-a4a4bafc8bfd">
-            <label for="field" class="field-label-8">Име</label>
-            <input class="w-input" maxlength="256" name="field" data-name="Име" placeholder="Въведете вашето реално име..." type="text" id="field">
+          <form method="post"
+                th:action="@{/user-settings/saveFormOne}"
+                th:object="${saveFormOne}"
+                id="cityForm" name="email-form" data-name="Email Form"  class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="8c51e80b-1c0a-6c39-4ff7-a4a4bafc8bfd">
+            <label for="field" class="field-label-8" >Име</label>
+            <input th:field="*{realName}" class="w-input" maxlength="256" name="realName" data-name="Име" th:placeholder="${@userService.getCurrentUser()?.getRealName() != null ? @userService.getCurrentUser().getRealName() : '-'}" type="text" id="field">
 
-            <label for="field-3" class="field-label-6">Телефон</label>
-            <input class="w-input" maxlength="256" name="field-3" data-name="Field 3" th:placeholder="${@userService.getCurrentUser()?.getPhone() != null ? @userService.getCurrentUser().getUsername() : 'Въведете телефон за връзка...'}" type="text" id="field-3">
+            <label for="field-3" class="field-label-6" >Телефон</label>
+            <input th:field="*{phone}" class="w-input" maxlength="256" name="field-3" data-name="Field 3"
+                   th:placeholder="${@userService.getCurrentUser()?.getPhone() != null ? @userService.getCurrentUser().getPhone() : '-'}"
+                   type="text" id="field-3">
 
             <label for="CityField" class="field-label-7">Изберете населено място</label>
-            <select id="CityField" name="CityField" data-name="CityField" class="select-field w-select">
+            <select th:field="*{city}" id="CityField" name="CityField" data-name="CityField" class="select-field w-select">
               <option value="BLAGOEVGRAD">Благоевград</option>
               <option value="BURGAS">Бургас</option>
               <option value="VARNA">Варна</option>
@@ -66,13 +71,14 @@
               <option value="SHUMEN">Шумен</option>
               <option value="YAMBOL">Ямбол</option>
             </select>
-            <a href="#" class="button savesettings w-button">Запази настройките</a>
+            <input type="submit" data-wait="Please wait..." name="zapazi nastroikite" class="button w-button" value="Запази настройките">
           </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
+          <div>
+            <p th:if="${errorFormOne}" class="error-text" style="color: #dc3838;"></p>
+            <p th:text="${errorFormOne}" class="error-text" style="color: #dc3838;"></p>
           </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
+          <div th:if="${massageFormOne}" class="error-message">
+            <p th:text="${massageFormOne}" class="error-text" style="color: #30b02e;" ></p>
           </div>
         </div>
         <h1 class="heading-3">Смяна на паролата</h1>
@@ -90,24 +96,29 @@
             <a href="#" class="button savesettings w-button">Запази новата парола</a>
           </form>
 
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
+
         </div>
       </div>
       <div id="w-node-abe5057b-8d29-ae56-908b-2db59a8cb7f8-39fddcd2" class="div-block-14">
-        <div class="nikname">Nickname</div>
-        <form id="uploadForm" th:action="@{/user-settings/uploadImage}" method="post" enctype="multipart/form-data">
-          <img src="images/userNameIcon1.png" loading="lazy" alt="">
-          <input type="file" name="file" id="file">
+        <div class="nikname" th:text="${@userService.getCurrentUser().getUsername()}">Nickname</div>
+        <form  method="post"
+               th:action="@{/user-settings/uploadProfileImage}"
+               th:object="${profileImageViewModel}"
+               id="uploadForm" enctype="multipart/form-data">
+          <img th:src="${@userService.getCurrentUser()?.getImageUrl() != null ? @userService.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" alt=""  width="350" height="auto">>
+          <input class="button w-button" type="file" id="file" name="profileImgFile" th:name="profileImgFile">
+
           <!-- Скрито поле за името на файла -->
           <input type="hidden" id="fileName" name="fileName">
           <button type="submit" onclick="setFileName()">Качи снимка</button>
         </form>
-
+        <div>
+          <p th:if="${errorImg}" th:text="${error}" class="error-text" style="color: #dc3838;"></p>
+          <p th:if="${param.error != null}" th:text="${param.error}" class="error-text" style="color: #dc3838;"></p>
+        </div>
+        <div th:if="${messageImg}" class="error-message">
+          <p th:text="${messageImg}" class="error-text" style="color: #30b02e;" ></p>
+        </div>
       </div>
     </section>
   </div>
