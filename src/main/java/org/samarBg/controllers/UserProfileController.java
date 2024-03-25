@@ -4,15 +4,20 @@ import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.service.UserService;
 import org.samarBg.service.UserSettingsService;
+import org.samarBg.view.ChangePasswordViewModel;
 import org.samarBg.view.ProfileImageViewModel;
 import org.samarBg.view.SettingsFormOneViewModel;
 import org.samarBg.view.UserLoginViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +29,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.time.Instant;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -32,14 +40,16 @@ public class UserProfileController {
 
     private final UserSettingsService userSettingsService;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
     public UserProfileController(UserSettingsService userSettingsService,
-                                 UserRepository userRepository) {
+                                 UserRepository userRepository,
+                                 PasswordEncoder passwordEncoder) {
         this.userSettingsService = userSettingsService;
         this.userRepository = userRepository;
-
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -56,7 +66,7 @@ public class UserProfileController {
 
 
     @ModelAttribute("saveFormOne")
-    public SettingsFormOneViewModel userModel() {
+    public SettingsFormOneViewModel saveFormOne() {
         return new SettingsFormOneViewModel();
     }
 
@@ -74,6 +84,15 @@ public class UserProfileController {
         if (userOptional.isPresent()) {
             UserEntity currentUser = userOptional.get();
 
+            // Проверка и задаване на realName
+            if (settingsFormOneViewModel.getRealName().isEmpty()) {
+                settingsFormOneViewModel.setRealName(currentUser.getRealName());
+            }
+
+            // Проверка и задаване на phone
+            if (settingsFormOneViewModel.getPhone().isEmpty()){
+                settingsFormOneViewModel.setPhone(currentUser.getPhone());
+            }
             // Подаваме нужната информация за текущия потребител на метода за запазване
             userSettingsService.saveSettingsFormOne(
                     currentUser,
@@ -92,7 +111,6 @@ public class UserProfileController {
     }
 
 
-//TODO prodaljavame s snimkata
 
 
 
@@ -114,6 +132,25 @@ public class UserProfileController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         MultipartFile file = profileImageViewModel.getProfileImgFile();
 
+        // Валидация на формата на файла
+        if (file == null || !file.getContentType().startsWith("image")) {
+            redirectAttributes.addFlashAttribute("errorImg", "Файлът трябва да бъде изображение (jpg, png, bmp, gif).");
+            return "redirect:/user-settings";
+        }
+
+        // Валидация на размера на файла
+        if (file.getSize() > 5 * 1024 * 1024) { // 5 MB
+            redirectAttributes.addFlashAttribute("errorImg", "Файлът трябва да бъде по-малък от 5 MB.");
+            return "redirect:/user-settings";
+        }
+        // Валидация за фалшиво разширение на файла
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename != null && !originalFilename.matches("^[^.]*\\.[^.]*$")) {
+            redirectAttributes.addFlashAttribute("errorImg", "Невалиден формат на файла");
+            return "redirect:/user-settings";
+        }
+
+
         try {
             userSettingsService.uploadProfileImage(email, file);
 
@@ -132,16 +169,55 @@ public class UserProfileController {
 
 
     @ModelAttribute("changePasswordViewModel")
-    public ProfileImageViewModel profileImageViewModel() {
-        return new ProfileImageViewModel();
+    public ChangePasswordViewModel changePasswordViewModel() {
+        return new ChangePasswordViewModel();
     }
     @PostMapping("/user-settings/changePassword")
-    public String changePassword(@Valid @ModelAttribute("changePasswordViewModel") ProfileImageViewModel profileImageViewModel,
+    public String changePassword(@Valid @ModelAttribute("changePasswordViewModel") ChangePasswordViewModel changePasswordViewModel,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserEntity> userOptional = userRepository.findByEmail(email);
 
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
 
+            // Проверка за съвпадение на старата парола
 
+            if (passwordEncoder.matches(changePasswordViewModel.getOldPassword(), user.getPassword())) {
+
+                // Валидация на новата парола
+                if (bindingResult.hasFieldErrors("newPassword")) {
+                    String errorMessage = Objects.requireNonNull(bindingResult.getFieldError("newPassword")).getDefaultMessage();
+                    redirectAttributes.addFlashAttribute("errorChangePassword", errorMessage);
+                    return "redirect:/user-settings";
+                }
+                //Ако паролите не съвпадат
+                if (!changePasswordViewModel.isPasswordsMatch()) {
+                    redirectAttributes.addFlashAttribute("errorChangePassword","Грешка в поворението на новата парола !" );
+                    return "redirect:/user-settings";
+                }
+                // криптиране на новата парола
+                String newPassword = passwordEncoder.encode(changePasswordViewModel.getNewPassword());
+
+                // Запазване на новата парола
+                user.setPassword(newPassword);
+                userRepository.save(user);
+                // Актуализиране на датата и часа на модификация
+                user.setModified(Instant.now());
+
+                redirectAttributes.addFlashAttribute("successMessageChangePassword", "Паролата е успешно сменена.");
+            } else {
+                // Старата парола не съвпада с тази в базата данни
+                redirectAttributes.addFlashAttribute("errorChangePassword", "Грешна стара парола. Моля, опитайте отново.");
+            }
+        } else {
+            // Потребителят не е намерен в базата данни
+            redirectAttributes.addFlashAttribute("error", "Грешка в сървъра ! Моля влезте в профила си отново.");
+            return "redirect:/login";
+        }
+
+        return "redirect:/user-settings";
     }
 }
 

@@ -43,6 +43,7 @@
 
             <label for="CityField" class="field-label-7">Изберете населено място</label>
             <select th:field="*{city}" id="CityField" name="CityField" data-name="CityField" class="select-field w-select">
+              <option th:value="${@userService.getCurrentUser().getCity() }" >-</option>
               <option value="BLAGOEVGRAD">Благоевград</option>
               <option value="BURGAS">Бургас</option>
               <option value="VARNA">Варна</option>
@@ -83,20 +84,28 @@
         </div>
         <h1 class="heading-3">Смяна на паролата</h1>
         <div class="form2 w-form">
-          <form id="new-password-2-form" name="email-form" data-name="Email Form" method="post" class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="9c516cee-2868-693c-4e1f-f3a281d8b7d3">
+          <form method="post"
+                th:action="@{/user-settings/changePassword}"
+                th:object="${changePasswordViewModel}"
+                id="new-password-2-form" name="email-form" data-name="Email Form" class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="9c516cee-2868-693c-4e1f-f3a281d8b7d3">
             <label for="field-2" class="field-label-8">Текуща парола</label>
-            <input class="w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Вашата текуща парола..." type="password" id="field-2">
+            <input th:field="*{oldPassword}" class="w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Вашата текуща парола..." type="password" id="field-2">
 
             <label for="new-password" class="field-label-6">Нова парола</label>
-            <input class="w-input" maxlength="256" name="new-password" data-name="new password" placeholder="Въведете новата парола..." type="password" id="new-password" required="">
+            <input th:field="*{newPassword}" class="w-input" maxlength="256" name="new-password" data-name="new password" placeholder="Въведете новата парола..." type="password" id="new-password" required="">
 
             <label for="new-password-2" class="field-label-7">Повторна парола</label>
-            <input class="w-input" maxlength="256" name="new-password2" data-name="new password2" placeholder="Повторете новата парола..." type="password" id="new-password-2" required="">
+            <input th:field="*{confirmNewPassword}" class="w-input" maxlength="256" name="new-password2" data-name="new password2" placeholder="Повторете новата парола..." type="password" id="new-password-2" required="">
 
-            <a href="#" class="button savesettings w-button">Запази новата парола</a>
+            <button class="button w-button" type="submit" onclick="setFileName()">Запази новата парола</button>
           </form>
-
-
+          <div>
+            <p th:if="${errorChangePassword}" class="error-text" style="color: #dc3838;"></p>
+            <p th:text="${errorChangePassword}" class="error-text" style="color: #dc3838;"></p>
+          </div>
+          <div th:if="${successMessageChangePassword}" class="error-message">
+            <p th:text="${successMessageChangePassword}" class="error-text" style="color: #30b02e;" ></p>
+          </div>
         </div>
       </div>
       <div id="w-node-abe5057b-8d29-ae56-908b-2db59a8cb7f8-39fddcd2" class="div-block-14">
@@ -106,11 +115,11 @@
                th:object="${profileImageViewModel}"
                id="uploadForm" enctype="multipart/form-data">
           <img th:src="${@userService.getCurrentUser()?.getImageUrl() != null ? @userService.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" alt=""  width="350" height="auto">>
-          <input class="button w-button" type="file" id="file" name="profileImgFile" th:name="profileImgFile">
+          <input class="button w-button" type="file" id="file" name="profileImgFile" th:name="profileImgFile" value="Избери профилна снимка">
 
           <!-- Скрито поле за името на файла -->
-          <input type="hidden" id="fileName" name="fileName">
-          <button type="submit" onclick="setFileName()">Качи снимка</button>
+          <input type="hidden" id="fileName" name="fileName" >
+          <button class="button w-button" type="submit" onclick="setFileName()">Качи снимка</button>
         </form>
         <div>
           <p th:if="${errorImg}" th:text="${error}" class="error-text" style="color: #dc3838;"></p>

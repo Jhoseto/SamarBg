@@ -16,4 +16,5 @@ public class ProfileImageViewModel {
         this.profileImgFile = profileImgFile;
         return this;
     }
+
 }

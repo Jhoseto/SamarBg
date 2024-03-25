@@ -93,7 +93,6 @@ public class RegisterPageController {
             redirectAttributes.addFlashAttribute("error", errorMessages.toString());
 
             // Връщаме страницата за регистрация със специфични съобщения за грешките
-            return "redirect:/registration";
         } else {
             // Проверка дали вече съществува потребител с дадения имейл
             Optional<UserEntity> existingUserByEmail = userRepository.findByEmail(userRegistrationViewModel.getEmail());
@@ -119,8 +118,8 @@ public class RegisterPageController {
             //Запис на Нов профил
             intUsers(userRegistrationViewModel);
 
-            return "redirect:/registration";
         }
+        return "redirect:/registration";
     }
 
 

@@ -1,6 +1,7 @@
 package org.samarBg.model.entities.enums;
 
 public enum CityEnum {
+    NONE("-"),
     BLAGOEVGRAD("Благоевград"),
     BURGAS("Бургас"),
     VARNA("Варна"),
