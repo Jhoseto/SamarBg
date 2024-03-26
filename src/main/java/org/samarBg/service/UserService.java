@@ -52,6 +52,8 @@ public class UserService  {
     public Authentication authenticateUser(String email, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
+
+
         if (userDetails != null && passwordEncoder.matches(password, userDetails.getPassword())) {
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);

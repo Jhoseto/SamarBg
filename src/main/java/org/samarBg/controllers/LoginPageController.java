@@ -2,6 +2,7 @@ package org.samarBg.controllers;
 
 
 import org.samarBg.model.entities.UserEntity;
+import org.samarBg.repository.UserRepository;
 import org.samarBg.service.UserService;
 import org.samarBg.view.UserLoginViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +18,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.time.Instant;
 import java.util.Optional;
 
 @Controller
 public class LoginPageController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
+    // БИсквитка
+    private final TokenBasedRememberMeServices rememberMeServices;
 
     @Autowired
-    private TokenBasedRememberMeServices rememberMeServices;
-
-    @Autowired
-    public LoginPageController(UserService userService) {
+    public LoginPageController(UserService userService,
+                               UserRepository userRepository,
+                               TokenBasedRememberMeServices rememberMeServices) {
         this.userService = userService;
+        this.userRepository = userRepository;
+        this.rememberMeServices = rememberMeServices;
     }
 
     @ModelAttribute("userModel")
@@ -62,8 +68,9 @@ public class LoginPageController {
 
             if (user.isActive()) {
                 // Потребителят е активен
-
-                // Създаване на кукито за сесия
+                user.setLastOnline(Instant.now());
+                userRepository.save(user);
+                // Създаване на RememberMe кукито
                 rememberMeServices.loginSuccess(request, response, authentication);
 
                 return "redirect:/";

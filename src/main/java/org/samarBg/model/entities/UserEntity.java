@@ -3,6 +3,7 @@ package org.samarBg.model.entities;
 import org.samarBg.model.entities.enums.CityEnum;
 import org.samarBg.model.entities.enums.UserRoleEnum;
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +31,13 @@ public class UserEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column
     private Set<UserRoleEnum> userRoles = new HashSet<>();
+
+    @Column(columnDefinition = "TIMESTAMP")
+    protected Instant lastOnline;
+
+
+
+
 
 
     public String getUsername() {
@@ -137,6 +145,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setUserOffersCount(int userOffersCount) {
         UserOffersCount = userOffersCount;
+        return this;
+    }
+
+    public Instant getLastOnline() {
+        return lastOnline;
+    }
+
+    public UserEntity setLastOnline(Instant lastOnline) {
+        this.lastOnline = lastOnline;
         return this;
     }
 }

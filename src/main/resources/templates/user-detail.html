@@ -34,6 +34,8 @@
             <div class="text-block-7" th:text="${@userService.getCurrentUser().getEmail() != null ? @userService.getCurrentUser()?.getEmail() : '-'}">elektronna poshta</div><label for="field" class="field-label-6">Телефон</label>
             <div class="text-block-8" th:text="${@userService.getCurrentUser().getPhone() != null ? @userService.getCurrentUser()?.getPhone() : '-'}">telefon</div><label for="CityField" class="field-label-7">Населено място</label>
             <div class="text-block-9" th:text="${@userService.getCurrentUser().getCity() != null ? @userService.getCurrentUser()?.getCity().toBG() : '-'}">grad</div>
+            <label for="lastOnline" class="field-label-6">Последно активен на:</label>
+            <div class="text-block-6" th:text="${#dates.format(@userService.getCurrentUser()?.getLastOnline(), 'yyyy/MM/dd HH:mm')}">lastOnline</div>
           </form>
         </div>
       </div>

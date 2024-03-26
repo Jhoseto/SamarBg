@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .maxAge(3600);
     }
-
+//http://localhost:8080
 //http://213.91.128.33:2662
 
 //TODO СУПЕР ВАЖНО !!!
