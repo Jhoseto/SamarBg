@@ -28,6 +28,9 @@ public class AccessoryOfferEntity extends BaseEntity {
     @Column(nullable = false)
     private String phone;
 
+    @Column
+    private Boolean hiddenPhone;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CityEnum city;
@@ -46,9 +49,14 @@ public class AccessoryOfferEntity extends BaseEntity {
     @OneToMany(mappedBy = "accessoryOffer", cascade = CascadeType.ALL)
     private List<OfferImageEntity> images;
 
-
     @Column
     private int offerViewCounter;
+
+    @Column
+    private Boolean isActive;
+
+    @Column
+    private String videoLink;
 
 
     public String getOfferName() {
@@ -96,6 +104,15 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
+    public Boolean getHiddenPhone() {
+        return hiddenPhone;
+    }
+
+    public AccessoryOfferEntity setHiddenPhone(Boolean hiddenPhone) {
+        this.hiddenPhone = hiddenPhone;
+        return this;
+    }
+
     public CityEnum getCity() {
         return city;
     }
@@ -137,9 +154,6 @@ public class AccessoryOfferEntity extends BaseEntity {
     }
 
     public AccessoryOfferEntity setImages(List<OfferImageEntity> images) {
-        if (images.size() > 5) {
-            throw new IllegalArgumentException("Максималният брой снимки за обява е 5");
-        }
         this.images = images;
         return this;
     }
@@ -153,24 +167,21 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
 
-    @Override
-    public String toString() {
-        return "AccessoryOfferEntity{" +
-                "offerName='" + offerName + '\'' +
-                ", category=" + category +
-                ", authorName='" + authorName + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", phone='" + phone + '\'' +
-                ", city=" + city +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", accessoriesCategory=" + accessoriesCategory +
-                ", images=" + images +
-                ", offerViewCounter=" + offerViewCounter +
-                ", id=" + id +
-                ", created=" + created +
-                ", modified=" + modified +
-                '}';
+    public AccessoryOfferEntity setActive(Boolean active) {
+        isActive = active;
+        return this;
+    }
+
+    public String getVideoLink() {
+        return videoLink;
+    }
+
+    public AccessoryOfferEntity setVideoLink(String videoLink) {
+        this.videoLink = videoLink;
+        return this;
     }
 }

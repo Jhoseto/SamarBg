@@ -61,9 +61,6 @@ public class UserSettingsService {
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
 
-
-            // Генериране на уникално име за качения файл, включващо времеви маркер
-            String timestamp = String.valueOf(System.currentTimeMillis());
             String fileName = user.getUsername() + "_profile_image_" + ".jpg";
 
             String uploadDir = "F:\\MyProjects\\SamarBG\\SamarBg\\src\\main\\resources\\static\\images\\usersImg\\";

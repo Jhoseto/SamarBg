@@ -6,9 +6,7 @@ import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.repository.UserRoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -77,17 +75,17 @@ public class DBInit implements CommandLineRunner {
         List<OfferImageEntity> images = new ArrayList<>();
         OfferImageEntity image = new OfferImageEntity();
 
-        image.setImagePath("images/offerImg/horse1.jpg");
+        image.setImagePath("/images/offerImg/horse1.jpg");
         image.setHorseOffer(horseOffer);
         images.add(image);
 
-        horseOffer.setImageUrl("images/offerImg/horse1.jpg");
+        horseOffer.setBasicImageUrl("images/offerImg/horse1.jpg");
 
         horseOffer.setOfferName("Продавам мъжки кон. Изгодно !!!")
                 .setCategory(OfferCategoryEnum.HORSES)
                 .setHorseCategory(HorseCategoryEnum.HORSE)
                 .setSex(SexEnum.MALE)
-                .setAuthorName("Bai Marin")
+                .setAuthorName("Jhose")
                 .setCity(CityEnum.RAZGRAD)
                 .setPhone("0886913296")
                 .setPrice(BigDecimal.valueOf(2100))

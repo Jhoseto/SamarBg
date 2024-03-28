@@ -26,14 +26,14 @@
   </div>
   <div class="div-block-18">
     <div class="div-block-17">
-      <div class="text-block-12" th:text="${offer.offerName}">Име на Обявата</div>
+      <div class="text-block-12" th:text="${offers.getOfferName()}">Име на Обявата</div>
       <div data-delay="4000" data-animation="slide" class="slider-4 w-slider" data-autoplay="false" data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="3" data-duration="500" data-infinite="true">
         <div class="mask-3 w-slider-mask">
-          <div class="slide11 w-slide" th:style="'background-image: url(\'' + ${offer.imagesUrls.get(0)} + '\');'"></div>
-          <div class="slide22 w-slide" th:style="'background-image: url(\'' + ${offer.imagesUrls.get(1)} + '\');'"></div>
-          <div class="slide-6 w-slide" th:style="'background-image: url(\'' + ${offer.imagesUrls.get(2)} + '\');'"></div>
-          <div class="slide-7 w-slide" th:style="'background-image: url(\'' + ${offer.imagesUrls.get(3)} + '\');'"></div>
-          <div class="slide-8 w-slide" th:style="'background-image: url(\'' + ${offer.imagesUrls.get(4)} + '\');'"></div>
+          <div class="slide11 w-slide" th:style="'background-image: url(\'' + ${offers.imagesUrls.get(0)} + '\');'"></div>
+          <div class="slide22 w-slide" th:style="'background-image: url(\'' + ${offers.imagesUrls.get(1)} + '\');'"></div>
+          <div class="slide-6 w-slide" th:style="'background-image: url(\'' + ${offers.imagesUrls.get(2)} + '\');'"></div>
+          <div class="slide-7 w-slide" th:style="'background-image: url(\'' + ${offers.imagesUrls.get(3)} + '\');'"></div>
+          <div class="slide-8 w-slide" th:style="'background-image: url(\'' + ${offers.imagesUrls.get(4)} + '\');'"></div>
         </div>
         <div class="left-arrow-3 w-slider-arrow-left">
           <div class="icon-3 w-icon-slider-left"></div>
@@ -46,25 +46,26 @@
       <div class="div-block-22">
 
         <div class="div-block-24">
-          <div class="text-block-13" th:text="'Вид:  '+${offer.horseCategory != null ? offer.horseCategory.toBG() : offer.accessoriesCategory.toBG()}">Вид : Кон</div>
-          <div class="text-block-13 _2" th:if="${offer.offerCategory == T(org.samarBg.model.entities.enums.OfferCategoryEnum).HORSES and offer.sex != null}" th:text="'Пол: ' + ${offer.sex.toBG()}">Пол: Мъжки</div>
-          <div class="text-block-13 _3" th:text="'Област '+${offer.city.toBG()}">Област Смолян</div>
+          <div class="text-block-13" th:text="'Вид:  '+${offers.horseCategory != null ? offers.horseCategory.toBG() : offers.accessoriesCategory.toBG()}">Вид : Кон</div>
+          <div class="text-block-13 _2" th:if="${offers.offerCategory == T(org.samarBg.model.entities.enums.OfferCategoryEnum).HORSES and offers.sex != null}" th:text="'Пол: ' + ${offers.sex.toBG()}">Пол: Мъжки</div>
+          <div class="text-block-13 _3" th:text="'Област '+${offers.city.toBG()}">Област Смолян</div>
         </div>
       </div>
       <div class="div-block-21">
-        <div class="text-block-15" th:text="${offer.description}">Описание на обявата</div>
+        <div class="text-block-15" th:text="${offers.description}">Описание на обявата</div>
       </div>
       <div class="div-block-25">
-        <div class="text-block-14" th:text="'Побликувана на: '+${#dates.format(offer.createDate, 'yyyy/MM/dd HH:mm')}">Побликувана на : 02/03/2024</div>
-        <div class="text-block-14 _122" th:text="'Обновена на: '+${#dates.format(offer.modifiedDate, 'yyyy/MM/dd HH:mm')}"> Обновена на : 02/03/2024</div>
+        <div class="text-block-14" th:text="'Побликувана на: '+${#dates.format(offers.createDate, 'yyyy/MM/dd HH:mm')}">Побликувана на : 02/03/2024</div>
+        <div class="text-block-14 _122" th:text="'Обновена на: '+${#dates.format(offers.modifiedDate, 'yyyy/MM/dd HH:mm')}"> Обновена на : 02/03/2024</div>
       </div>
       <div class="div-block-23">
-        <div class="text-block-16" th:text="'Брой преглеждания : '+${offer.offerViewCount}">Брой преглеждания : 3</div>
-        <a href="#" class="buttonfavorites w-button">Добави в любими</a>
+        <div class="text-block-16" th:text="'Брой преглеждания : '+${offers.offerViewCount}">Брой преглеждания : 3</div>
+        <a th:href="@{${#httpServletRequest.getHeader('Referer')}}" class="buttonfavorites w-button">Върни се назад</a>
+        <a href="#" class="buttonfavorites w-button">ПУБЛИКУВАЙ </a>
       </div>
-      <div th:if="${offer.getVideoLink() != null}" class="divvideoblock">
+      <div th:if="${offers.getVideoLink() != null}" class="divvideoblock">
         <div style="padding-top:56.17021276595745%" class="w-embed-youtubevideo youtube">
-          <iframe th:src="${offer.getVideoLink()}" frameborder="0"
+          <iframe th:src="${offers.getVideoLink()}" frameborder="0"
                   style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:auto"
                   allow="autoplay; encrypted-media" allowfullscreen="" ></iframe>
         </div>
@@ -74,19 +75,18 @@
       <div class="w-layout-blockcontainer container-5 _1 w-container">
         <div class="div-block-19 as">
           <div class="textcena">ЦЕНА:</div>
-          <div class="cena" th:text="${offer.price.intValue()} + ' Лв.'">2200 </div>
+          <div class="cena" th:text="${offers.price.intValue()} + ' Лв.'">2200 </div>
         </div>
-        <a href="/images/man-and-horses-2389830_1280.png" class="button2 phone w-button" th:name="${offer.phone}">0886913296</a>
-        <a href="/images/man-and-horses-2389830_1280.png" class="button2 message w-button">Изпрати съобщение</a>
+        <a href="#" class="button2 phone w-button" th:name="${offers.phone}">0886913296</a>
+        <a href="#" class="button2 message w-button">Изпрати съобщение</a>
       </div>
-      <div class="div-block-20">
-        <img th:src="${offer.getAuthorProfileImage()}" loading="lazy" width="91" sizes="90.98958587646484px" alt="" class="image-17">
+      <div class="div-block-20"><img th:src="${offers.getAuthorProfileImage()}" loading="lazy" width="91" sizes="90.98958587646484px" alt="" class="image-17">
         <div class="w-layout-blockcontainer container-5 _2 w-container">
           <div class="div-block-19 align-center-2">
-            <div class="text-block-11" th:text="${offer.authorName}">Nickname</div>
-            <div class="text-block-10" th:text="'Потребителя има '+${offer.getAuthorOffersNumbers()}+' качени обяви'">Потребителя има 3 качени обяви</div>
-            <div class="text-block-10 _2" th:text="'Регистриран на '+${#dates.format(offer.getAuthorRegistrationData(),'dd/MM/yyyy')}">Регистриран на : 22/03/2024</div>
-            <div class="text-block-10 _2" th:text="'Последно активен на: ' + ${#dates.format(offer.getAuthorLastOnlineDate(), 'dd/MM/yyyy')}">22/03/2024</div>
+            <div class="text-block-11" th:text="${offers.authorName}">Nickname</div>
+            <div class="text-block-10" th:text="'Потребителя има '+${offers.getAuthorOffersNumbers()}+' качени обяви'">Потребителя има 3 качени обяви</div>
+            <div class="text-block-10 _2" th:text="'Регистриран на '+${#dates.format(offers.getAuthorRegistrationData(),'dd/MM/yyyy')}">Регистриран на : 22/03/2024</div>
+            <div class="text-block-10 _2" th:text="'Последно активен на: ' + ${#dates.format(offers.getAuthorLastOnlineDate(), 'dd/MM/yyyy')}">22/03/2024</div>
           </div>
         </div>
       </div>

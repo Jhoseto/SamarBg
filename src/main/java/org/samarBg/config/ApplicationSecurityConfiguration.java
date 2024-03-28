@@ -34,6 +34,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // Разрешаване на статичните ресурси
                 .antMatchers(
                         "/images/usersImg/**",
+                        "/images/offerImg/**",
                         "/css/**",
                         "/js/**",
                         "/images/**",
@@ -45,7 +46,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         "/index",
                         "/allAccessories",
                         "/allHorses",
-                        "/allads",
+                        "/allOffers",
                         "/forgotten_password",
                         "/user/registration",
                         "/registration",

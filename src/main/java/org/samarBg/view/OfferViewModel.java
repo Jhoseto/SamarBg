@@ -4,11 +4,13 @@ import org.samarBg.model.entities.enums.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 public class OfferViewModel {
 
     private Long id;
-    private String imageUrl;
+    private String basicImageUrl;
+    private List<String> imagesUrls;
     private OfferCategoryEnum offerCategory;
     private HorseCategoryEnum horseCategory;
     private AccessoriesEnum accessoriesCategory;
@@ -18,12 +20,19 @@ public class OfferViewModel {
     private CityEnum city;
     private String offerName;
     private String description;
-    private String authorName;
     private int offerViewCount;
-    private Instant userRegistrationDate;
-    private int userOffersCount;
+    private String videoLink;
     private Instant createDate;
     private Instant modifiedDate;
+    private String authorName;
+    private int authorOffersNumbers;
+    private Instant authorRegistrationData;
+    private Instant authorLastOnlineDate;
+    private String authorProfileImage;
+
+
+
+
 
 
     public Long getId() {
@@ -35,12 +44,21 @@ public class OfferViewModel {
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getBasicImageUrl() {
+        return basicImageUrl;
     }
 
-    public OfferViewModel setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public OfferViewModel setBasicImageUrl(String basicImageUrl) {
+        this.basicImageUrl = basicImageUrl;
+        return this;
+    }
+
+    public List<String> getImagesUrls() {
+        return imagesUrls;
+    }
+
+    public OfferViewModel setImagesUrls(List<String> imagesUrls) {
+        this.imagesUrls = imagesUrls;
         return this;
     }
 
@@ -125,15 +143,6 @@ public class OfferViewModel {
         return this;
     }
 
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public OfferViewModel setAuthorName(String authorName) {
-        this.authorName = authorName;
-        return this;
-    }
-
     public int getOfferViewCount() {
         return offerViewCount;
     }
@@ -143,12 +152,12 @@ public class OfferViewModel {
         return this;
     }
 
-    public Instant getUserRegistrationDate() {
-        return userRegistrationDate;
+    public String getVideoLink() {
+        return videoLink;
     }
 
-    public OfferViewModel setUserRegistrationDate(Instant userRegistrationDate) {
-        this.userRegistrationDate = userRegistrationDate;
+    public OfferViewModel setVideoLink(String videoLink) {
+        this.videoLink = videoLink;
         return this;
     }
 
@@ -170,35 +179,48 @@ public class OfferViewModel {
         return this;
     }
 
-
-    public int getUserOffersCount() {
-        return userOffersCount;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public OfferViewModel setUserOffersCount(int userOffersCount) {
-        this.userOffersCount = userOffersCount;
+    public OfferViewModel setAuthorName(String authorName) {
+        this.authorName = authorName;
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "OfferViewModel{" +
-                "id=" + id +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", offerCategory=" + offerCategory +
-                ", horseCategory=" + horseCategory +
-                ", accessoriesCategory=" + accessoriesCategory +
-                ", sex=" + sex +
-                ", price=" + price +
-                ", phone='" + phone + '\'' +
-                ", city=" + city +
-                ", offerName='" + offerName + '\'' +
-                ", description='" + description + '\'' +
-                ", authorName='" + authorName + '\'' +
-                ", userOfferCount=" + offerViewCount +
-                ", userRegistrationDate=" + userRegistrationDate +
-                ", createDate=" + createDate +
-                ", modifiedDate=" + modifiedDate +
-                '}';
+    public int getAuthorOffersNumbers() {
+        return authorOffersNumbers;
+    }
+
+    public OfferViewModel setAuthorOffersNumbers(int authorOffersNumbers) {
+        this.authorOffersNumbers = authorOffersNumbers;
+        return this;
+    }
+
+    public Instant getAuthorRegistrationData() {
+        return authorRegistrationData;
+    }
+
+    public OfferViewModel setAuthorRegistrationData(Instant authorRegistrationData) {
+        this.authorRegistrationData = authorRegistrationData;
+        return this;
+    }
+
+    public Instant getAuthorLastOnlineDate() {
+        return authorLastOnlineDate;
+    }
+
+    public OfferViewModel setAuthorLastOnlineDate(Instant authorLastOnlineDate) {
+        this.authorLastOnlineDate = authorLastOnlineDate;
+        return this;
+    }
+
+    public String getAuthorProfileImage() {
+        return authorProfileImage;
+    }
+
+    public OfferViewModel setAuthorProfileImage(String authorProfileImage) {
+        this.authorProfileImage = authorProfileImage;
+        return this;
     }
 }

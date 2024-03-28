@@ -65,23 +65,8 @@ public class RegisterPageController {
 
         if (result.hasErrors()) {
             // Проверка за грешки във всички полета и събиране на съобщенията
-            if (result.hasFieldErrors("username")) {
-                FieldError error = result.getFieldError("username");
-                if (error != null) {
-                    errorMessages.append(error.getDefaultMessage());
-                }
-            }
-            if (result.hasFieldErrors("email")) {
-                FieldError error = result.getFieldError("email");
-                if (error != null) {
-                    errorMessages.append(error.getDefaultMessage());
-                }
-            }
-            if (result.hasFieldErrors("regPassword")) {
-                FieldError error = result.getFieldError("regPassword");
-                if (error != null) {
-                    errorMessages.append(error.getDefaultMessage());
-                }
+            for (FieldError error : result.getFieldErrors()) {
+                errorMessages.append(error.getDefaultMessage()).append(" / ");
             }
 
             if (!userRegistrationViewModel.isPasswordsMatch()) {
@@ -93,6 +78,7 @@ public class RegisterPageController {
             redirectAttributes.addFlashAttribute("error", errorMessages.toString());
 
             // Връщаме страницата за регистрация със специфични съобщения за грешките
+            return "redirect:/registration";
         } else {
             // Проверка дали вече съществува потребител с дадения имейл
             Optional<UserEntity> existingUserByEmail = userRepository.findByEmail(userRegistrationViewModel.getEmail());

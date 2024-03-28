@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <!-- This site was created in Webflow. https://www.webflow.com -->
 <!-- Last Published: Thu Mar 07 2024 20:13:54 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-page="65e0e0a71318170a4920cd09" data-wf-site="65dbafc99f6b400b3852fc07" lang="bg"
-      xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html data-wf-page="65e0e0a71318170a4920cd09" data-wf-site="65dbafc99f6b400b3852fc07" lang="bg" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>AllAds</title>
@@ -30,7 +29,7 @@
                 <div data-w-id="6b9f49ad-8f54-4314-6fd2-e785a59b7323" class="image-link">
                     <div class="image-wrapper">
                         <img loading="lazy" sizes="(max-width: 479px) 84vw, (max-width: 767px) 90vw, 89vw"
-                             alt="" class="uui-blog01_image" th:srcset="${offer.imageUrl}"
+                             alt="" class="uui-blog01_image" th:src="${offer.basicImageUrl}"
                              th:alt="${offer.offerName}" src="">
                     </div>
                 </div>
@@ -49,9 +48,7 @@
             <div class="uui-text-size-medium-2" th:text="${#strings.length(offer.description) > 56 ? #strings.substring(offer.description, 0, 56) + '...' : offer.description}">Кратко описание на обявата</div>
             <div class="uui-blog01_author-wrapper">
                 <div class="uui-blog01_author-image-wrapper">
-                    <img src="images/userNameIcon.png" loading="lazy" sizes="40px"
-                         srcset="images/userNameIcon-p-500.png 500w, images/userNameIcon-p-800.png 800w, images/userNameIcon.png 900w"
-                         alt="" class="uui-blog01_author-image"  th:src="@{/images/userNameIcon.png}">
+                    <img th:src="${offer.getAuthorProfileImage()}" loading="lazy" sizes="40px" alt="" class="uui-blog01_author-image" >
                 </div>
                 <div class="uui-blog01_author-text">
                     <div class="uui-blog01_author-heading" th:text="${offer.authorName}">Име на подателя</div>

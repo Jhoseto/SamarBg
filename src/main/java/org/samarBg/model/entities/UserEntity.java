@@ -39,7 +39,6 @@ public class UserEntity extends BaseEntity {
 
 
 
-
     public String getUsername() {
         return username;
     }
@@ -155,5 +154,28 @@ public class UserEntity extends BaseEntity {
     public UserEntity setLastOnline(Instant lastOnline) {
         this.lastOnline = lastOnline;
         return this;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "username='" + username + '\'' +
+                ", realName='" + realName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", city=" + city +
+                ", isActive=" + isActive +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", userConfirmationCode='" + userConfirmationCode + '\'' +
+                ", UserOffersCount=" + UserOffersCount +
+                ", favoriteOfferIds=" + favoriteOfferIds +
+                ", userRoles=" + userRoles +
+                ", lastOnline=" + lastOnline +
+                ", id=" + id +
+                ", created=" + created +
+                ", modified=" + modified +
+                '}';
     }
 }

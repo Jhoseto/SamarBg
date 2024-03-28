@@ -30,7 +30,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/usersImg/**")
                 .addResourceLocations("file:/F:/MyProjects/SamarBG/SamarBg/src/main/resources/static/images/usersImg/")
-                .setCachePeriod(0); // Това изключва кеширането
+                .setCachePeriod(0); // изключва кеширането
+
+        registry.addResourceHandler("/images/offerImg/**")
+                .addResourceLocations("file:/F:/MyProjects/SamarBG/SamarBg/src/main/resources/static/images/offerImg/")
+                .setCachePeriod(0); // изключва кеширането
     }
 }
 

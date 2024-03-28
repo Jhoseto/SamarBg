@@ -23,10 +23,12 @@ public class HorseOfferEntity extends BaseEntity {
     private String authorName;
 
     @Column
-    private String imageUrl;
+    private String basicImageUrl;
     @Column(nullable = false)
     private String phone;
 
+    @Column
+    private Boolean hiddenPhone;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CityEnum city;
@@ -51,10 +53,10 @@ public class HorseOfferEntity extends BaseEntity {
 
     @Column
     private int offerViewCounter;
-
-
-
-
+    @Column
+    private Boolean isActive;
+    @Column
+    private String videoLink;
 
 
     public String getOfferName() {
@@ -84,12 +86,12 @@ public class HorseOfferEntity extends BaseEntity {
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getBasicImageUrl() {
+        return basicImageUrl;
     }
 
-    public HorseOfferEntity setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public HorseOfferEntity setBasicImageUrl(String basicImageUrl) {
+        this.basicImageUrl = basicImageUrl;
         return this;
     }
 
@@ -99,6 +101,15 @@ public class HorseOfferEntity extends BaseEntity {
 
     public HorseOfferEntity setPhone(String phone) {
         this.phone = phone;
+        return this;
+    }
+
+    public Boolean getHiddenPhone() {
+        return hiddenPhone;
+    }
+
+    public HorseOfferEntity setHiddenPhone(Boolean hiddenPhone) {
+        this.hiddenPhone = hiddenPhone;
         return this;
     }
 
@@ -152,9 +163,6 @@ public class HorseOfferEntity extends BaseEntity {
     }
 
     public HorseOfferEntity setImages(List<OfferImageEntity> images) {
-        if (images.size() > 5) {
-            throw new IllegalArgumentException("Максималният брой снимки за обява е 5");
-        }
         this.images = images;
         return this;
     }
@@ -165,6 +173,24 @@ public class HorseOfferEntity extends BaseEntity {
 
     public HorseOfferEntity setOfferViewCounter(int offerViewCounter) {
         this.offerViewCounter = offerViewCounter;
+        return this;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public HorseOfferEntity setActive(Boolean active) {
+        isActive = active;
+        return this;
+    }
+
+    public String getVideoLink() {
+        return videoLink;
+    }
+
+    public HorseOfferEntity setVideoLink(String videoLink) {
+        this.videoLink = videoLink;
         return this;
     }
 }

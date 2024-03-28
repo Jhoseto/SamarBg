@@ -1,9 +1,6 @@
 package org.samarBg.controllers;
 
 
-import org.samarBg.model.entities.HorseOfferEntity;
-import org.samarBg.repository.AccessoriesOfferRepository;
-import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.service.OfferService;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.stereotype.Controller;
@@ -17,27 +14,22 @@ import java.util.List;
 public class OffersController {
 
     private final OfferService offerService;
-    private final HorseOfferRepository horseOfferRepository;
-    private final AccessoriesOfferRepository accessoriesOfferRepository;
 
-    public OffersController(OfferService offerService,
-                            HorseOfferRepository horseOfferRepository,
-                            AccessoriesOfferRepository accessoriesOfferRepository) {
+
+    public OffersController(OfferService offerService) {
         this.offerService = offerService;
-        this.horseOfferRepository = horseOfferRepository;
-        this.accessoriesOfferRepository = accessoriesOfferRepository;
     }
 
-    @GetMapping("/allads")
-    public String getAllOffers(Model model) {
+    @GetMapping("/allOffers")
+    public String getAllOffers(Model model) throws Exception {
         List<OfferViewModel> offers = offerService.getAllOffers();
 
         model.addAttribute("offers", offers);
-        return "allads";
+        return "allOffers";
     }
 
     @GetMapping("/allHorses")
-    public String getAllHorses(Model model) {
+    public String getAllHorses(Model model) throws Exception {
         List<OfferViewModel> offers = offerService.getAllHorsesOffers();
 
         model.addAttribute("offers", offers);
@@ -61,27 +53,26 @@ public class OffersController {
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
             // Запазване на обявата с новия брой на прегледите
-            offerService.saveInOffers(offer);
+            offerService.saveInExistOffers(offer);
 
             model.addAttribute("offer", offer);
 
             return "offerdetail";
         } else {
-            return "redirect:/allads"; // или друга страница за грешка
+            return "redirect:/allOffers"; // или друга страница за грешка
         }
     }
 
     @GetMapping("/allHorses/{offerId}")
     public String showHorseOfferDetailPage(@PathVariable Long offerId, Model model) {
         OfferViewModel offer = offerService.findById(offerId);
-        HorseOfferEntity horse = new HorseOfferEntity();
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
             // Запазване на обявата с новия брой на прегледите
-            offerService.saveInOffers(offer);
+            offerService.saveInExistOffers(offer);
 
-            model.addAttribute("offers", offer);
+            model.addAttribute("offer", offer);
 
             return "offerdetail";
         } else {
@@ -96,9 +87,9 @@ public class OffersController {
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
             // Запазване на обявата с новия брой на прегледите
-            offerService.saveInOffers(offer);
+            offerService.saveInExistOffers(offer);
 
-            model.addAttribute("offers", offer);
+            model.addAttribute("offer", offer);
 
             return "offerdetail";
         } else {
