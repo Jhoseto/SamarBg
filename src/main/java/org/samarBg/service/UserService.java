@@ -25,8 +25,8 @@ public class UserService  {
 
     private final UserDetailsService userDetailsService;
 
-    private PasswordEncoder passwordEncoder;
-    //private CurrentUser currentUser;
+    private final PasswordEncoder passwordEncoder;
+
 
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
@@ -35,13 +35,6 @@ public class UserService  {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
     }
-
-    public boolean isLoggedIn() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && authentication.isAuthenticated();
-    }
-
-
 
 
     public Optional<UserEntity> findUserByEmail(String email) {
@@ -52,8 +45,6 @@ public class UserService  {
     public Authentication authenticateUser(String email, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-
-
         if (userDetails != null && passwordEncoder.matches(password, userDetails.getPassword())) {
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -61,22 +52,4 @@ public class UserService  {
         }
         return null;
     }
-
-    public UserEntity getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            Optional<UserEntity> userOptional = userRepository.findByUsername(username);
-            if (userOptional.isPresent()) {
-                return userOptional.get();
-            } else {
-                // Потребителят не е намерен по потребителско име, опитвайки се да го намерите по имейл
-                Optional<UserEntity> userByEmailOptional = userRepository.findByEmail(username);
-                return userByEmailOptional.orElse(null);
-            }
-        }
-        return null;
-    }
-
-
 }

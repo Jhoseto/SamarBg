@@ -161,6 +161,13 @@ document.addEventListener("DOMContentLoaded", function() {
           </div>
         </a>
       </div>
+      <div>
+      <p th:if="${error}" class="error-text" style="color: #dc3838;"></p>
+      <p th:text="${error}" class="error-text" style="color: #dc3838;"></p>
+    </div>
+    <div th:if="${successMessage}" class="error-message">
+      <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
+    </div>
       <div class="tabs-content w-tab-content">
         <div data-w-tab="Tab 3" class="tab-pane-tab-1 w-tab-pane">
           <h1 class="heading-4">Създайте вашата обява, като попълните всички полета с правилната информация</h1>
@@ -169,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
               <form method="post"
                     th:action="@{/addOffers/addHorseOffer}"
                     th:object="${addHorseOffer}"
-                    id="wf-form-FormBlock" enctype="multipart/form-data" name="wf-form-FormBlock" data-name="FormBlock" class="form-3" data-wf-page-id="66029e96641cd7e1c5196efe" data-wf-element-id="12d96c10-f3cd-cad0-96ad-54c25056494f">
+                    id="wf-form-FormBlock" enctype="multipart/form-data" name="wf-form-FormBlocks" data-name="FormBlock" class="form-3" data-wf-page-id="66029e96641cd7e1c5196efe" data-wf-element-id="12d96c10-f3cd-cad0-96ad-54c25056494f">
                 <div class="field _1">
                   <label for="OfferName-3" class="field-label-9">Име на обявата</label>
                   <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="256" name="OfferName-3" data-name="Offer Name 3" placeholder="Максимален размер - 30 символа..." type="text" id="OfferName-3" required=""></div>
@@ -177,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <div class="div-block-32">
                     <label for="horseCategory" class="field-label-9 _1">Вид на животното</label>
                     <select th:field="*{horseCategory}" id="horseCategory" name="horseCategory" data-name="Field 5" required="" class="select-field-2 w-select">
-                      <option value="none">-</option>
+                      <option value="">-</option>
                       <option value="HORSE">Кон</option>
                       <option value="PONY">Пони</option>
                       <option value="HEAVYHAULER">Тежкотоварен кон</option>
@@ -189,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <div class="div-block-32 _22">
                     <label for="sex" class="field-label-9 _1">Пол</label>
                     <select th:field="*{sex}" id="sex" name="sex" data-name="Field 2" required="" class="select-field-2 _1 w-select">
-                      <option value="none">-</option>
+                      <option value="">-</option>
                       <option value="MALE">Мъжки</option>
                       <option value="FEMALE">Женски</option>
                     </select>
@@ -197,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <div class="div-block-32 _22 _1">
                     <label for="city" class="field-label-9 _1">Населено Място</label>
                     <select th:field="*{city}" id="city" name="city" data-name="Field 3" required="" class="select-field-2 _1 w-select">
+                      <option value="">-</option>
                       <option value="BLAGOEVGRAD">Благоевград</option>
                       <option value="BURGAS">Бургас</option>
                       <option value="VARNA">Варна</option>
@@ -249,35 +257,35 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="file-upload-container">
                           <label for="file-upload1" class="file-label">
                             <span>Изберете файл 1</span>
-                            <input type="file" id="file-upload1" class="file-input" multiple="" th:name="files">
+                            <input type="file" id="file-upload1" class="file-input" th:name="files">
                           </label>
                           <div id="file-preview1" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload2" class="file-label">
                             <span>Изберете файл 2</span>
-                            <input type="file" id="file-upload2" class="file-input" multiple="" th:name="files">
+                            <input type="file" id="file-upload2" class="file-input" th:name="files">
                           </label>
                           <div id="file-preview2" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload3" class="file-label">
                             <span>Изберете файл 3</span>
-                            <input type="file" id="file-upload3" class="file-input" multiple="" th:name="files">
+                            <input type="file" id="file-upload3" class="file-input" th:name="files">
                           </label>
                           <div id="file-preview3" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload4" class="file-label">
                             <span>Изберете файл 4</span>
-                            <input type="file" id="file-upload4" class="file-input" multiple="" th:name="files">
+                            <input type="file" id="file-upload4" class="file-input" th:name="files">
                           </label>
                           <div id="file-preview4" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload5" class="file-label">
                             <span>Изберете файл 5</span>
-                            <input type="file" id="file-upload5" class="file-input" multiple="" th:name="files">
+                            <input type="file" id="file-upload5" class="file-input" th:name="files">
                           </label>
                           <div id="file-preview5" class="file-preview"></div>
                         </div>
@@ -298,15 +306,18 @@ document.addEventListener("DOMContentLoaded", function() {
                   </div>
                   <div class="div-block-48">
                     <input th:field="*{videoLink}" class="text-field-5 w-input"  maxlength="256" name="VideoLinkYoutube-3" data-name="Video Link Youtube 3" placeholder="Поставете връзка към Youtube ..." type="text" id="VideoLinkYoutube-3" ></div>
-                </div><input type="submit" data-wait="Please wait..." class="submit-button-2 w-button" value="Преглед на Обявата">
+                </div>
+                <input type="submit" data-wait="Please wait..." class="submit-button-2 w-button" value="Преглед на Обявата">
+                <div>
+                  <p th:if="${error}" class="error-text" style="color: #dc3838;"></p>
+                  <p th:text="${error}" class="error-text" style="color: #dc3838;"></p>
+                </div>
+                <div th:if="${successMessage}" class="error-message">
+                  <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
+                </div>
               </form>
+
               <div>
-                <p th:if="${errorAddOffer}" class="error-text" style="color: #dc3838;"></p>
-                <p th:text="${errorAddOffer}" class="error-text" style="color: #dc3838;"></p>
-              </div>
-              <div th:if="${massageAddOffer}" class="error-message">
-                <p th:text="${massageAddOffer}" class="error-text" style="color: #30b02e;" ></p>
-              </div>
             </div>
             </div>
           </div>
@@ -347,35 +358,35 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="file-upload-container">
                           <label for="file-upload1" class="file-label">
                             <span>Изберете файл 1</span>
-                            <input type="file" id="file-upload1" class="file-input" multiple="">
+                            <input type="file" id="file-upload1" class="file-input" >
                           </label>
                           <div id="file-preview1" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload2" class="file-label">
                             <span>Изберете файл 2</span>
-                            <input type="file" id="file-upload2" class="file-input" multiple="">
+                            <input type="file" id="file-upload2" class="file-input" >
                           </label>
                           <div id="file-preview2" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload3" class="file-label">
                             <span>Изберете файл 3</span>
-                            <input type="file" id="file-upload3" class="file-input" multiple="">
+                            <input type="file" id="file-upload3" class="file-input" >
                           </label>
                           <div id="file-preview3" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload4" class="file-label">
                             <span>Изберете файл 4</span>
-                            <input type="file" id="file-upload4" class="file-input" multiple="">
+                            <input type="file" id="file-upload4" class="file-input" >
                           </label>
                           <div id="file-preview4" class="file-preview"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload5" class="file-label">
                             <span>Изберете файл 5</span>
-                            <input type="file" id="file-upload5" class="file-input" multiple="">
+                            <input type="file" id="file-upload5" class="file-input">
                           </label>
                           <div id="file-preview5" class="file-preview"></div>
                         </div>
@@ -398,11 +409,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div><input type="submit" data-wait="Please wait..." class="submit-button-2 w-button" value="Преглед на Обявата">
               </form>
               <div>
-                <p th:if="${errorAddOffer}" class="error-text" style="color: #dc3838;"></p>
-                <p th:text="${errorAddOffer}" class="error-text" style="color: #dc3838;"></p>
+                <p th:if="${error}" class="error-text" style="color: #dc3838;"></p>
+                <p th:text="${error}" class="error-text" style="color: #dc3838;"></p>
               </div>
-              <div th:if="${massageAddOffer}" class="error-message">
-                <p th:text="${massageAddOffer}" class="error-text" style="color: #30b02e;" ></p>
+              <div th:if="${successMessage}" class="error-message">
+                <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
+              </div>
+              <div>
               </div>
             </div>
           </div>

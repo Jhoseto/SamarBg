@@ -72,7 +72,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // Настройка на управлението на сесиите
             .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // Сесията не се създава автоматично
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // Сесията се създава автоматично
 
                 // Обработка на изключенията
             .and()

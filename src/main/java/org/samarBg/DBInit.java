@@ -79,7 +79,7 @@ public class DBInit implements CommandLineRunner {
         image.setHorseOffer(horseOffer);
         images.add(image);
 
-        horseOffer.setBasicImageUrl("images/offerImg/horse1.jpg");
+        horseOffer.setBasicImageUrl("/images/offerImg/horse1.jpg");
 
         horseOffer.setOfferName("Продавам мъжки кон. Изгодно !!!")
                 .setCategory(OfferCategoryEnum.HORSES)
@@ -88,11 +88,16 @@ public class DBInit implements CommandLineRunner {
                 .setAuthorName("Jhose")
                 .setCity(CityEnum.RAZGRAD)
                 .setPhone("0886913296")
+                .setHiddenPhone(false)
+                .setOfferViewCounter(0)
                 .setPrice(BigDecimal.valueOf(2100))
                 .setDescription("Много здрав и красив кон. Гледал съм го като писано яйце. " +
                         "Хранен е само с италиански салати и сме го поили на Балиевата вОда. " +
                         "Към него подарявам бонус 5 човала фураж !")
-                .setImages(images);
+                .setImages(images)
+                .setVideoLink("https://www.youtube.com/watch?v=a0ub4S0eGPE")
+                .setIsActive(1)
+                .setOfferViewCounter(0);
 
         setCurrentTimeStamps(horseOffer);
         horseOfferRepository.save(horseOffer);

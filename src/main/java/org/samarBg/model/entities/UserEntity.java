@@ -22,18 +22,19 @@ public class UserEntity extends BaseEntity {
     private String imageUrl;
     private String userConfirmationCode;
     private int UserOffersCount;
-
     @ElementCollection
     @Column
     private Set<Long> favoriteOfferIds = new HashSet<>();
-
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @Column
     private Set<UserRoleEnum> userRoles = new HashSet<>();
-
     @Column(columnDefinition = "TIMESTAMP")
     protected Instant lastOnline;
+    @Column
+    private Long currentUserOfferId;
+
+
 
 
 
@@ -156,6 +157,14 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
+    public Long getCurrentUserOfferId() {
+        return currentUserOfferId;
+    }
+
+    public UserEntity setCurrentUserOfferId(Long currentUserOfferId) {
+        this.currentUserOfferId = currentUserOfferId;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -173,6 +182,7 @@ public class UserEntity extends BaseEntity {
                 ", favoriteOfferIds=" + favoriteOfferIds +
                 ", userRoles=" + userRoles +
                 ", lastOnline=" + lastOnline +
+                ", currentUserOfferId=" + currentUserOfferId +
                 ", id=" + id +
                 ", created=" + created +
                 ", modified=" + modified +

@@ -25,23 +25,23 @@ public class AddOffersService {
 
     private final HorseOfferRepository horseOfferRepository;
     private final AccessoriesOfferRepository accessoriesOfferRepository;
-    private final UserService userService;
+    private final CurrentUserService currentUserService;
 
 
     public AddOffersService(HorseOfferRepository horseOfferRepository,
                             AccessoriesOfferRepository accessoriesOfferRepository,
-                            UserService userService) {
+                            CurrentUserService currentUserService) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
 
-        this.userService = userService;
+        this.currentUserService = currentUserService;
     }
 
     public Long addHorseOffer(AddOfferHorseViewModel addOfferHorseViewModel, List<String> imageUrls) {
         HorseOfferEntity horseOffer = new HorseOfferEntity();
 
         // Получаваме Имейл-а на текущия потребител от CurrentUserService
-        String username = userService.getCurrentUser().getUsername();
+        String username = currentUserService.getCurrentUser().getUsername();
 
         List<OfferImageEntity> images = new ArrayList<>();
         for (String imageUrl : imageUrls) {
@@ -62,12 +62,14 @@ public class AddOffersService {
         horseOffer.setHiddenPhone(addOfferHorseViewModel.isHiddenPhone());
         horseOffer.setCity(addOfferHorseViewModel.getCity());
         horseOffer.setDescription(addOfferHorseViewModel.getDescription());
-        horseOffer.setActive(false);
+        horseOffer.setIsActive(0);
         horseOffer.setVideoLink(addOfferHorseViewModel.getVideoLink());
         setCurrentTimeStamps(horseOffer);
         horseOffer.setAuthorName(username);
 
         // запазване на обявата в репозиторито
+//       entity e = mapper.map(dto/model, user)
+//        e.setuser
         horseOfferRepository.save(horseOffer);
 
         return horseOffer.getId();
@@ -76,17 +78,19 @@ public class AddOffersService {
 
     public List<String> uploadImages(List<MultipartFile> files) throws IOException {
         List<String> imageUrls = new ArrayList<>();
-        String username = userService.getCurrentUser().getUsername();
-        int userOfferNumber = userService.getCurrentUser().getUserOffersCount();
+        int userOfferNumber = currentUserService.getCurrentUser().getUserOffersCount();
 
         for (MultipartFile file : files) {
-            String fileName = userOfferNumber+"_"+UUID.randomUUID() + ".jpg";
-            String uploadDir = "F:\\MyProjects\\SamarBG\\SamarBg\\src/main\\resources\\static\\images\\offerImg\\";
-            Path path = Paths.get(uploadDir + fileName);
-            Files.write(path, file.getBytes());
+            if (file.getSize()!=0){
+                String fileName = userOfferNumber+"_"+UUID.randomUUID() + ".jpg";
+                String uploadDir = "F:\\MyProjects\\SamarBG\\SamarBg\\src/main\\resources\\static\\images\\offerImg\\";
+                Path path = Paths.get(uploadDir + fileName);
+                Files.write(path, file.getBytes());
 
-            imageUrls.add("/images/offerImg/" + fileName); // Добавяне на URL адреса на снимката в списъка
+                imageUrls.add("/images/offerImg/" + fileName); // Добавяне на URL адреса на снимката в списъка
+            }
         }
+
         return imageUrls;
     }
 

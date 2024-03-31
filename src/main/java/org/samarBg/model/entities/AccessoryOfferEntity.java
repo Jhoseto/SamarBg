@@ -53,7 +53,7 @@ public class AccessoryOfferEntity extends BaseEntity {
     private int offerViewCounter;
 
     @Column
-    private Boolean isActive;
+    private int isActive;
 
     @Column
     private String videoLink;
@@ -167,12 +167,12 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
-    public Boolean getActive() {
+    public int getIsActive() {
         return isActive;
     }
 
-    public AccessoryOfferEntity setActive(Boolean active) {
-        isActive = active;
+    public AccessoryOfferEntity setIsActive(int isActive) {
+        this.isActive = isActive;
         return this;
     }
 

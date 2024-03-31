@@ -6,8 +6,7 @@ import org.samarBg.model.entities.enums.HorseCategoryEnum;
 import org.samarBg.model.entities.enums.SexEnum;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 public class AddOfferHorseViewModel {
 
     @NotNull
-    @Size(min = 5, max = 50, message = "Невалидно име на обявата! Въведете минимум 5 и максимум 30 символа.")
+    @Size(min = 5, max = 30, message = "Невалидно име на обявата! Въведете минимум 5 и максимум 30 символа.")
     private String offerName;
     private String basicImageUrl;
 
@@ -28,7 +27,7 @@ public class AddOfferHorseViewModel {
     @NotNull(message = "Моля, изберете пол на животното ")
     private SexEnum sex;
     @NotNull
-   // @Size(min = 1 ,max = 7, message = "Моля въведете реална цифра за цена")
+    @DecimalMax(value = "99999.99", message = "Моля, въведете реалистична цифра за цена")
     private BigDecimal price;
     @NotNull
     @Size(min = 9, max = 15, message = "Моля въведете реален телефонен номер")
@@ -37,6 +36,7 @@ public class AddOfferHorseViewModel {
     @NotNull(message = "Моля изберете населено място")
     private CityEnum city;
     @NotNull(message = "Моля напишете описание на обявата ")
+    @Size(min = 20, max = 300, message = "Описанието на обявата трябва да бъде минимум 20 и максимум 300 символа !")
     private String description;
     private String authorName;
     private int offerViewCount;

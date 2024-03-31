@@ -29,24 +29,26 @@ import java.util.UUID;
 @Controller
 public class RegisterPageController {
 
-    private PasswordEncoder passwordEncoder;
-    private UserRepository userRepository;
-    private UserRoleRepository userRoleRepository;
-    private ConfirmationLinkService confirmationLinkService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final ConfirmationLinkService confirmationLinkService;
 
 
-    @Autowired
-    private EmailService emailService;
+
+    private final EmailService emailService;
 
     @Autowired
     public RegisterPageController(PasswordEncoder passwordEncoder,
                                   UserRepository userRepository,
                                   UserRoleRepository userRoleRepository,
-                                  ConfirmationLinkService confirmationLinkService) {
+                                  ConfirmationLinkService confirmationLinkService,
+                                  EmailService emailService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.confirmationLinkService = confirmationLinkService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/registration")
@@ -66,7 +68,7 @@ public class RegisterPageController {
         if (result.hasErrors()) {
             // Проверка за грешки във всички полета и събиране на съобщенията
             for (FieldError error : result.getFieldErrors()) {
-                errorMessages.append(error.getDefaultMessage()).append(" / ");
+                errorMessages.append(error.getDefaultMessage()).append("\n");
             }
 
             if (!userRegistrationViewModel.isPasswordsMatch()) {

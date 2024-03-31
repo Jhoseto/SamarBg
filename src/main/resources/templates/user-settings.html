@@ -34,16 +34,16 @@
                 th:object="${saveFormOne}"
                 id="cityForm" name="email-form" data-name="Email Form"  class="form-2" data-wf-page-id="65f185758e3e35c939fddcd2" data-wf-element-id="8c51e80b-1c0a-6c39-4ff7-a4a4bafc8bfd">
             <label for="field" class="field-label-8" >Име</label>
-            <input th:field="*{realName}" class="w-input" maxlength="256" name="realName" data-name="Име" th:placeholder="${@userService.getCurrentUser()?.getRealName() != null ? @userService.getCurrentUser().getRealName() : '-'}" type="text" id="field">
+            <input th:field="*{realName}" class="w-input" maxlength="256" name="realName" data-name="Име" th:placeholder="${@currentUserService.getCurrentUser()?.getRealName() != null ? @currentUserService.getCurrentUser().getRealName() : '-'}" type="text" id="field">
 
             <label for="field-3" class="field-label-6" >Телефон</label>
             <input th:field="*{phone}" class="w-input" maxlength="256" name="field-3" data-name="Field 3"
-                   th:placeholder="${@userService.getCurrentUser()?.getPhone() != null ? @userService.getCurrentUser().getPhone() : '-'}"
+                   th:placeholder="${@currentUserService.getCurrentUser()?.getPhone() != null ? @currentUserService.getCurrentUser().getPhone() : '-'}"
                    type="text" id="field-3">
 
             <label for="CityField" class="field-label-7">Изберете населено място</label>
             <select th:field="*{city}" id="CityField" name="CityField" data-name="CityField" class="select-field w-select">
-              <option th:value="${@userService.getCurrentUser().getCity() }" >-</option>
+              <option th:value="${@currentUserService.getCurrentUser().getCity() }" >-</option>
               <option value="BLAGOEVGRAD">Благоевград</option>
               <option value="BURGAS">Бургас</option>
               <option value="VARNA">Варна</option>
@@ -109,12 +109,12 @@
         </div>
       </div>
       <div id="w-node-abe5057b-8d29-ae56-908b-2db59a8cb7f8-39fddcd2" class="div-block-14">
-        <div class="nikname" th:text="${@userService.getCurrentUser().getUsername()}">Nickname</div>
+        <div class="nikname" th:text="${@currentUserService.getCurrentUser().getUsername()}">Nickname</div>
         <form  method="post"
                th:action="@{/user-settings/uploadProfileImage}"
                th:object="${profileImageViewModel}"
                id="uploadForm" enctype="multipart/form-data">
-          <img th:src="${@userService.getCurrentUser()?.getImageUrl() != null ? @userService.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" alt=""  width="350" height="auto">>
+          <img th:src="${@currentUserService.getCurrentUser()?.getImageUrl() != null ? @currentUserService.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" alt=""  width="350" height="auto">>
           <input class="button w-button" type="file" id="file" name="profileImgFile" th:name="profileImgFile" value="Избери профилна снимка">
 
           <!-- Скрито поле за името на файла -->

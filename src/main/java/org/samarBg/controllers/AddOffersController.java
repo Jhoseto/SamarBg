@@ -3,11 +3,15 @@ package org.samarBg.controllers;
 import org.samarBg.model.entities.OfferImageEntity;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.repository.UserRepository;
+import org.samarBg.securityAndComponent.CurrentUser;
 import org.samarBg.service.AddOffersService;
+import org.samarBg.service.CurrentUserService;
 import org.samarBg.service.OfferService;
 import org.samarBg.view.AddOfferHorseViewModel;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,16 +28,15 @@ import java.util.List;
 public class AddOffersController {
 
 
-    private final UserRepository userRepository;
+    private final CurrentUserService currentUserService;
     private final AddOffersService addOffersService;
     private final OfferService offerService;
     private final OfferImageRepository offerImageRepository;
     @Autowired
-    public AddOffersController(UserRepository userRepository,
-                               AddOffersService addOffersService,
-                               OfferService offerService,
-                               OfferImageRepository offerImageRepository) {
-        this.userRepository = userRepository;
+    public AddOffersController(CurrentUserService currentUserService, AddOffersService addOffersService,
+            OfferService offerService,
+            OfferImageRepository offerImageRepository) {
+        this.currentUserService = currentUserService;
         this.addOffersService = addOffersService;
         this.offerService = offerService;
         this.offerImageRepository = offerImageRepository;
@@ -60,6 +63,19 @@ public class AddOffersController {
         }
     }
 
+    @PostMapping("/activate-offer")
+    public String publishNewOffer(@RequestParam Long offerId, RedirectAttributes redirectAttributes) {
+
+        try {
+            offerService.activateOffer(offerId);
+            redirectAttributes.addFlashAttribute("successMessage","Обявата беше успешно активирана.");
+            return "redirect:/index";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("successMessage","Грешка при публикуване на обявата.");
+            return "offerDetailPreview";
+        }
+    }
+
 
     @ModelAttribute("addHorseOffer")
     public AddOfferHorseViewModel addHorseOffer() {
@@ -81,6 +97,8 @@ public class AddOffersController {
 
             // Добавяне на общото съобщение за грешките към модела
             redirectAttributes.addFlashAttribute("error", errorMessages.toString());
+
+
             return "redirect:/addOffers";
 
         } else {
@@ -88,13 +106,18 @@ public class AddOffersController {
                 // Качване на снимките и свързване с обявата
                 List<String> imageUrls = addOffersService.uploadImages(List.of(files));
 
+                if (imageUrls.isEmpty()){
+                    redirectAttributes.addFlashAttribute("error","Моля добавете поне една снимка към вашата обява !");
+                    return "redirect:/addOffers";
+                }
                 // Успешно качване на снимките, записване на обявата
                 redirectAttributes.addFlashAttribute("successMessage",
                         "Данните за обявата са попълнени успешно!\n" +
                                 "Моля прегледайте вашата обява след, което потвърдете, че\n" +
-                                "желаете тя да бъде публикувана");
+                                "желаете да бъде публикувана");
 
                 Long offerId = addOffersService.addHorseOffer(addOfferHorseViewModel, imageUrls);
+                currentUserService.getCurrentUser().setCurrentUserOfferId(offerId);
                 return "redirect:/offerDetailPreview/"+offerId;
 
             } catch (IOException e) {

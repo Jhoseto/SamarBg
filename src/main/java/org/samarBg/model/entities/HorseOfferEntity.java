@@ -6,6 +6,7 @@ import org.samarBg.model.entities.enums.OfferCategoryEnum;
 import org.samarBg.model.entities.enums.SexEnum;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class HorseOfferEntity extends BaseEntity {
     @Column
     private int offerViewCounter;
     @Column
-    private Boolean isActive;
+    private int isActive;
     @Column
     private String videoLink;
 
@@ -176,12 +177,12 @@ public class HorseOfferEntity extends BaseEntity {
         return this;
     }
 
-    public Boolean getActive() {
+    public int getIsActive() {
         return isActive;
     }
 
-    public HorseOfferEntity setActive(Boolean active) {
-        isActive = active;
+    public HorseOfferEntity setIsActive(int isActive) {
+        this.isActive = isActive;
         return this;
     }
 

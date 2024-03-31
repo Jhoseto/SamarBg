@@ -39,7 +39,7 @@
                     <div class="pricetext" th:text="${offer.city.toBG()}">Град</div>
                 </div>
                 <div data-w-id="6b9f49ad-8f54-4314-6fd2-e785a59b7329" class="adnamelink">
-                    <h3 class="uui-heading-xsmall" th:text="${offer.offerName}">Име на Обявата</h3>
+                    <h3 class="uui-heading-xsmall" th:text="${#strings.length(offer.offerName) > 22 ? #strings.substring(offer.offerName, 0, 22) + '...' : offer.offerName}">Име на Обявата</h3>
                     <div class="uui-blog01_icon w-embed"><svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 17L17 7M17 7H7M17 7V17" stroke="CurrentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg></div>
