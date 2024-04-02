@@ -4,6 +4,7 @@ package org.samarBg.service;
 import org.samarBg.model.entities.AccessoryOfferEntity;
 import org.samarBg.model.entities.HorseOfferEntity;
 import org.samarBg.model.entities.OfferImageEntity;
+import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.OfferImageRepository;
@@ -91,7 +92,7 @@ public class OfferService {
     }
 
     //Method for searching Offer ID from booth categories H/A
-    public OfferViewModel findById(Long offerId) {
+    public OfferViewModel findOfferById(Long offerId) {
         MapperForHorses mapHorseToOffer = new MapperForHorses(userRepository, offerImageRepository);
         MapperForAccessory mapAccessoriesToOffer = new MapperForAccessory(userRepository, offerImageRepository);
 
@@ -162,6 +163,7 @@ public class OfferService {
             // Изтрийте снимките от директорията и от базата данни
             deleteOfferImages(images);
             horseOfferRepository.deleteById(offerId);
+            userRepository.save(currentUserService.getCurrentUser());
 
         } else if (accessoriesOfferRepository.existsById(offerId)){
             List<OfferImageEntity> images = offerImageRepository.findByAccessoryOfferId(offerId);
@@ -169,6 +171,7 @@ public class OfferService {
             // Изтрийте снимките от директорията и от базата данни
             deleteOfferImages(images);
             accessoriesOfferRepository.deleteById(offerId);
+            userRepository.save(currentUserService.getCurrentUser());
 
         }else {
             throw new IllegalArgumentException("Обявата с идентификатор " + offerId + " не съществува.");
@@ -183,7 +186,6 @@ public class OfferService {
         if (!Files.exists(directory)) {
             return;
         }
-
         for (OfferImageEntity image : images) {
             Path imagePath = directory.resolve(image.getImagePath());
             try {
@@ -196,6 +198,25 @@ public class OfferService {
         }
         // Изтрийте снимките от базата данни
         offerImageRepository.deleteAll(images);
+    }
+
+    // Метод за извличане на всички обяви на потребителя
+    public List<OfferViewModel> getAllOffersForUser(String username) {
+        // Намерете потребителя по потребителското име
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Потребителят не е намерен."));
+
+        List<OfferViewModel> userOffers = new ArrayList<>();
+        List<OfferViewModel> allOffers = getAllOffers();
+
+        // Филтриране на обявите, за да се запазят само тези на потребителя
+        for (OfferViewModel offer : allOffers) {
+            if (offer.getAuthorName().equals(username)) {
+                OfferViewModel offerViewModel = findOfferById(offer.getId());
+                userOffers.add(offerViewModel);
+            }
+        }
+        return userOffers;
     }
 }
 

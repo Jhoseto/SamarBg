@@ -193,7 +193,11 @@
         <img th:src="${offer.getAuthorProfileImage()}" loading="lazy" width="91" sizes="90.98958587646484px" alt="" class="image-17">
         <div class="w-layout-blockcontainer container-5 _2 w-container">
           <div class="div-block-19 align-center-2">
-            <div class="text-block-11" th:text="${offer.authorName}">Nickname</div>
+
+            <form method="post"
+                  th:action="@{'/getProfileDetail/' + ${offer.authorName}}">
+              <button type="submit" class="text-block-11" th:text="${offer.authorName}">Nickname</button>
+            </form>
             <div class="text-block-10" th:text="'Потребителя има '+${offer.getAuthorOffersNumbers()}+' качени обяви'">Потребителя има 3 качени обяви</div>
             <div class="text-block-10 _2" th:text="'Регистриран на '+${#dates.format(offer.getAuthorRegistrationData(),'dd/MM/yyyy')}">Регистриран на : 22/03/2024</div>
             <div class="text-block-10 _2" th:text="'Последно активен на: ' + ${#dates.format(offer.getAuthorLastOnlineDate(), 'dd/MM/yyyy')}">22/03/2024</div>

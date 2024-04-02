@@ -77,7 +77,6 @@ public class AddOffersController {
                                 "желаете да бъде публикувана");
 
                 Long offerId = addOffersService.addHorseOffer(addOfferHorseViewModel, imageUrls);
-                currentUserService.getCurrentUser().setCurrentUserOfferId(offerId);
                 return "redirect:/offerDetailPreview/"+offerId;
 
             } catch (IOException e) {
@@ -124,7 +123,6 @@ public class AddOffersController {
                                 "желаете да бъде публикувана");
 
                 Long offerId = addOffersService.addAccessoriesOffer(addAccessoriesViewModel, imageUrls);
-                currentUserService.getCurrentUser().setCurrentUserOfferId(offerId);
                 return "redirect:/offerDetailPreview/"+offerId;
 
             } catch (IOException e) {

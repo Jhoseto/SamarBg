@@ -31,13 +31,6 @@ public class UserEntity extends BaseEntity {
     private Set<UserRole> userRoles = new HashSet<>();
     @Column(columnDefinition = "TIMESTAMP")
     protected Instant lastOnline;
-    @Column
-    private Long currentUserOfferId;
-
-
-
-
-
 
 
     public String getUsername() {
@@ -121,6 +114,15 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
+    public int getUserOffersCount() {
+        return UserOffersCount;
+    }
+
+    public UserEntity setUserOffersCount(int userOffersCount) {
+        UserOffersCount = userOffersCount;
+        return this;
+    }
+
     public Set<Long> getFavoriteOfferIds() {
         return favoriteOfferIds;
     }
@@ -139,15 +141,6 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public int getUserOffersCount() {
-        return UserOffersCount;
-    }
-
-    public UserEntity setUserOffersCount(int userOffersCount) {
-        UserOffersCount = userOffersCount;
-        return this;
-    }
-
     public Instant getLastOnline() {
         return lastOnline;
     }
@@ -155,37 +148,5 @@ public class UserEntity extends BaseEntity {
     public UserEntity setLastOnline(Instant lastOnline) {
         this.lastOnline = lastOnline;
         return this;
-    }
-
-    public Long getCurrentUserOfferId() {
-        return currentUserOfferId;
-    }
-
-    public UserEntity setCurrentUserOfferId(Long currentUserOfferId) {
-        this.currentUserOfferId = currentUserOfferId;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "username='" + username + '\'' +
-                ", realName='" + realName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", city=" + city +
-                ", isActive=" + isActive +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", userConfirmationCode='" + userConfirmationCode + '\'' +
-                ", UserOffersCount=" + UserOffersCount +
-                ", favoriteOfferIds=" + favoriteOfferIds +
-                ", userRoles=" + userRoles +
-                ", lastOnline=" + lastOnline +
-                ", currentUserOfferId=" + currentUserOfferId +
-                ", id=" + id +
-                ", created=" + created +
-                ", modified=" + modified +
-                '}';
     }
 }

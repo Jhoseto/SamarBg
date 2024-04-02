@@ -40,6 +40,9 @@ public class UserService  {
     public Optional<UserEntity> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    public Optional<UserEntity> findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
 
     public Authentication authenticateUser(String email, String password) {

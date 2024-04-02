@@ -66,6 +66,8 @@ public class AddOffersService {
         horseOffer.setDescription(addOfferHorseViewModel.getDescription());
         horseOffer.setIsActive(0);
         horseOffer.setVideoLink(addOfferHorseViewModel.getVideoLink());
+
+
         setCurrentTimeStamps(horseOffer);
         horseOffer.setAuthorName(username);
 
@@ -99,6 +101,7 @@ public class AddOffersService {
         accessoriesOffer.setDescription(addAccessoriesViewModel.getDescription());
         accessoriesOffer.setIsActive(0);
         accessoriesOffer.setVideoLink(addAccessoriesViewModel.getVideoLink());
+
         setCurrentTimeStamps(accessoriesOffer);
         accessoriesOffer.setAuthorName(username);
 
