@@ -53,8 +53,8 @@ public class DBInit implements CommandLineRunner {
 
 
     private void intUsers(){
-        UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRoleEnum.ADMIN);
-        UserRoleEntity userRole = new UserRoleEntity().setRole(UserRoleEnum.USER);
+        UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRole.ADMIN);
+        UserRoleEntity userRole = new UserRoleEntity().setRole(UserRole.USER);
         userRoleRepository.saveAll(List.of(adminRole,userRole));
 
         UserEntity admin = new UserEntity();
@@ -62,9 +62,9 @@ public class DBInit implements CommandLineRunner {
                 .setPassword(passwordEncoder.encode("Pass12"))
                 .setEmail("konstantinse33@gmail.com")
                 .setImageUrl("images/usersImg/konstantinImg.jpg")
-                .setCity(CityEnum.valueOf(String.valueOf(CityEnum.SMOLYAN)))
+                .setCity(City.valueOf(String.valueOf(City.SMOLYAN)))
                 .setPhone("0886913296")
-                .setUserRoles(Collections.singleton(UserRoleEnum.USER));
+                .setUserRoles(Collections.singleton(UserRole.USER));
         setCurrentTimeStamps(admin);
         userRepository.save(admin);
     }
@@ -82,11 +82,11 @@ public class DBInit implements CommandLineRunner {
         horseOffer.setBasicImageUrl("/images/offerImg/horse1.jpg");
 
         horseOffer.setOfferName("Продавам мъжки кон. Изгодно !!!")
-                .setCategory(OfferCategoryEnum.HORSES)
-                .setHorseCategory(HorseCategoryEnum.HORSE)
-                .setSex(SexEnum.MALE)
+                .setCategory(OfferCategory.HORSES)
+                .setHorseCategory(HorseCategory.HORSE)
+                .setSex(Sex.MALE)
                 .setAuthorName("Jhose")
-                .setCity(CityEnum.RAZGRAD)
+                .setCity(City.RAZGRAD)
                 .setPhone("0886913296")
                 .setHiddenPhone(false)
                 .setOfferViewCounter(0)

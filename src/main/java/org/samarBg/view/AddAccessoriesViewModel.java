@@ -1,26 +1,24 @@
 package org.samarBg.view;
 
+import org.samarBg.model.entities.enums.AccessoriesCategory;
 import org.samarBg.model.entities.enums.City;
-import org.samarBg.model.entities.enums.HorseCategory;
 import org.samarBg.model.entities.enums.Sex;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
-public class AddOfferHorseViewModel {
-
+public class AddAccessoriesViewModel {
     @NotNull
     @Size(min = 5, max = 50, message = "Невалидно име на обявата! Въведете минимум 5 и максимум 50 символа.")
     private String offerName;
     private String basicImageUrl;
     private List<MultipartFile> images;
-    @NotNull(message = "Моля, изберете категория на вашето животно ")
-    private HorseCategory horseCategory;
-    @NotNull(message = "Моля, изберете пол на животното ")
-    private Sex sex;
+    @NotNull(message = "Моля, изберете категория на вашия аксесоар ")
+    private AccessoriesCategory accessoriesCategory;
     @NotNull
     @DecimalMax(value = "99999.99", message = "Моля, въведете реалистична цифра за цена")
     private BigDecimal price;
@@ -40,12 +38,11 @@ public class AddOfferHorseViewModel {
     private String videoLink;
 
 
-
     public String getOfferName() {
         return offerName;
     }
 
-    public AddOfferHorseViewModel setOfferName(String offerName) {
+    public AddAccessoriesViewModel setOfferName(String offerName) {
         this.offerName = offerName;
         return this;
     }
@@ -54,7 +51,7 @@ public class AddOfferHorseViewModel {
         return basicImageUrl;
     }
 
-    public AddOfferHorseViewModel setBasicImageUrl(String basicImageUrl) {
+    public AddAccessoriesViewModel setBasicImageUrl(String basicImageUrl) {
         this.basicImageUrl = basicImageUrl;
         return this;
     }
@@ -63,26 +60,17 @@ public class AddOfferHorseViewModel {
         return images;
     }
 
-    public AddOfferHorseViewModel setImages(List<MultipartFile> images) {
+    public AddAccessoriesViewModel setImages(List<MultipartFile> images) {
         this.images = images;
         return this;
     }
 
-    public HorseCategory getHorseCategory() {
-        return horseCategory;
+    public AccessoriesCategory getAccessoriesCategory() {
+        return accessoriesCategory;
     }
 
-    public AddOfferHorseViewModel setHorseCategory(HorseCategory horseCategory) {
-        this.horseCategory = horseCategory;
-        return this;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public AddOfferHorseViewModel setSex(Sex sex) {
-        this.sex = sex;
+    public AddAccessoriesViewModel setAccessoriesCategory(AccessoriesCategory accessoriesCategory) {
+        this.accessoriesCategory = accessoriesCategory;
         return this;
     }
 
@@ -90,7 +78,7 @@ public class AddOfferHorseViewModel {
         return price;
     }
 
-    public AddOfferHorseViewModel setPrice(BigDecimal price) {
+    public AddAccessoriesViewModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -99,7 +87,7 @@ public class AddOfferHorseViewModel {
         return phone;
     }
 
-    public AddOfferHorseViewModel setPhone(String phone) {
+    public AddAccessoriesViewModel setPhone(String phone) {
         this.phone = phone;
         return this;
     }
@@ -108,7 +96,7 @@ public class AddOfferHorseViewModel {
         return hiddenPhone;
     }
 
-    public AddOfferHorseViewModel setHiddenPhone(boolean hiddenPhone) {
+    public AddAccessoriesViewModel setHiddenPhone(boolean hiddenPhone) {
         this.hiddenPhone = hiddenPhone;
         return this;
     }
@@ -117,7 +105,7 @@ public class AddOfferHorseViewModel {
         return city;
     }
 
-    public AddOfferHorseViewModel setCity(City city) {
+    public AddAccessoriesViewModel setCity(City city) {
         this.city = city;
         return this;
     }
@@ -126,7 +114,7 @@ public class AddOfferHorseViewModel {
         return description;
     }
 
-    public AddOfferHorseViewModel setDescription(String description) {
+    public AddAccessoriesViewModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -135,7 +123,7 @@ public class AddOfferHorseViewModel {
         return authorName;
     }
 
-    public AddOfferHorseViewModel setAuthorName(String authorName) {
+    public AddAccessoriesViewModel setAuthorName(String authorName) {
         this.authorName = authorName;
         return this;
     }
@@ -144,7 +132,7 @@ public class AddOfferHorseViewModel {
         return offerViewCount;
     }
 
-    public AddOfferHorseViewModel setOfferViewCount(int offerViewCount) {
+    public AddAccessoriesViewModel setOfferViewCount(int offerViewCount) {
         this.offerViewCount = offerViewCount;
         return this;
     }
@@ -153,7 +141,7 @@ public class AddOfferHorseViewModel {
         return createDate;
     }
 
-    public AddOfferHorseViewModel setCreateDate(Instant createDate) {
+    public AddAccessoriesViewModel setCreateDate(Instant createDate) {
         this.createDate = createDate;
         return this;
     }
@@ -162,7 +150,7 @@ public class AddOfferHorseViewModel {
         return modifiedDate;
     }
 
-    public AddOfferHorseViewModel setModifiedDate(Instant modifiedDate) {
+    public AddAccessoriesViewModel setModifiedDate(Instant modifiedDate) {
         this.modifiedDate = modifiedDate;
         return this;
     }
@@ -171,7 +159,7 @@ public class AddOfferHorseViewModel {
         return videoLink;
     }
 
-    public AddOfferHorseViewModel setVideoLink(String videoLink) {
+    public AddAccessoriesViewModel setVideoLink(String videoLink) {
         this.videoLink = videoLink;
         return this;
     }

@@ -3,7 +3,7 @@ package org.samarBg.controllers;
 import org.samarBg.model.entities.BaseEntity;
 import org.samarBg.model.entities.UserEntity;
 import org.samarBg.model.entities.UserRoleEntity;
-import org.samarBg.model.entities.enums.UserRoleEnum;
+import org.samarBg.model.entities.enums.UserRole;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.repository.UserRoleRepository;
 import org.samarBg.service.ConfirmationLinkService;
@@ -101,7 +101,7 @@ public class RegisterPageController {
             }
 
             redirectAttributes.addFlashAttribute("successMessage",
-                    "Регистрацията е успешна!\nМоля преверете вашия Имейл за да активирате вашия профил.");
+                    "Регистрацията е успешна!\nМоля проверете вашия Имейл за да активирате вашия профил.");
 
             //Запис на Нов профил
             intUsers(userRegistrationViewModel);
@@ -114,8 +114,8 @@ public class RegisterPageController {
     //инцилизация на нов профил
     private void intUsers(UserRegistrationViewModel userRegistrationViewModel){
         // Създаване на потребителски роли
-        UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRoleEnum.ADMIN);
-        UserRoleEntity userRole = new UserRoleEntity().setRole(UserRoleEnum.USER);
+        UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRole.ADMIN);
+        UserRoleEntity userRole = new UserRoleEntity().setRole(UserRole.USER);
         userRoleRepository.saveAll(List.of(adminRole, userRole));
 
         UserEntity newUser = new UserEntity();
@@ -128,7 +128,7 @@ public class RegisterPageController {
                 .setActive(false)
                 .setImageUrl("images/userNameIcon1.png")
                 .setUserConfirmationCode(confirmationCode)
-                .setUserRoles(Collections.singleton(UserRoleEnum.USER));
+                .setUserRoles(Collections.singleton(UserRole.USER));
         setCurrentTimeStamps(newUser);
 
 

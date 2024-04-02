@@ -1,7 +1,7 @@
 package org.samarBg.model.entities;
 
-import org.samarBg.model.entities.enums.CityEnum;
-import org.samarBg.model.entities.enums.UserRoleEnum;
+import org.samarBg.model.entities.enums.City;
+import org.samarBg.model.entities.enums.UserRole;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public class UserEntity extends BaseEntity {
     private String email;
     private String phone;
     @Enumerated(EnumType.STRING)
-    private CityEnum city;
+    private City city;
     private boolean isActive;
     private String imageUrl;
     private String userConfirmationCode;
@@ -28,7 +28,7 @@ public class UserEntity extends BaseEntity {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @Column
-    private Set<UserRoleEnum> userRoles = new HashSet<>();
+    private Set<UserRole> userRoles = new HashSet<>();
     @Column(columnDefinition = "TIMESTAMP")
     protected Instant lastOnline;
     @Column
@@ -85,11 +85,11 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public CityEnum getCity() {
+    public City getCity() {
         return city;
     }
 
-    public UserEntity setCity(CityEnum city) {
+    public UserEntity setCity(City city) {
         this.city = city;
         return this;
     }
@@ -130,11 +130,11 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public Set<UserRoleEnum> getUserRoles() {
+    public Set<UserRole> getUserRoles() {
         return userRoles;
     }
 
-    public UserEntity setUserRoles(Set<UserRoleEnum> userRoles) {
+    public UserEntity setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
         return this;
     }

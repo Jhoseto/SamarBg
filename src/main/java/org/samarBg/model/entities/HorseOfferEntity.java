@@ -1,12 +1,11 @@
 package org.samarBg.model.entities;
 
-import org.samarBg.model.entities.enums.CityEnum;
-import org.samarBg.model.entities.enums.HorseCategoryEnum;
-import org.samarBg.model.entities.enums.OfferCategoryEnum;
-import org.samarBg.model.entities.enums.SexEnum;
+import org.samarBg.model.entities.enums.City;
+import org.samarBg.model.entities.enums.HorseCategory;
+import org.samarBg.model.entities.enums.OfferCategory;
+import org.samarBg.model.entities.enums.Sex;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class HorseOfferEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OfferCategoryEnum category;
+    private OfferCategory category;
     @Column(nullable = false)
     private String authorName;
 
@@ -32,22 +31,22 @@ public class HorseOfferEntity extends BaseEntity {
     private Boolean hiddenPhone;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private CityEnum city;
+    private City city;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column(nullable = false)
-    @Size(max = 350)
+    @Size(max = 500)
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private HorseCategoryEnum horseCategory;
+    private HorseCategory horseCategory;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SexEnum sex;
+    private Sex sex;
 
     @OneToMany(mappedBy = "horseOffer", cascade = CascadeType.ALL)
     private List<OfferImageEntity> images;
@@ -69,11 +68,11 @@ public class HorseOfferEntity extends BaseEntity {
         return this;
     }
 
-    public OfferCategoryEnum getCategory() {
+    public OfferCategory getCategory() {
         return category;
     }
 
-    public HorseOfferEntity setCategory(OfferCategoryEnum category) {
+    public HorseOfferEntity setCategory(OfferCategory category) {
         this.category = category;
         return this;
     }
@@ -114,11 +113,11 @@ public class HorseOfferEntity extends BaseEntity {
         return this;
     }
 
-    public CityEnum getCity() {
+    public City getCity() {
         return city;
     }
 
-    public HorseOfferEntity setCity(CityEnum city) {
+    public HorseOfferEntity setCity(City city) {
         this.city = city;
         return this;
     }
@@ -141,20 +140,20 @@ public class HorseOfferEntity extends BaseEntity {
         return this;
     }
 
-    public HorseCategoryEnum getHorseCategory() {
+    public HorseCategory getHorseCategory() {
         return horseCategory;
     }
 
-    public HorseOfferEntity setHorseCategory(HorseCategoryEnum horseCategory) {
+    public HorseOfferEntity setHorseCategory(HorseCategory horseCategory) {
         this.horseCategory = horseCategory;
         return this;
     }
 
-    public SexEnum getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public HorseOfferEntity setSex(SexEnum sex) {
+    public HorseOfferEntity setSex(Sex sex) {
         this.sex = sex;
         return this;
     }

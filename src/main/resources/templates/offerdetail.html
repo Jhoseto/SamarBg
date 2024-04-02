@@ -157,7 +157,7 @@
       <div class="div-block-22">
         <div class="div-block-24">
           <div class="text-block-13" th:text="'Вид:  '+${offer.horseCategory != null ? offer.horseCategory.toBG() : offer.accessoriesCategory.toBG()}">Вид : Кон</div>
-          <div class="text-block-13 _2" th:if="${offer.offerCategory == T(org.samarBg.model.entities.enums.OfferCategoryEnum).HORSES and offer.sex != null}" th:text="'Пол: ' + ${offer.sex.toBG()}">Пол: Мъжки</div>
+          <div class="text-block-13 _2" th:if="${offer.offerCategory == T(org.samarBg.model.entities.enums.OfferCategory).HORSES and offer.sex != null}" th:text="'Пол: ' + ${offer.sex.toBG()}">Пол: Мъжки</div>
           <div class="text-block-13 _3" th:text="'Област '+${offer.city.toBG()}">Област Смолян</div>
         </div>
       </div>

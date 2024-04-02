@@ -1,12 +1,12 @@
 package org.samarBg.model.entities.enums;
 
-public enum SexEnum {
+public enum Sex {
     MALE("Мъжки"),
     FEMALE("Женски");
 
     private final String BG;
 
-    SexEnum(String bg) {
+    Sex(String bg) {
         this.BG = bg;
     }
 

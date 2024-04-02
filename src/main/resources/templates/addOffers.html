@@ -54,12 +54,62 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     // Close modal when clicking outside the modal content
     window.addEventListener('click', function(event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = 'none';
         }
     });
 });
 </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fileInputs2 = document.querySelectorAll('.file-input2');
+      const modal2 = document.getElementById('modal2');
+      const modalImage2 = document.getElementById('modal-image2');
+      const closeBtn2 = document.querySelector('.close2');
+
+      fileInputs2.forEach(function(input) {
+        input.addEventListener('change', function() {
+          const previewId = this.id.replace('file-upload', 'file-preview');
+          const preview = document.getElementById(previewId);
+          preview.innerHTML = '';
+          const files = this.files;
+
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.classList.add('preview-image2');
+              img.setAttribute('alt', file.name);
+
+              img.addEventListener('click', function() {
+                modal2.style.display = 'block';
+                modalImage2.src = e.target.result;
+              });
+
+              preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+
+      // Close modal when clicking on close button
+      closeBtn2.addEventListener('click', function() {
+        modal2.style.display = 'none';
+      });
+
+      // Close modal when clicking outside the modal content
+      window.addEventListener('click', function(event) {
+        if (event.target === modal2) {
+          modal2.style.display = 'none';
+        }
+      });
+    });
+  </script>
   <style>
     body {
         font-family: Arial, sans-serif;
@@ -140,6 +190,86 @@ document.addEventListener("DOMContentLoaded", function() {
         display: block;
     }
 </style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .custom-file-uploader2 {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    .file-upload-container2 {
+      display: flex;
+      flex: 1 1 0; /* Разрешава контейнерът да се разшири или смали, за да се побере */
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid #8B4513;
+      border-radius: 10px;
+      padding: 0;
+      background-color: #ffffff;
+      transition: border-color 0.3s ease-in-out;
+      margin: 0 5px; /* Разстояние между контейнерите */
+    }
+    .file-upload-container2:hover {
+      border-color: #FFD700;
+    }
+    .file-label2 {
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .file-input2 {
+      display: none;
+    }
+    .file-preview2 {
+      display: flex;
+      flex-wrap: nowrap; /* Предотвратява автоматичното пренасяне на елементите на нов ред */
+      overflow-x: auto; /* Позволява хоризонтално превъртане, ако е необходимо */
+      padding: 10px; /* Добавя подравняване */
+    }
+    .preview-image2 {
+      max-width: 150px;
+      max-height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      border-style: solid;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      cursor: pointer;
+    }
+    .preview-image2:hover {
+      transform: scale(1.1);
+    }
+    /* Стилове за модалния прозорец */
+    .modal2 {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    .modal-content2 {
+      margin: auto;
+      display: block;
+      max-width: 80%;
+      max-height: 80%;
+    }
+    .modal-content2 img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+      display: block;
+    }
+  </style>
 </head>
 <body class="body-10">
 <div
@@ -179,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     id="wf-form-FormBlock" enctype="multipart/form-data" name="wf-form-FormBlocks" data-name="FormBlock" class="form-3" data-wf-page-id="66029e96641cd7e1c5196efe" data-wf-element-id="12d96c10-f3cd-cad0-96ad-54c25056494f">
                 <div class="field _1">
                   <label for="OfferName-3" class="field-label-9">Име на обявата</label>
-                  <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="256" name="OfferName-3" data-name="Offer Name 3" placeholder="Максимален размер - 30 символа..." type="text" id="OfferName-3" required=""></div>
+                  <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="256" name="OfferName-3" data-name="Offer Name 3" placeholder="Максимален размер - 50 символа..." type="text" id="OfferName-3" required=""></div>
                 <div class="field-2">
                   <div class="div-block-32">
                     <label for="horseCategory" class="field-label-9 _1">Вид на животното</label>
@@ -247,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
                 <div class="div-block-35">
                   <div class="text-block-20">Описание на Обявата</div>
-                  <textarea th:field="*{description}" id="field-3" name="field-3" maxlength="5000" data-name="Field 3" placeholder="Минималния размер на текста е 20  символа, а Максималния е 300..." required="" autofocus="true" class="textarea w-input"></textarea>
+                  <textarea th:field="*{description}" id="field-3" name="field-3" maxlength="5000" data-name="Field 3" placeholder="Минималния размер на текста е 20  символа, а Максималния е 500..." required="" autofocus="true" class="textarea w-input"></textarea>
                 </div>
                 <div>
                   <div class="text-block-20 _23">Снимки</div>
@@ -257,37 +387,37 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="file-upload-container">
                           <label for="file-upload1" class="file-label">
                             <span>Изберете файл 1</span>
-                            <input type="file" id="file-upload1" class="file-input" th:name="files">
+                            <input type="file" id="file-upload1" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview1" class="file-preview"></div>
+                          <div id="file-preview1" class="file-preview2"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload2" class="file-label">
                             <span>Изберете файл 2</span>
-                            <input type="file" id="file-upload2" class="file-input" th:name="files">
+                            <input type="file" id="file-upload2" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview2" class="file-preview"></div>
+                          <div id="file-preview2" class="file-preview2"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload3" class="file-label">
                             <span>Изберете файл 3</span>
-                            <input type="file" id="file-upload3" class="file-input" th:name="files">
+                            <input type="file" id="file-upload3" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview3" class="file-preview"></div>
+                          <div id="file-preview3" class="file-preview2"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload4" class="file-label">
                             <span>Изберете файл 4</span>
-                            <input type="file" id="file-upload4" class="file-input" th:name="files">
+                            <input type="file" id="file-upload4" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview4" class="file-preview"></div>
+                          <div id="file-preview4" class="file-preview2"></div>
                         </div>
                         <div class="file-upload-container">
                           <label for="file-upload5" class="file-label">
                             <span>Изберете файл 5</span>
-                            <input type="file" id="file-upload5" class="file-input" th:name="files">
+                            <input type="file" id="file-upload5" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview5" class="file-preview"></div>
+                          <div id="file-preview5" class="file-preview2"></div>
                         </div>
                       </div>
                       <!--  Modal for displaying full-size image  -->
@@ -316,7 +446,6 @@ document.addEventListener("DOMContentLoaded", function() {
                   <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
                 </div>
               </form>
-
               <div>
             </div>
             </div>
@@ -326,95 +455,137 @@ document.addEventListener("DOMContentLoaded", function() {
           <h1 class="heading-4">Създайте вашата обява, като попълните всички полета с правилната информация</h1>
           <div>
             <div class="form-block-3 w-form">
-              <form id="wf-form-FormBlock" name="wf-form-FormBlock" data-name="FormBlock" method="post" class="form-3" data-wf-page-id="66029e96641cd7e1c5196efe" data-wf-element-id="34e78f4b-ad92-4fb2-b8ba-2cba6cd0ee1e">
-                <div class="field _1"><label for="OfferName-4" class="field-label-9">Име на обявата</label><input class="text-field-2 w-input" autofocus="true" maxlength="256" name="OfferName-4" data-name="Offer Name 4" placeholder="Максимален размер - 30 символа..." type="text" id="OfferName-4" required=""></div>
+              <form method="post"
+                    th:action="@{/addOffers/addAccessoriesOffer}"
+                    th:object="${addAccessoriesOffer}"
+                      id="wf-form-FormBlock" enctype="multipart/form-data" name="wf-form-FormBlock" data-name="FormBlock" class="form-3" data-wf-page-id="66029e96641cd7e1c5196efe" data-wf-element-id="34e78f4b-ad92-4fb2-b8ba-2cba6cd0ee1e">
+                <div class="field _1">
+                  <label for="OfferName-4" class="field-label-9">Име на обявата</label>
+                  <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="256" name="OfferName-4" data-name="Offer Name 4" placeholder="Максимален размер - 30 символа..." type="text" id="OfferName-4" required=""></div>
                 <div class="field-2">
-                  <div class="div-block-32"><label for="field-6" class="field-label-9 _1 _3 _34">Вид аксесоар</label><select id="field-6" name="field-6" data-name="Field 6" required="" class="select-field-2 _11 w-select">
+                  <div class="div-block-32">
+                    <label for="field-6" class="field-label-9 _1 _3 _34">Вид аксесоар</label>
+                    <select th:field="*{accessoriesCategory}" id="field-6" name="field-6" data-name="Field 6" required="" class="select-field-2 _11 w-select">
                       <option value="none">-</option>
-                      <option value="HORSE">Кон</option>
-                      <option value="PONY">Пони</option>
-                      <option value="HEAVYHAULER">Тежкотоварен кон</option>
-                      <option value="MULE">Муле</option>
-                      <option value="DONKEY">Магаре</option>
+                      <option value="HORSESHOES">Подкови</option>
+                      <option value="SAMARI">Самари</option>
+                      <option value="SHOES">Обувки</option>
+                      <option value="HATS">Шапки</option>
+                      <option value="OTHERS">Други</option>
                     </select></div>
-                  <div class="div-block-32 _22 _1"><label for="field-6" class="field-label-9 _1">Населено Място</label><select id="field-2" name="field-2" data-name="Field 2" required="" class="select-field-2 _1 w-select">
-                      <option value="none">-</option>
+                  <div class="div-block-32 _22 _1">
+                    <label for="field-6" class="field-label-9 _1">Населено Място</label>
+                    <select th:field="*{city}" id="field-2" name="field-2" data-name="Field 2" required="" class="select-field-2 _1 w-select">
+                      <option value="-">-</option>
                       <option value="BLAGOEVGRAD">Благоевград</option>
                       <option value="BURGAS">Бургас</option>
+                      <option value="VARNA">Варна</option>
+                      <option value="VELIKO_TARNOVO">Велико Търново</option>
+                      <option value="VIDIN">Видин</option>
+                      <option value="VRATSA">Враца</option>
+                      <option value="GABROVO">Габрово</option>
+                      <option value="DOBRICH">Добрич</option>
+                      <option value="KARDZHALI">Кърджали</option>
+                      <option value="KYUSTENDIL">Кюстендил</option>
+                      <option value="LOVECH">Ловеч</option>
+                      <option value="MONTANA">Монтана</option>
+                      <option value="PAZARDZHIK">Пазарджик</option>
+                      <option value="PERNIK">Перник</option>
+                      <option value="PLEVEN">Плевен</option>
+                      <option value="PLOVDIV">Пловдив</option>
+                      <option value="RAZGRAD">Разград</option>
+                      <option value="RUSE">Русе</option>
+                      <option value="SILISTRA">Силистра</option>
+                      <option value="SLIVEN">Сливен</option>
+                      <option value="SMOLYAN">Смолян</option>
+                      <option value="SOFIA">София</option>
+                      <option value="STARA_ZAGORA">Стара Загора</option>
+                      <option value="TARGOVISHTE">Търговище</option>
+                      <option value="HASKOVO">Хасково</option>
+                      <option value="SHUMEN">Шумен</option>
+                      <option value="YAMBOL">Ямбол</option>
                     </select></div>
                 </div>
                 <div class="div-block-33">
-                  <div class="div-block-34"><label for="FieldPhone-5" class="field-label-9 _1 _33">Телефон</label><input class="text-field-3 w-input" autofocus="true" maxlength="256" name="FieldPhone-5" data-name="Field Phone 5" placeholder="0886 ХХХ ХХХ" type="text" id="FieldPhone-5" required=""><label class="w-checkbox checkbox-field"><input type="checkbox" name="checkbox-4" id="checkbox-4" data-name="Checkbox 4" class="w-checkbox-input"><span class="checkbox-label w-form-label" for="checkbox-4">Скрий телефона в обявата</span></label></div>
-                  <div class="div-block-34 _1"><label for="FieldPhone-5" class="field-label-9 _1 _4 _3">Цена</label><input class="text-field-4 _4 w-input" autofocus="true" maxlength="256" name="FieldPhone-2" data-name="Field Phone 2" placeholder="Въведете цяло число в Лева..." type="text" id="FieldPhone-2" required=""></div>
+                  <div class="div-block-34">
+                    <label for="FieldPhone-5" class="field-label-9 _1 _33">Телефон</label>
+                    <input th:field="*{phone}" class="text-field-3 w-input" autofocus="true" maxlength="256" name="FieldPhone-5" data-name="Field Phone 5" placeholder="0886 ХХХ ХХХ" type="text" id="FieldPhone-5" required="">
+                    <label class="w-checkbox checkbox-field">
+                      <input th:field="*{hiddenPhone}" type="checkbox" name="checkbox-4" id="checkbox-4" data-name="Checkbox 4" class="w-checkbox-input"><span class="checkbox-label w-form-label" for="checkbox-4">Скрий телефона в обявата</span></label></div>
+                  <div class="div-block-34 _1">
+                    <label for="FieldPhone-5" class="field-label-9 _1 _4 _3">Цена</label>
+                    <input th:field="*{price}" class="text-field-4 _4 w-input" autofocus="true" maxlength="256" name="FieldPhone-2" data-name="Field Phone 2" placeholder="Въведете цяло число в Лева..." type="text" id="FieldPhone-2" required=""></div>
                 </div>
                 <div class="div-block-35">
-                  <div class="text-block-20">Описание на Обявата</div><textarea id="field-3" name="field-3" maxlength="5000" data-name="Field 3" placeholder="Минималния размер на текста е 20  символа, а Максималния е 300..." required="" autofocus="true" class="textarea w-input"></textarea>
+                  <div class="text-block-20">Описание на Обявата</div>
+                  <textarea th:field="*{description}" id="field-3" name="field-3" maxlength="5000" data-name="Field 3" placeholder="Минималния размер на текста е 20  символа, а Максималния е 500..." required="" autofocus="true" class="textarea w-input"></textarea>
                 </div>
                 <div>
                   <div class="text-block-20 _23">Снимки</div>
                   <div class="div-block-36">
                     <div class="html-embed w-embed">
-                      <div class="custom-file-uploader">
-                        <div class="file-upload-container">
-                          <label for="file-upload1" class="file-label">
+                      <div class="custom-file-uploader2">
+                        <div class="file-upload-container2">
+                          <label for="file-upload6" class="file-label2">
                             <span>Изберете файл 1</span>
-                            <input type="file" id="file-upload1" class="file-input" >
+                            <input type="file" id="file-upload6" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview1" class="file-preview"></div>
+                          <div id="file-preview6" class="file-preview2"></div>
                         </div>
-                        <div class="file-upload-container">
-                          <label for="file-upload2" class="file-label">
+                        <div class="file-upload-container2">
+                          <label for="file-upload7" class="file-label2">
                             <span>Изберете файл 2</span>
-                            <input type="file" id="file-upload2" class="file-input" >
+                            <input type="file" id="file-upload7" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview2" class="file-preview"></div>
+                          <div id="file-preview7" class="file-preview2"></div>
                         </div>
-                        <div class="file-upload-container">
-                          <label for="file-upload3" class="file-label">
+                        <div class="file-upload-container2">
+                          <label for="file-upload8" class="file-label2">
                             <span>Изберете файл 3</span>
-                            <input type="file" id="file-upload3" class="file-input" >
+                            <input type="file" id="file-upload8" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview3" class="file-preview"></div>
+                          <div id="file-preview8" class="file-preview2"></div>
                         </div>
-                        <div class="file-upload-container">
-                          <label for="file-upload4" class="file-label">
+                        <div class="file-upload-container2">
+                          <label for="file-upload9" class="file-label2">
                             <span>Изберете файл 4</span>
-                            <input type="file" id="file-upload4" class="file-input" >
+                            <input type="file" id="file-upload9" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview4" class="file-preview"></div>
+                          <div id="file-preview9" class="file-preview2"></div>
                         </div>
-                        <div class="file-upload-container">
-                          <label for="file-upload5" class="file-label">
+                        <div class="file-upload-container2">
+                          <label for="file-upload10" class="file-label2">
                             <span>Изберете файл 5</span>
-                            <input type="file" id="file-upload5" class="file-input">
+                            <input type="file" id="file-upload10" class="file-input2" th:name="files">
                           </label>
-                          <div id="file-preview5" class="file-preview"></div>
+                          <div id="file-preview10" class="file-preview2"></div>
                         </div>
                       </div>
-                      <!--  Modal for displaying full-size image  -->
-                      <div id="modal" class="modal">
-                        <div class="modal-content">
-                          <span class="close">&times;</span>
-                          <img id="modal-image" class="preview-image">
+                      <!-- Modal for displaying full-size image -->
+                      <div id="modal2" class="modal2">
+                        <div class="modal-content2">
+                          <span class="close2">&times;</span>
+                          <img id="modal-image2" class="preview-image2">
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="div-block-47">
+                  <div class="div-block-47">
                   <div class="div-block-46">
                     <div class="text-block-20 _23">Видео -&gt;</div>
                   </div>
-                  <div class="div-block-48"><input class="text-field-5 w-input" autofocus="true" maxlength="256" name="VideoLinkYoutube-4" data-name="Video Link Youtube 4" placeholder="Поставете връзка към Youtube ..." type="text" id="VideoLinkYoutube-4" required=""></div>
+                  <div class="div-block-48">
+                    <input th:field="*{videoLink}" class="text-field-5 w-input" autofocus="true" maxlength="256" name="VideoLinkYoutube-4" data-name="Video Link Youtube 4" placeholder="Поставете връзка към Youtube ..." type="text" id="VideoLinkYoutube-4" ></div>
                 </div><input type="submit" data-wait="Please wait..." class="submit-button-2 w-button" value="Преглед на Обявата">
+                  <div>
+                    <p th:if="${error}" class="error-text" style="color: #dc3838;"></p>
+                    <p th:text="${error}" class="error-text" style="color: #dc3838;"></p>
+                  </div>
+                  <div th:if="${successMessage}" class="error-message">
+                    <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
+                  </div>
+                </div>
               </form>
-              <div>
-                <p th:if="${error}" class="error-text" style="color: #dc3838;"></p>
-                <p th:text="${error}" class="error-text" style="color: #dc3838;"></p>
-              </div>
-              <div th:if="${successMessage}" class="error-message">
-                <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
-              </div>
               <div>
               </div>
             </div>

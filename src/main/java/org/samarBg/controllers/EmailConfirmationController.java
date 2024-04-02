@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Controller
 public class EmailConfirmationController {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public EmailConfirmationController(UserRepository userRepository) {
         this.userRepository = userRepository;

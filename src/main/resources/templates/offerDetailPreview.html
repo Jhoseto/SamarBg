@@ -57,7 +57,7 @@
 
         <div class="div-block-24">
           <div class="text-block-13" th:text="'Вид:  '+${offers.horseCategory != null ? offers.horseCategory.toBG() : offers.accessoriesCategory.toBG()}">Вид : Кон</div>
-          <div class="text-block-13 _2" th:if="${offers.offerCategory == T(org.samarBg.model.entities.enums.OfferCategoryEnum).HORSES and offers.sex != null}" th:text="'Пол: ' + ${offers.sex.toBG()}">Пол: Мъжки</div>
+          <div class="text-block-13 _2" th:if="${offers.offerCategory == T(org.samarBg.model.entities.enums.OfferCategory).HORSES and offers.sex != null}" th:text="'Пол: ' + ${offers.sex.toBG()}">Пол: Мъжки</div>
           <div class="text-block-13 _3" th:text="'Област '+${offers.city.toBG()}">Област Смолян</div>
         </div>
       </div>
@@ -69,9 +69,13 @@
         <div class="text-block-14 _122" th:text="'Обновена на: '+${#dates.format(offers.modifiedDate, 'yyyy/MM/dd HH:mm')}"> Обновена на : 02/03/2024</div>
       </div>
       <div class="div-block-23">
-        <a th:href="@{${#httpServletRequest.getHeader('Referer')}}" class="buttonfavorites w-button">Върни се назад</a>
-        <form method="post" th:action="@{/activate-offer}">
+        <form method="post"
+              th:action="@{'/deleteOffer/' + ${offerId}}">
           <input type="hidden" name="offerId" th:value="${offerId}">
+          <button type="submit" class="buttonfavorites w-button">Върни се назад</button>
+        </form>
+        <form method="post" th:action="@{/activate-offer}">
+          <input type="hidden" name="offerId" th:value="${offers.id}">
           <button type="submit" class="buttonfavorites w-button">ПУБЛИКУВАЙ</button>
         </form>
       </div>
@@ -98,7 +102,7 @@
             <div class="text-block-11" th:text="${offers.authorName}">Nickname</div>
             <div class="text-block-10" th:text="'Потребителя има '+${offers.getAuthorOffersNumbers()}+' качени обяви'">Потребителя има 3 качени обяви</div>
             <div class="text-block-10 _2" th:text="'Регистриран на '+${#dates.format(offers.getAuthorRegistrationData(),'dd/MM/yyyy')}">Регистриран на : 22/03/2024</div>
-            <div class="text-block-10 _2" th:text="'Последно активен на: ' + ${#dates.format(offers.getAuthorLastOnlineDate(), 'dd/MM/yyyy')}">22/03/2024</div>
+            <div class="text-block-10 _2" th:text="'Последно активен на: ' + ${#dates.format(offers.getAuthorLastOnlineDate(), 'dd/MM/yyyy HH:mm')}">22/03/2024</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 package org.samarBg.model.entities.enums;
 
-public enum HorseCategoryEnum {
+public enum HorseCategory {
     HORSE("Кон"),
     PONY("Пони"),
     HEAVYHAULER("Тежкотоварен кон"),
@@ -9,7 +9,7 @@ public enum HorseCategoryEnum {
 
     private final String BG;
 
-    HorseCategoryEnum(String bg) {
+    HorseCategory(String bg) {
         this.BG = bg;
     }
 

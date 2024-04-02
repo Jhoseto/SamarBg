@@ -1,6 +1,6 @@
 package org.samarBg.model.entities.enums;
 
-public enum AccessoriesEnum {
+public enum AccessoriesCategory {
 
     HORSESHOES("Подкови"),
     SAMARI("Самари"),
@@ -10,7 +10,7 @@ public enum AccessoriesEnum {
 
     private final String BG;
 
-    AccessoriesEnum(String bg) {
+    AccessoriesCategory(String bg) {
         this.BG = bg;
     }
 

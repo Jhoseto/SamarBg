@@ -1,11 +1,13 @@
 package org.samarBg.service;
 
+import org.samarBg.model.entities.AccessoryOfferEntity;
 import org.samarBg.model.entities.BaseEntity;
 import org.samarBg.model.entities.HorseOfferEntity;
 import org.samarBg.model.entities.OfferImageEntity;
-import org.samarBg.model.entities.enums.OfferCategoryEnum;
+import org.samarBg.model.entities.enums.OfferCategory;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
+import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,7 +54,7 @@ public class AddOffersService {
         }
 
         horseOffer.setOfferName(addOfferHorseViewModel.getOfferName());
-        horseOffer.setCategory(OfferCategoryEnum.HORSES);
+        horseOffer.setCategory(OfferCategory.HORSES);
         horseOffer.setBasicImageUrl(imageUrls.get(0)); // Променено получаването на основната снимка
         horseOffer.setImages(images);
         horseOffer.setHorseCategory(addOfferHorseViewModel.getHorseCategory());
@@ -67,13 +69,43 @@ public class AddOffersService {
         setCurrentTimeStamps(horseOffer);
         horseOffer.setAuthorName(username);
 
-        // запазване на обявата в репозиторито
-//       entity e = mapper.map(dto/model, user)
-//        e.setuser
         horseOfferRepository.save(horseOffer);
-
         return horseOffer.getId();
     }
+
+    public Long addAccessoriesOffer(AddAccessoriesViewModel addAccessoriesViewModel, List<String> imageUrls) {
+        AccessoryOfferEntity accessoriesOffer = new AccessoryOfferEntity();
+
+        // Getting userName for current user from CurrentUserService
+        String username = currentUserService.getCurrentUser().getUsername();
+
+        List<OfferImageEntity> images = new ArrayList<>();
+        for (String imageUrl : imageUrls) {
+            OfferImageEntity offerImage = new OfferImageEntity();
+            offerImage.setImagePath(imageUrl); // мапиране на пътя към снимката
+            offerImage.setAccessoryOffer(accessoriesOffer); // Свързване на снимката с обявата за кон
+            images.add(offerImage);
+        }
+
+        accessoriesOffer.setOfferName(addAccessoriesViewModel.getOfferName());
+        accessoriesOffer.setCategory(OfferCategory.ACCESSORIES);
+        accessoriesOffer.setBasicImageUrl(imageUrls.get(0)); // Променено получаването на основната снимка
+        accessoriesOffer.setImages(images);
+        accessoriesOffer.setAccessoriesCategory(addAccessoriesViewModel.getAccessoriesCategory());
+        accessoriesOffer.setPrice(addAccessoriesViewModel.getPrice());
+        accessoriesOffer.setPhone(addAccessoriesViewModel.getPhone());
+        accessoriesOffer.setHiddenPhone(addAccessoriesViewModel.isHiddenPhone());
+        accessoriesOffer.setCity(addAccessoriesViewModel.getCity());
+        accessoriesOffer.setDescription(addAccessoriesViewModel.getDescription());
+        accessoriesOffer.setIsActive(0);
+        accessoriesOffer.setVideoLink(addAccessoriesViewModel.getVideoLink());
+        setCurrentTimeStamps(accessoriesOffer);
+        accessoriesOffer.setAuthorName(username);
+
+        accessoriesOfferRepository.save(accessoriesOffer);
+        return accessoriesOffer.getId();
+    }
+
 
 
     public List<String> uploadImages(List<MultipartFile> files) throws IOException {

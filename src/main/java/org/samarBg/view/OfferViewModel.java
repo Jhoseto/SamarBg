@@ -11,13 +11,13 @@ public class OfferViewModel {
     private Long id;
     private String basicImageUrl;
     private List<String> imagesUrls;
-    private OfferCategoryEnum offerCategory;
-    private HorseCategoryEnum horseCategory;
-    private AccessoriesEnum accessoriesCategory;
-    private SexEnum sex;
+    private OfferCategory offerCategory;
+    private HorseCategory horseCategory;
+    private AccessoriesCategory accessoriesCategory;
+    private Sex sex;
     private BigDecimal price;
     private String phone;
-    private CityEnum city;
+    private City city;
     private String offerName;
     private String description;
     private int offerViewCount;
@@ -62,38 +62,38 @@ public class OfferViewModel {
         return this;
     }
 
-    public OfferCategoryEnum getOfferCategory() {
+    public OfferCategory getOfferCategory() {
         return offerCategory;
     }
 
-    public OfferViewModel setOfferCategory(OfferCategoryEnum offerCategory) {
+    public OfferViewModel setOfferCategory(OfferCategory offerCategory) {
         this.offerCategory = offerCategory;
         return this;
     }
 
-    public HorseCategoryEnum getHorseCategory() {
+    public HorseCategory getHorseCategory() {
         return horseCategory;
     }
 
-    public OfferViewModel setHorseCategory(HorseCategoryEnum horseCategory) {
+    public OfferViewModel setHorseCategory(HorseCategory horseCategory) {
         this.horseCategory = horseCategory;
         return this;
     }
 
-    public AccessoriesEnum getAccessoriesCategory() {
+    public AccessoriesCategory getAccessoriesCategory() {
         return accessoriesCategory;
     }
 
-    public OfferViewModel setAccessoriesCategory(AccessoriesEnum accessoriesCategory) {
+    public OfferViewModel setAccessoriesCategory(AccessoriesCategory accessoriesCategory) {
         this.accessoriesCategory = accessoriesCategory;
         return this;
     }
 
-    public SexEnum getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public OfferViewModel setSex(SexEnum sex) {
+    public OfferViewModel setSex(Sex sex) {
         this.sex = sex;
         return this;
     }
@@ -116,11 +116,11 @@ public class OfferViewModel {
         return this;
     }
 
-    public CityEnum getCity() {
+    public City getCity() {
         return city;
     }
 
-    public OfferViewModel setCity(CityEnum city) {
+    public OfferViewModel setCity(City city) {
         this.city = city;
         return this;
     }

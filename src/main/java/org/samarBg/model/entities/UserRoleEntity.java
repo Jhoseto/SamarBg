@@ -1,16 +1,16 @@
 package org.samarBg.model.entities;
 
-import org.samarBg.model.entities.enums.UserRoleEnum;
+import org.samarBg.model.entities.enums.UserRole;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user_roles")
 public class UserRoleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Enumerated(EnumType.STRING)
-    private UserRoleEnum role;
+    private UserRole role;
 
 
     public long getId() {
@@ -26,7 +26,7 @@ public class UserRoleEntity {
         return role;
     }
 
-    public UserRoleEntity setRole(UserRoleEnum role) {
+    public UserRoleEntity setRole(UserRole role) {
         this.role = role;
         return this;
     }

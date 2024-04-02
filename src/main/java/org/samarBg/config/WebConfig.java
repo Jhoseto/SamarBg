@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://213.91.128.33:2662")
+                .allowedOriginPatterns("http://localhost:2662")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowCredentials(true)
                 .maxAge(3600);
@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 //http://localhost:8080
 //http://213.91.128.33:2662
 
-//TODO СУПЕР ВАЖНО !!!
+//TODO ВАЖНО !!!
 // Изключване на кеширането на статичните ресурси в тази директория за
 // да може да се актуализират профилните снимки от потребителите.
 // Единствения вариант за сега...

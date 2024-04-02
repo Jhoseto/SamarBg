@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class OfferImageEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column( nullable = false)

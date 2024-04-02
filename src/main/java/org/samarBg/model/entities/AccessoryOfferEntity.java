@@ -1,9 +1,9 @@
 package org.samarBg.model.entities;
 
 
-import org.samarBg.model.entities.enums.AccessoriesEnum;
-import org.samarBg.model.entities.enums.CityEnum;
-import org.samarBg.model.entities.enums.OfferCategoryEnum;
+import org.samarBg.model.entities.enums.AccessoriesCategory;
+import org.samarBg.model.entities.enums.City;
+import org.samarBg.model.entities.enums.OfferCategory;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -18,13 +18,13 @@ public class AccessoryOfferEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OfferCategoryEnum category;
+    private OfferCategory category;
 
     @Column(nullable = false)
     private String authorName;
 
     @Column
-    private String imageUrl;
+    private String basicImageUrl;
     @Column(nullable = false)
     private String phone;
 
@@ -33,18 +33,18 @@ public class AccessoryOfferEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private CityEnum city;
+    private City city;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column(nullable = false)
-    @Size(max = 350)
+    @Size(max = 500)
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AccessoriesEnum accessoriesCategory;
+    private AccessoriesCategory accessoriesCategory;
 
     @OneToMany(mappedBy = "accessoryOffer", cascade = CascadeType.ALL)
     private List<OfferImageEntity> images;
@@ -68,11 +68,11 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
-    public OfferCategoryEnum getCategory() {
+    public OfferCategory getCategory() {
         return category;
     }
 
-    public AccessoryOfferEntity setCategory(OfferCategoryEnum category) {
+    public AccessoryOfferEntity setCategory(OfferCategory category) {
         this.category = category;
         return this;
     }
@@ -86,12 +86,12 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getBasicImageUrl() {
+        return basicImageUrl;
     }
 
-    public AccessoryOfferEntity setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public AccessoryOfferEntity setBasicImageUrl(String basicImageUrl) {
+        this.basicImageUrl = basicImageUrl;
         return this;
     }
 
@@ -113,11 +113,11 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
-    public CityEnum getCity() {
+    public City getCity() {
         return city;
     }
 
-    public AccessoryOfferEntity setCity(CityEnum city) {
+    public AccessoryOfferEntity setCity(City city) {
         this.city = city;
         return this;
     }
@@ -140,11 +140,11 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
-    public AccessoriesEnum getAccessoriesCategory() {
+    public AccessoriesCategory getAccessoriesCategory() {
         return accessoriesCategory;
     }
 
-    public AccessoryOfferEntity setAccessoriesCategory(AccessoriesEnum accessoriesCategory) {
+    public AccessoryOfferEntity setAccessoriesCategory(AccessoriesCategory accessoriesCategory) {
         this.accessoriesCategory = accessoriesCategory;
         return this;
     }

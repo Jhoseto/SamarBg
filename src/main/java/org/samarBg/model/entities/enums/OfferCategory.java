@@ -1,12 +1,12 @@
 package org.samarBg.model.entities.enums;
 
-public enum OfferCategoryEnum {
+public enum OfferCategory {
     HORSES("Коне"),
     ACCESSORIES("Аксесоари");
 
     private final String BG;
 
-    OfferCategoryEnum(String BG) {
+    OfferCategory(String BG) {
         this.BG = BG;
     }
 

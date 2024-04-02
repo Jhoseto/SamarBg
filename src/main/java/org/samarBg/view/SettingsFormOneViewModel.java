@@ -1,13 +1,13 @@
 package org.samarBg.view;
 
-import org.samarBg.model.entities.enums.CityEnum;
+import org.samarBg.model.entities.enums.City;
 
 public class SettingsFormOneViewModel {
 
 
     private String realName;
     private String phone;
-    private CityEnum city;
+    private City city;
 
     public String getRealName() {
         return realName;
@@ -27,11 +27,11 @@ public class SettingsFormOneViewModel {
         return this;
     }
 
-    public CityEnum getCity() {
+    public City getCity() {
         return city;
     }
 
-    public SettingsFormOneViewModel setCity(CityEnum city) {
+    public SettingsFormOneViewModel setCity(City city) {
         this.city = city;
         return this;
     }

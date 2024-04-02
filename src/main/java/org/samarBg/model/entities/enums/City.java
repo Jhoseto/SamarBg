@@ -1,6 +1,6 @@
 package org.samarBg.model.entities.enums;
 
-public enum CityEnum {
+public enum City {
     NONE("-"),
     BLAGOEVGRAD("Благоевград"),
     BURGAS("Бургас"),
@@ -32,7 +32,7 @@ public enum CityEnum {
 
     private final String BG;
 
-    CityEnum(String bg) {
+    City(String bg) {
         this.BG = bg;
     }
 
