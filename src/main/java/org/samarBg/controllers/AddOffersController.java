@@ -1,16 +1,12 @@
 package org.samarBg.controllers;
 
-import org.samarBg.model.entities.OfferImageEntity;
-import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.service.AddOffersService;
+import org.samarBg.service.implementation.AddOffersImpl;
 import org.samarBg.service.CurrentUserService;
-import org.samarBg.service.OfferService;
 import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;
-import org.samarBg.view.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +27,7 @@ public class AddOffersController {
                                AddOffersService addOffersService) {
         this.currentUserService = currentUserService;
         this.addOffersService = addOffersService;
+
 
     }
 

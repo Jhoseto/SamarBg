@@ -1,4 +1,4 @@
-package org.samarBg.service;
+package org.samarBg.service.implementation;
 
 import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.UserRepository;
@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public CustomUserDetailsImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -1,4 +1,4 @@
-package org.samarBg.service;
+package org.samarBg.service.Mappers;
 
 import org.samarBg.model.entities.AccessoryOfferEntity;
 import org.samarBg.model.entities.OfferImageEntity;

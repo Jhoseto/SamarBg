@@ -30,7 +30,10 @@ public class UserProfileController {
 
 
     @GetMapping("/userProfileDetail")
-    public String showUserProfile() {
+    public String showUserProfile(Model model) {
+        // Извличане на атрибута "user" от модела
+        UserProfileViewModel userProfileViewModel = (UserProfileViewModel) model.getAttribute("user");
+        model.addAttribute("user",userProfileViewModel);
         return "userProfileDetail";
     }
     @PostMapping("/getProfileDetail/{username}")

@@ -9,6 +9,8 @@ import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.repository.UserRepository;
+import org.samarBg.service.Mappers.MapperForAccessory;
+import org.samarBg.service.Mappers.MapperForHorses;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

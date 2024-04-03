@@ -1,6 +1,8 @@
 package org.samarBg.config;
 
 import org.modelmapper.ModelMapper;
+import org.samarBg.service.AddOffersService;
+import org.samarBg.service.implementation.AddOffersImpl;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -31,6 +33,7 @@ public class BeansConfig {
     public ModelMapper modelMapper (){
         return new ModelMapper();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

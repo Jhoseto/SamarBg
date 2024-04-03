@@ -17,8 +17,8 @@ public class CurrentUserService {
         this.userRepository = userRepository;
     }
 
-    /**SamarBG *
-     * Method getting information for current logged User for all session before he logout
+    /**
+     * Service for retrieving information about the currently logged-in user.
      */
     public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

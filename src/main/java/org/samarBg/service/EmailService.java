@@ -31,7 +31,7 @@ public class EmailService {
         emailSender.send(mailMessage);
     }
 
-
+//TODO forgotten password email
     public void sendForgottenPasswordEmail(String recipientEmail, String confirmationLink) throws MailException {
         // Създаване на обект за изпращане на имейл
         SimpleMailMessage mailMessage = new SimpleMailMessage();
