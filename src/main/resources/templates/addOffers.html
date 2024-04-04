@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     id="wf-form-FormBlock" enctype="multipart/form-data" name="wf-form-FormBlocks" data-name="FormBlock" class="form-3" data-wf-page-id="66029e96641cd7e1c5196efe" data-wf-element-id="12d96c10-f3cd-cad0-96ad-54c25056494f">
                 <div class="field _1">
                   <label for="OfferName-3" class="field-label-9">Име на обявата</label>
-                  <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="256" name="OfferName-3" data-name="Offer Name 3" placeholder="Максимален размер - 50 символа..." type="text" id="OfferName-3" required=""></div>
+                  <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="50" name="OfferName-3" data-name="Offer Name 3" placeholder="Максимален размер - 50 символа..." type="text" id="OfferName-3" required=""></div>
                 <div class="field-2">
                   <div class="div-block-32">
                     <label for="horseCategory" class="field-label-9 _1">Вид на животното</label>
@@ -368,16 +368,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="div-block-33">
                   <div class="div-block-34">
                     <label for="FieldPhone-4" class="field-label-9 _1 _33">Телефон</label>
-                    <input th:field="*{phone}" class="text-field-3 w-input" autofocus="true" maxlength="256" name="FieldPhone-4" data-name="Field Phone 4" placeholder="0886 ХХХ ХХХ" type="text" id="FieldPhone-4" required="">
+                    <input th:field="*{phone}" class="text-field-3 w-input" autofocus="true" maxlength="15" minlength="10" name="FieldPhone-4" data-name="Field Phone 4" placeholder="0886 ХХХ ХХХ" type="text" id="FieldPhone-4"
+                           required pattern="[0-9]+(\.[0-9]+)?"
+                           title="Моля, въведете реален телефонен номер">>
                     <label class="w-checkbox checkbox-field">
-                      <input th:checkbox="*{hiddenPhone}" type="checkbox" name="checkbox-3" id="checkbox-3" data-name="Checkbox 3" class="w-checkbox-input"><span class="checkbox-label w-form-label" for="checkbox-3">Скрий телефона в обявата</span></label></div>
+                      <input th:checkbox="*{hiddenPhone}" type="checkbox" name="checkbox-3" id="checkbox-3" data-name="Checkbox 3" class="w-checkbox-input">
+                      <span class="checkbox-label w-form-label" for="checkbox-3">Скрий телефона в обявата</span>
+                    </label>
+                  </div>
                   <div class="div-block-34 _1">
-                    <label for="FieldPhone-4" class="field-label-9 _1 _4 _3">Цена</label>
-                    <input th:field="*{price}" class="text-field-4 _4 w-input" autofocus="true" maxlength="256" name="FieldPhone-2" data-name="Field Phone 2" placeholder="Въведете цяло число в Лева..." type="text" id="FieldPhone-2" required=""></div>
+                    <label for="FieldPrice" class="field-label-9 _1 _4 _3">Цена</label>
+                    <input th:field="*{price}" class="text-field-4 _4 w-input" maxlength="256" name="FieldPrice" data-name="Field Price" placeholder="Въведете цяло число в Лева..." type="text" id="FieldPrice"
+                           required pattern="[0-9]+(\.[0-9]+)?"
+                           title="Моля, въведете реалистична цена (само цели или десетични числа)">
+                  </div>
                 </div>
                 <div class="div-block-35">
                   <div class="text-block-20">Описание на Обявата</div>
-                  <textarea th:field="*{description}" id="field-3" name="field-3" maxlength="5000" data-name="Field 3" placeholder="Минималния размер на текста е 20  символа, а Максималния е 1000..." required="" autofocus="true" class="textarea w-input"></textarea>
+                  <textarea th:field="*{description}" id="field-3" name="field-3" maxlength="1000" minlength="20" data-name="Field 3" placeholder="Минималният размер на текста е 20 символа, а максималният е 1000..." required autofocus class="textarea w-input"></textarea>
                 </div>
                 <div>
                   <div class="text-block-20 _23">Снимки</div>
@@ -461,7 +469,7 @@ document.addEventListener("DOMContentLoaded", function() {
                       id="wf-form-FormBlock" enctype="multipart/form-data" name="wf-form-FormBlock" data-name="FormBlock" class="form-3" data-wf-page-id="66029e96641cd7e1c5196efe" data-wf-element-id="34e78f4b-ad92-4fb2-b8ba-2cba6cd0ee1e">
                 <div class="field _1">
                   <label for="OfferName-4" class="field-label-9">Име на обявата</label>
-                  <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="256" name="OfferName-4" data-name="Offer Name 4" placeholder="Максимален размер - 30 символа..." type="text" id="OfferName-4" required=""></div>
+                  <input th:field="*{offerName}" class="text-field-2 w-input" autofocus="true" maxlength="50" name="OfferName-4" data-name="Offer Name 4" placeholder="Максимален размер - 30 символа..." type="text" id="OfferName-4" required=""></div>
                 <div class="field-2">
                   <div class="div-block-32">
                     <label for="field-6" class="field-label-9 _1 _3 _34">Вид аксесоар</label>
@@ -509,18 +517,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="div-block-33">
                   <div class="div-block-34">
                     <label for="FieldPhone-5" class="field-label-9 _1 _33">Телефон</label>
-                    <input th:field="*{phone}" class="text-field-3 w-input" autofocus="true" maxlength="256" name="FieldPhone-5" data-name="Field Phone 5" placeholder="0886 ХХХ ХХХ" type="text" id="FieldPhone-5" required="">
+                    <input th:field="*{phone}" class="text-field-3 w-input" autofocus="true" maxlength="15" minlength="8" name="FieldPhone-5" data-name="Field Phone 5" placeholder="0886 ХХХ ХХХ" type="text" id="FieldPhone-5"
+                           required pattern="[0-9]+(\.[0-9]+)?"
+                           title="Моля, въведете реален телефонен номер">
                     <label class="w-checkbox checkbox-field">
                       <input th:field="*{hiddenPhone}" type="checkbox" name="checkbox-4" id="checkbox-4" data-name="Checkbox 4" class="w-checkbox-input"><span class="checkbox-label w-form-label" for="checkbox-4">Скрий телефона в обявата</span></label></div>
                   <div class="div-block-34 _1">
                     <label for="FieldPhone-5" class="field-label-9 _1 _4 _3">Цена</label>
-                    <input th:field="*{price}" class="text-field-4 _4 w-input" autofocus="true" maxlength="256" name="FieldPhone-2" data-name="Field Phone 2" placeholder="Въведете цяло число в Лева..." type="text" id="FieldPhone-2" required=""></div>
-                </div>
-                <div class="div-block-35">
-                  <div class="text-block-20">Описание на Обявата</div>
-                  <textarea th:field="*{description}" id="field-3" name="field-3" maxlength="5000" data-name="Field 3" placeholder="Минималния размер на текста е 20  символа, а Максималния е 1000..." required="" autofocus="true" class="textarea w-input"></textarea>
-                </div>
-                <div>
+                    <input th:field="*{price}" class="text-field-4 _4 w-input" maxlength="256" name="FieldPrice" data-name="Field Price" placeholder="Въведете цяло число в Лева..." type="text" id="FieldPrice"
+                           required pattern="[0-9]+(\.[0-9]+)?"
+                           title="Моля, въведете реалистична цена (само цели или десетични числа)">                </div>
+                  <div class="div-block-35">
+                    <div class="text-block-20">Описание на Обявата</div>
+                    <textarea th:field="*{description}" id="field-3" name="field-3" maxlength="1000" minlength="20" data-name="Field 3" placeholder="Минималният размер на текста е 20 символа, а максималният е 1000..." required autofocus class="textarea w-input"></textarea>
+                  </div>
+                  <div>
                   <div class="text-block-20 _23">Снимки</div>
                   <div class="div-block-36">
                     <div class="html-embed w-embed">

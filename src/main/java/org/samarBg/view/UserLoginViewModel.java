@@ -18,7 +18,7 @@ public class UserLoginViewModel {
 
 
     public String getEmail() {
-        return Encode.forHtml(email);
+        return email;
     }
 
     public UserLoginViewModel setEmail(String email) {
@@ -27,15 +27,14 @@ public class UserLoginViewModel {
     }
 
     public String getPassword() {
-        return Encode.forHtml(password);
+        return password;
     }
-
 
     public UserLoginViewModel setPassword(String password) {
         this.password = password;
         return this;
-
     }
+
     public boolean isActive() {
         return isActive;
     }

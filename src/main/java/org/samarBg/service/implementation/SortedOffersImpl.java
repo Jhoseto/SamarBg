@@ -25,23 +25,21 @@ public class SortedOffersImpl implements SortedOfferService {
         // Ако filter е "Expensive", сортираме в обратен ред
         if ("Expensive".equals(filter)) {
             allOffersByPrice.sort(priceComparator.reversed());
-        } else {
+        } else if ("Cheap".equals(filter)){
             //  сортираме във възходящ ред (най-евтините първи)
             allOffersByPrice.sort(priceComparator);
         }
-
         return allOffersByPrice;
     }
 
     @Override
     public List<OfferViewModel> sortedOffersByDate(String filter) {
         List<OfferViewModel> allOffersByDate = offerService.getAllOffers();
-
         Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
-        if ("new".equals(filter)) {
+        if ("new".equalsIgnoreCase(filter)) {
             allOffersByDate.sort(dateComparator.reversed());
-        } else {
+        } else if ("old".equalsIgnoreCase(filter)) {
             allOffersByDate.sort(dateComparator);
         }
         return allOffersByDate;
@@ -54,5 +52,78 @@ public class SortedOffersImpl implements SortedOfferService {
 
         allOffersByView.sort(viewComparator);
         return allOffersByView;
+    }
+
+    @Override
+    public List<OfferViewModel> sortedHorseOffersByPrice(String filter) {
+        List<OfferViewModel> allHorseOffersByPrice = offerService.getAllHorsesOffers();
+        // компаратор за сортиране по цена
+        Comparator<OfferViewModel> priceComparator = Comparator.comparing(OfferViewModel::getPrice);
+
+        // Ако filter е "Expensive", сортираме в обратен ред
+        if ("Expensive".equals(filter)) {
+            allHorseOffersByPrice.sort(priceComparator.reversed());
+        } else if ("Cheap".equals(filter)){
+            //  сортираме във възходящ ред (най-евтините първи)
+            allHorseOffersByPrice.sort(priceComparator);
+        }
+        return allHorseOffersByPrice;
+    }
+
+    @Override
+    public List<OfferViewModel> sortedHorseOffersByDate(String filter) {
+        List<OfferViewModel> allHorseOffersByDate = offerService.getAllHorsesOffers();
+        Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
+
+        if ("new".equalsIgnoreCase(filter)) {
+            allHorseOffersByDate.sort(dateComparator.reversed());
+        } else if ("old".equalsIgnoreCase(filter)) {
+            allHorseOffersByDate.sort(dateComparator);
+        }
+        return allHorseOffersByDate;
+    }
+
+    @Override
+    public List<OfferViewModel> sortedHorseOffersByView(String filter) {
+        List<OfferViewModel> allHorseOffersByView = offerService.getAllHorsesOffers();
+        Comparator<OfferViewModel> viewComparator = Comparator.comparing(OfferViewModel::getCreateDate);
+
+        allHorseOffersByView.sort(viewComparator);
+        return allHorseOffersByView;
+    }
+
+    @Override
+    public List<OfferViewModel> sortedAccessoriesOffersByPrice(String filter) {
+        List<OfferViewModel> allAccessoriesOffersByPrice = offerService.getAllAccessoryOffers();
+        Comparator<OfferViewModel> priceComparator = Comparator.comparing(OfferViewModel::getPrice);
+
+        if ("Expensive".equals(filter)) {
+            allAccessoriesOffersByPrice.sort(priceComparator.reversed());
+        } else if ("Cheap".equals(filter)){
+            allAccessoriesOffersByPrice.sort(priceComparator);
+        }
+        return allAccessoriesOffersByPrice;
+    }
+
+    @Override
+    public List<OfferViewModel> sortedAccessoriesOffersByDate(String filter) {
+        List<OfferViewModel> allAccessoriesHorseOffersByDate = offerService.getAllAccessoryOffers();
+        Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
+
+        if ("new".equalsIgnoreCase(filter)) {
+            allAccessoriesHorseOffersByDate.sort(dateComparator.reversed());
+        } else if ("old".equalsIgnoreCase(filter)) {
+            allAccessoriesHorseOffersByDate.sort(dateComparator);
+        }
+        return allAccessoriesHorseOffersByDate;
+    }
+
+    @Override
+    public List<OfferViewModel> sortedAccessoriesOffersByView(String filter) {
+        List<OfferViewModel> allAccessoriesHorseOffersByView = offerService.getAllAccessoryOffers();
+        Comparator<OfferViewModel> viewComparator = Comparator.comparing(OfferViewModel::getCreateDate);
+
+        allAccessoriesHorseOffersByView.sort(viewComparator);
+        return allAccessoriesHorseOffersByView;
     }
 }

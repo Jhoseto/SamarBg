@@ -66,7 +66,7 @@
           <div>
             <div class="form-block-5 w-form">
               <form method="post"
-                    th:action="@{/sortAllOffers}"
+                    th:action="@{/allOffers}"
                     id="email-form-3" name="email-form-3" data-name="Email Form 3" class="form-6" data-wf-page-id="660d36b1388326f5f5a03f4b" data-wf-element-id="599196a8-0d83-5537-e206-01b6964c9aa4">
                 <label for="filter-select" class="field-label-11">Филтър</label>
                 <select id="filter-select" name="filter-select" data-name="filter select" class="select-field-4 w-select">
@@ -91,7 +91,7 @@
           </div>
           <div class="uui-blog01_component">
             <div class="uui-blog01_list-wrapper">
-              <div class="w-layout-grid uui-blog01_list" >
+              <div class="w-layout-grid uui-blog01_list" id="offersContainer">
                 <div class="adswindow" th:each="offer : ${offers}" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
                 <!-- offer-model.html за всяка обява -->
 
