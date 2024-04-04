@@ -6,11 +6,12 @@ import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.view.OfferViewModel;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public final class MapperForHorses {
     private final UserRepository userRepository;
     private final OfferImageRepository offerImageRepository;

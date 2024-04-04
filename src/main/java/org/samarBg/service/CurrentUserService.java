@@ -18,7 +18,9 @@ public class CurrentUserService {
     }
 
     /**
-     * Service for retrieving information about the currently logged-in user.
+     * Retrieves information about the currently logged-in user.
+     *
+     * @return the UserEntity object representing the currently logged-in user, or null if no user is logged in
      */
     public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

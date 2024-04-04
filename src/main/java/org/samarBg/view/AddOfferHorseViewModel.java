@@ -31,7 +31,7 @@ public class AddOfferHorseViewModel {
     @NotNull(message = "Моля изберете населено място")
     private City city;
     @NotNull(message = "Моля напишете описание на обявата ")
-    @Size(min = 20, max = 500, message = "Описанието на обявата трябва да бъде минимум 20 и максимум 500 символа !")
+    @Size(min = 20, max = 1000, message = "Описанието на обявата трябва да бъде минимум 20 и максимум 1000 символа !")
     private String description;
     private String authorName;
     private int offerViewCount;

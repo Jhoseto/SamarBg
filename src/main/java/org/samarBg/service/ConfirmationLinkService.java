@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 public class ConfirmationLinkService {
     public String generateConfirmationLink(UserEntity user) {
 
-
         // Генериране на URL адрес с уникален идентификатор на потребителя и код за потвърждение
-        String confirmationLink = "http://localhost:2662/confirm?userId="+ "&code=";
+        String confirmationLink = "http://213.91.128.33:2662/confirm?userId="+ "&code=";
 
         return confirmationLink;
     }

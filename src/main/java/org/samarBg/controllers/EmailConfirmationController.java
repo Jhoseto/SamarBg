@@ -15,6 +15,7 @@ public class EmailConfirmationController {
 
     public EmailConfirmationController(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
     @GetMapping("/confirm")
@@ -23,20 +24,15 @@ public class EmailConfirmationController {
 
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
-            // потребителя e активен
+
             user.setActive(true);
 
-            // Запсвам в базата
             userRepository.save(user);
-
-            //  към страницата за успешно потвърждение
             redirectAttributes.addFlashAttribute(
                     "message", "Вашият Имейл е потвърден !\n Можете да влезнете във вашият профил");
-
             return "redirect:/login";
         }
 
-        //  страница с грешка
         redirectAttributes.addFlashAttribute("error",
                 "Неуспешна активация ! Моля опитайте отново по-късно.");
         return "redirect:/registration";

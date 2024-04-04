@@ -19,15 +19,11 @@ import java.util.List;
 @Controller
 public class AddOffersController {
 
-    private final CurrentUserService currentUserService;
     private final AddOffersService addOffersService;
 
     @Autowired
-    public AddOffersController(CurrentUserService currentUserService,
-                               AddOffersService addOffersService) {
-        this.currentUserService = currentUserService;
+    public AddOffersController(AddOffersService addOffersService) {
         this.addOffersService = addOffersService;
-
 
     }
 

@@ -33,9 +33,6 @@ public class RegisterPageController {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final ConfirmationLinkService confirmationLinkService;
-
-
-
     private final EmailService emailService;
 
     @Autowired

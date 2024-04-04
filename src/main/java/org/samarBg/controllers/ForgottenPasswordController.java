@@ -25,7 +25,9 @@ public class ForgottenPasswordController {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ForgottenPasswordController(UserRepository userRepository, JavaMailSender emailSender, PasswordEncoder passwordEncoder) {
+    public ForgottenPasswordController(UserRepository userRepository,
+                                       JavaMailSender emailSender,
+                                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.emailSender = emailSender;
         this.passwordEncoder = passwordEncoder;
@@ -51,7 +53,6 @@ public class ForgottenPasswordController {
             modelAndView.setViewName("forgotten_password");
             return modelAndView;
         }
-
         UserEntity user = userOptional.get();
 
         String newPassword = generateRandomPassword();

@@ -63,6 +63,32 @@
               </div>
             </div>
           </div>
+          <div>
+            <div class="form-block-5 w-form">
+              <form method="post"
+                    th:action="@{/sortAllOffers}"
+                    id="email-form-3" name="email-form-3" data-name="Email Form 3" class="form-6" data-wf-page-id="660d36b1388326f5f5a03f4b" data-wf-element-id="599196a8-0d83-5537-e206-01b6964c9aa4">
+                <label for="filter-select" class="field-label-11">Филтър</label>
+                <select id="filter-select" name="filter-select" data-name="filter select" class="select-field-4 w-select">
+                  <option value="null">Сортирай по...</option>
+                  <option value="New">Най-нови -&gt;</option>
+                  <option value="Old">Най-стари -&gt;</option>
+                  <option value="Favorites">Най-популярни-&gt;</option>
+                  <option value="Expensive">Най-скъпи-&gt;</option>
+                  <option value="Cheap">Най-евтини-&gt;</option>
+                </select>
+                <input type="submit" data-wait="Please wait..." class="submit-button-4 w-button" value="Филтрирай">
+              </form>
+              <div class="w-form-done">
+                <div th:if="${successMessage}" class="error-message">
+                  <p th:text="${successMessage}" class="error-text" style="color: #ffffff;" ></p>
+              </div>
+              <div class="w-form-fail">
+                <p th:if="${error}" class="error-text" style="color: #e1e1e1;"></p>
+                <p th:text="${error}" class="error-text" style="color: #d5d5d5;"></p>
+              </div>
+            </div>
+          </div>
           <div class="uui-blog01_component">
             <div class="uui-blog01_list-wrapper">
               <div class="w-layout-grid uui-blog01_list" >
@@ -77,6 +103,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </header>
   <section class="footer">

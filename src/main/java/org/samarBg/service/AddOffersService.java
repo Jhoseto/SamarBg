@@ -2,6 +2,7 @@ package org.samarBg.service;
 
 import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Service for adding offers.
  */
+@Service
 public interface AddOffersService {
 
     /**
