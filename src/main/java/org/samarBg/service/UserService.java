@@ -1,58 +1,39 @@
 package org.samarBg.service;
 
 import org.samarBg.model.entities.UserEntity;
-import org.samarBg.repository.UserRepository;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.samarBg.view.UserProfileViewModel;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * The UserService interface provides methods for user-related operations.
+ * These methods allow for retrieving user information from the database.
+ */
 @Service
+public interface UserService {
 
-public class UserService  {
-    private final UserRepository userRepository;
+    /**
+     * Retrieve a user entity by email.
+     *
+     * @param email the email address of the user
+     * @return an Optional containing the user entity, or empty if not found
+     */
+    Optional<UserEntity> findUserByEmail(String email);
 
-    private final UserDetailsService userDetailsService;
+    /**
+     * Retrieve a user entity by username.
+     *
+     * @param username the username of the user
+     * @return an Optional containing the user entity, or empty if not found
+     */
+    Optional<UserEntity> findUserByUsername(String username);
 
-    private final PasswordEncoder passwordEncoder;
-
-
-    public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       UserDetailsService userDetailsService) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.userDetailsService = userDetailsService;
-    }
-
-
-    public Optional<UserEntity> findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-    public Optional<UserEntity> findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-
-    public Authentication authenticateUser(String email, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
-        if (userDetails != null && passwordEncoder.matches(password, userDetails.getPassword())) {
-            Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return authentication;
-        }
-        return null;
-    }
+    /**
+     * Retrieve a list of user profiles.
+     *
+     * @return a list of UserProfileViewModel objects representing user profiles
+     */
+    List<UserProfileViewModel> getAllUsers();
 }

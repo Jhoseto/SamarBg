@@ -43,6 +43,7 @@ public final class MapperForAccessory {
                 offer.setAccessoriesCategory(accessory.getAccessoriesCategory());
                 offer.setPrice(accessory.getPrice());
                 offer.setOfferName(accessory.getOfferName());
+                offer.setPhone(accessory.getPhone());
                 offer.setCity(accessory.getCity());
                 offer.setDescription(accessory.getDescription());
                 offer.setAuthorName(accessory.getAuthorName());

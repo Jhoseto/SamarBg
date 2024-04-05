@@ -7,6 +7,7 @@ import java.util.List;
 
 
 public class UserProfileViewModel {
+    private Long id;
     private String userName;
     private String realName;
     private String profileImageUrl;
@@ -16,6 +17,15 @@ public class UserProfileViewModel {
     private List<OfferViewModel> userOffers;
     private Instant lastOnline;
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserProfileViewModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public Instant getLastOnline() {
         return lastOnline;

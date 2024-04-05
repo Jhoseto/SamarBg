@@ -2,14 +2,12 @@ package org.samarBg.controllers;
 
 
 import org.samarBg.model.entities.OfferImageEntity;
-import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.OfferImageRepository;
-import org.samarBg.service.OfferService;
-import org.samarBg.service.UserService;
+import org.samarBg.service.implementation.OfferServiceImpl;
+import org.samarBg.service.implementation.UserServiceImpl;
 import org.samarBg.view.OfferViewModel;
-import org.samarBg.view.UserProfileViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,35 +16,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class OffersController {
 
-    private final OfferService offerService;
+    private final OfferServiceImpl offerServiceImpl;
     private final OfferImageRepository offerImageRepository;
     private final HorseOfferRepository horseOfferRepository;
     private final AccessoriesOfferRepository accessoriesOfferRepository;
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
 
-    public OffersController(OfferService offerService,
+    public OffersController(OfferServiceImpl offerServiceImpl,
                             OfferImageRepository offerImageRepository,
                             HorseOfferRepository horseOfferRepository,
                             AccessoriesOfferRepository accessoriesOfferRepository,
-                            UserService userService) {
-        this.offerService = offerService;
+                            UserServiceImpl userServiceImpl) {
+        this.offerServiceImpl = offerServiceImpl;
         this.offerImageRepository = offerImageRepository;
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
-        this.userService = userService;
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping("/allOffers")
     public String getAllOffers(Model model) throws Exception {
-        List<OfferViewModel> offers = offerService.getAllOffers();
+        List<OfferViewModel> offers = offerServiceImpl.getAllOffers();
 
         model.addAttribute("offers", offers);
         return "allOffers";
@@ -54,7 +50,7 @@ public class OffersController {
 
     @GetMapping("/allHorses")
     public String getAllHorses(Model model) throws Exception {
-        List<OfferViewModel> offers = offerService.getAllHorsesOffers();
+        List<OfferViewModel> offers = offerServiceImpl.getAllHorsesOffers();
 
         model.addAttribute("offers", offers);
         return "allHorses";
@@ -62,7 +58,7 @@ public class OffersController {
 
     @GetMapping("/allAccessories")
     public String getAllAccessory(Model model) {
-        List<OfferViewModel> offers = offerService.getAllAccessoryOffers();
+        List<OfferViewModel> offers = offerServiceImpl.getAllAccessoryOffers();
 
         model.addAttribute("offers", offers);
         return "allAccessories";
@@ -71,12 +67,12 @@ public class OffersController {
 
     @GetMapping("/offerdetail/{offerId}")
     public String showAllOfferDetailPage(@PathVariable Long offerId, Model model) {
-        OfferViewModel offer = offerService.findOfferById(offerId);
+        OfferViewModel offer = offerServiceImpl.findOfferById(offerId);
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
             // Запазване на обявата с новия брой на прегледите
-            offerService.saveInExistOffers(offer);
+            offerServiceImpl.saveInExistOffers(offer);
 
             model.addAttribute("offer", offer);
             return "offerdetail";
@@ -87,12 +83,12 @@ public class OffersController {
 
     @GetMapping("/allHorses/{offerId}")
     public String showHorseOfferDetailPage(@PathVariable Long offerId, Model model) {
-        OfferViewModel offer = offerService.findOfferById(offerId);
+        OfferViewModel offer = offerServiceImpl.findOfferById(offerId);
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
             // Запазване на обявата с новия брой на прегледите
-            offerService.saveInExistOffers(offer);
+            offerServiceImpl.saveInExistOffers(offer);
 
             model.addAttribute("offer", offer);
             return "offerdetail";
@@ -103,12 +99,12 @@ public class OffersController {
 
     @GetMapping("/allAccessories/{offerId}")
     public String showAccessoryOfferDetailPage(@PathVariable Long offerId, Model model) {
-        OfferViewModel offer = offerService.findOfferById(offerId);
+        OfferViewModel offer = offerServiceImpl.findOfferById(offerId);
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
             // Запазване на обявата с новия брой на прегледите
-            offerService.saveInExistOffers(offer);
+            offerServiceImpl.saveInExistOffers(offer);
 
             model.addAttribute("offer", offer);
             return "offerdetail";
@@ -120,7 +116,7 @@ public class OffersController {
     @PostMapping("/activate-offer")
     public String publishNewOffer(@RequestParam Long offerId, RedirectAttributes redirectAttributes) {
         try {
-            offerService.activateOffer(offerId);
+            offerServiceImpl.activateOffer(offerId);
 
             redirectAttributes.addFlashAttribute("successMessage", "Обявата беше успешно активирана.");
             return "redirect:/index";
@@ -132,7 +128,7 @@ public class OffersController {
 
     @GetMapping("/offerDetailPreview/{offerId}")
     public String showOfferDetailPreview(@PathVariable Long offerId, Model model) {
-        OfferViewModel offer = offerService.findOfferById(offerId);
+        OfferViewModel offer = offerServiceImpl.findOfferById(offerId);
 
         // Намиране на снимките за съответната обява
         List<OfferImageEntity> images = offerImageRepository.findByHorseOfferId(offerId);
@@ -148,7 +144,7 @@ public class OffersController {
 
     @PostMapping("/deleteOffer/{offerId}")
     public String deletePreviewOffer(@PathVariable Long offerId) {
-        offerService.deleteOffer(offerId);
+        offerServiceImpl.deleteOffer(offerId);
         return "redirect:/addOffers";
     }
 

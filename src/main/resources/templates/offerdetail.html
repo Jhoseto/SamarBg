@@ -186,7 +186,7 @@
           <div class="textcena">ЦЕНА:</div>
           <div class="cena" th:text="${offer.price.intValue()} + ' Лв.'">2200 </div>
         </div>
-        <a href="/images/man-and-horses-2389830_1280.png" class="button2 phone w-button" th:name="${offer.phone}">0886913296</a>
+        <a th:href="'tel:' + ${offer.phone}" class="button2 phone w-button" th:text="${offer.phone}"></a>
         <a href="/images/man-and-horses-2389830_1280.png" class="button2 message w-button">Изпрати съобщение</a>
       </div>
       <div class="div-block-20">

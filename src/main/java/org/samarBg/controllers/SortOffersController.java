@@ -1,6 +1,6 @@
 package org.samarBg.controllers;
 
-import org.samarBg.service.OfferService;
+import org.samarBg.service.implementation.OfferServiceImpl;
 import org.samarBg.service.SortedOfferService;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.stereotype.Controller;
@@ -13,12 +13,12 @@ import java.util.List;
 @Controller
 public class SortOffersController {
     private final SortedOfferService sortedOfferService;
-    private final OfferService offerService;
+    private final OfferServiceImpl offerServiceImpl;
 
     public SortOffersController(SortedOfferService sortedOfferService,
-                                OfferService offerService) {
+                                OfferServiceImpl offerServiceImpl) {
         this.sortedOfferService = sortedOfferService;
-        this.offerService = offerService;
+        this.offerServiceImpl = offerServiceImpl;
     }
 
     @PostMapping("/allOffers")
@@ -46,7 +46,7 @@ public class SortOffersController {
                 model.addAttribute("offers", cheapSortedOffers);
                 return "allOffers";
             default:
-                List<OfferViewModel> allOffers = offerService.getAllOffers();
+                List<OfferViewModel> allOffers = offerServiceImpl.getAllOffers();
                 model.addAttribute("offers", allOffers);
                 return "allOffers";
         }
@@ -76,7 +76,7 @@ public class SortOffersController {
                 model.addAttribute("offers", cheapSortedOffers);
                 return "allOffers";
             default:
-                List<OfferViewModel> allOffers = offerService.getAllOffers();
+                List<OfferViewModel> allOffers = offerServiceImpl.getAllOffers();
                 model.addAttribute("offers", allOffers);
                 return "allOffers";
         }
@@ -107,7 +107,7 @@ public class SortOffersController {
                 model.addAttribute("offers", cheapSortedOffers);
                 return "allOffers";
             default:
-                List<OfferViewModel> allOffers = offerService.getAllOffers();
+                List<OfferViewModel> allOffers = offerServiceImpl.getAllOffers();
                 model.addAttribute("offers", allOffers);
                 return "allOffers";
         }

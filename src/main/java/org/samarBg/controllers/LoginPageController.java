@@ -3,7 +3,7 @@ package org.samarBg.controllers;
 
 import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.service.UserService;
+import org.samarBg.service.implementation.UserServiceImpl;
 import org.samarBg.view.UserLoginViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -24,17 +24,17 @@ import java.util.Optional;
 @Controller
 public class LoginPageController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     private final UserRepository userRepository;
 
     // БИсквитка
     private final TokenBasedRememberMeServices rememberMeServices;
 
     @Autowired
-    public LoginPageController(UserService userService,
+    public LoginPageController(UserServiceImpl userServiceImpl,
                                UserRepository userRepository,
                                TokenBasedRememberMeServices rememberMeServices) {
-        this.userService = userService;
+        this.userServiceImpl = userServiceImpl;
         this.userRepository = userRepository;
         this.rememberMeServices = rememberMeServices;
     }
@@ -57,13 +57,13 @@ public class LoginPageController {
                         HttpServletRequest request) {
 
         // Търсене на потребител в базата данни по имейла
-        Optional<UserEntity> userOptional = userService.findUserByEmail(userModel.getEmail());
+        Optional<UserEntity> userOptional = userServiceImpl.findUserByEmail(userModel.getEmail());
 
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
 
             // Аутентикация на потребителя чрез Spring Security
-            Authentication authentication = userService.authenticateUser(userModel.getEmail(), userModel.getPassword());
+            Authentication authentication = userServiceImpl.authenticateUser(userModel.getEmail(), userModel.getPassword());
 
             if (authentication != null) {
                 // Потребителят е аутентикиран

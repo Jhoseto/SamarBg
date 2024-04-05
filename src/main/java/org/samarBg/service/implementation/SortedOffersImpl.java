@@ -1,6 +1,5 @@
 package org.samarBg.service.implementation;
 
-import org.samarBg.service.OfferService;
 import org.samarBg.service.SortedOfferService;
 import org.samarBg.view.OfferViewModel;
 import org.springframework.stereotype.Service;
@@ -10,15 +9,15 @@ import java.util.List;
 @Service
 public class SortedOffersImpl implements SortedOfferService {
 
-    private final OfferService offerService;
+    private final OfferServiceImpl offerServiceImpl;
 
-    public SortedOffersImpl(OfferService offerService) {
-        this.offerService = offerService;
+    public SortedOffersImpl(OfferServiceImpl offerServiceImpl) {
+        this.offerServiceImpl = offerServiceImpl;
     }
 
     @Override
     public List<OfferViewModel> sortedOffersByPrice(String filter) {
-        List<OfferViewModel> allOffersByPrice = offerService.getAllOffers();
+        List<OfferViewModel> allOffersByPrice = offerServiceImpl.getAllOffers();
         // компаратор за сортиране по цена
         Comparator<OfferViewModel> priceComparator = Comparator.comparing(OfferViewModel::getPrice);
 
@@ -34,7 +33,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedOffersByDate(String filter) {
-        List<OfferViewModel> allOffersByDate = offerService.getAllOffers();
+        List<OfferViewModel> allOffersByDate = offerServiceImpl.getAllOffers();
         Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         if ("new".equalsIgnoreCase(filter)) {
@@ -47,7 +46,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedOffersByView(String filter) {
-        List<OfferViewModel> allOffersByView = offerService.getAllOffers();
+        List<OfferViewModel> allOffersByView = offerServiceImpl.getAllOffers();
         Comparator<OfferViewModel> viewComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         allOffersByView.sort(viewComparator);
@@ -56,7 +55,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedHorseOffersByPrice(String filter) {
-        List<OfferViewModel> allHorseOffersByPrice = offerService.getAllHorsesOffers();
+        List<OfferViewModel> allHorseOffersByPrice = offerServiceImpl.getAllHorsesOffers();
         // компаратор за сортиране по цена
         Comparator<OfferViewModel> priceComparator = Comparator.comparing(OfferViewModel::getPrice);
 
@@ -72,7 +71,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedHorseOffersByDate(String filter) {
-        List<OfferViewModel> allHorseOffersByDate = offerService.getAllHorsesOffers();
+        List<OfferViewModel> allHorseOffersByDate = offerServiceImpl.getAllHorsesOffers();
         Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         if ("new".equalsIgnoreCase(filter)) {
@@ -85,7 +84,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedHorseOffersByView(String filter) {
-        List<OfferViewModel> allHorseOffersByView = offerService.getAllHorsesOffers();
+        List<OfferViewModel> allHorseOffersByView = offerServiceImpl.getAllHorsesOffers();
         Comparator<OfferViewModel> viewComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         allHorseOffersByView.sort(viewComparator);
@@ -94,7 +93,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedAccessoriesOffersByPrice(String filter) {
-        List<OfferViewModel> allAccessoriesOffersByPrice = offerService.getAllAccessoryOffers();
+        List<OfferViewModel> allAccessoriesOffersByPrice = offerServiceImpl.getAllAccessoryOffers();
         Comparator<OfferViewModel> priceComparator = Comparator.comparing(OfferViewModel::getPrice);
 
         if ("Expensive".equals(filter)) {
@@ -107,7 +106,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedAccessoriesOffersByDate(String filter) {
-        List<OfferViewModel> allAccessoriesHorseOffersByDate = offerService.getAllAccessoryOffers();
+        List<OfferViewModel> allAccessoriesHorseOffersByDate = offerServiceImpl.getAllAccessoryOffers();
         Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         if ("new".equalsIgnoreCase(filter)) {
@@ -120,7 +119,7 @@ public class SortedOffersImpl implements SortedOfferService {
 
     @Override
     public List<OfferViewModel> sortedAccessoriesOffersByView(String filter) {
-        List<OfferViewModel> allAccessoriesHorseOffersByView = offerService.getAllAccessoryOffers();
+        List<OfferViewModel> allAccessoriesHorseOffersByView = offerServiceImpl.getAllAccessoryOffers();
         Comparator<OfferViewModel> viewComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         allAccessoriesHorseOffersByView.sort(viewComparator);

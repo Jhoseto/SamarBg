@@ -41,12 +41,9 @@ public class UserSettingsController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/user-detail")
-    public String showUserDetail() {
-        return "user-detail";
-    }
+
     @GetMapping("/user-settings")
-    public String showUserSettings(Model model) {
+    public String showUserSettings() {
         return "user-settings";
     }
 
