@@ -1,4 +1,4 @@
-package org.samarBg.service.implementation;
+package org.samarBg.service.serviceImpl;
 
 import org.samarBg.model.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;

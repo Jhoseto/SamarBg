@@ -1,8 +1,6 @@
 package org.samarBg.controllers;
 
 import org.samarBg.service.AddOffersService;
-import org.samarBg.service.implementation.AddOffersImpl;
-import org.samarBg.service.CurrentUserService;
 import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;
 import org.springframework.beans.factory.annotation.Autowired;

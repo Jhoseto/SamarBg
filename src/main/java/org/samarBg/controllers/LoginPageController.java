@@ -3,7 +3,7 @@ package org.samarBg.controllers;
 
 import org.samarBg.model.entities.UserEntity;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.service.implementation.UserServiceImpl;
+import org.samarBg.service.serviceImpl.UserServiceImpl;
 import org.samarBg.view.UserLoginViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -80,6 +80,10 @@
           </div>
           <div class="uui-blog01_component">
             <div class="uui-blog01_list-wrapper">
+              <!-- Pagination -->
+              <div
+                      th:replace="~{fragments/pagination::pagination}">
+              </div>
               <div class="w-layout-grid uui-blog01_list" >
                 <div class="adswindow" th:each="offer : ${offer.userOffers}" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
                   <!-- offer-model.html за всяка обява -->

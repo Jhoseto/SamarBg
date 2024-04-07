@@ -1,8 +1,6 @@
 package org.samarBg.config;
 
 import org.modelmapper.ModelMapper;
-import org.samarBg.service.AddOffersService;
-import org.samarBg.service.implementation.AddOffersImpl;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -13,9 +11,6 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-import org.springframework.validation.AbstractBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.MapBindingResult;
 
 import java.nio.charset.StandardCharsets;
 

@@ -1,5 +1,4 @@
-package org.samarBg.service.implementation;
-
+package org.samarBg.service.serviceImpl;
 
 import org.samarBg.model.entities.AccessoryOfferEntity;
 import org.samarBg.model.entities.HorseOfferEntity;
@@ -15,10 +14,8 @@ import org.samarBg.service.Mappers.MapperForHorses;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UserService;
 import org.samarBg.view.OfferViewModel;
-import org.samarBg.view.UserProfileViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

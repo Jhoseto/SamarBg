@@ -1,81 +1,38 @@
 package org.samarBg.service;
 
 import org.samarBg.view.OfferViewModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface SortedOfferService {
-    /**
-     * Sorts the offers by price.
-     *
-     * @param filter the filter for the offers (e.g., "ascending", "descending")
-     * @return a list of sorted offers by price
-     */
-    List<OfferViewModel> sortedOffersByPrice(String filter);
 
-    /**
-     * Sorts the offers by date.
-     *
-     * @param filter the filter for the offers (e.g., "new", "old")
-     * @return a list of sorted offers by date
-     */
-    List<OfferViewModel> sortedOffersByDate(String filter);
+    Page<OfferViewModel> sortedOffersByPrice(String filter, Pageable pageable);
 
-    /**
-     * Sorts the offers by number of views.
-     *
-     * @param filter the filter for the offers (e.g., "most-viewed", "least-viewed")
-     * @return a list of sorted offers by number of views
-     */
-    List<OfferViewModel> sortedOffersByView(String filter);
 
-    /**
-     * Sorts the horse offers by price.
-     *
-     * @param filter the filter for the offers (e.g., "ascending", "descending")
-     * @return a list of sorted horse offers by price
-     */
-    List<OfferViewModel> sortedHorseOffersByPrice(String filter);
+    Page<OfferViewModel> sortedOffersByDate(String filter, Pageable pageable);
 
-    /**
-     * Sorts the horse offers by date.
-     *
-     * @param filter the filter for the offers (e.g., "new", "old")
-     * @return a list of sorted horse offers by date
-     */
-    List<OfferViewModel> sortedHorseOffersByDate(String filter);
 
-    /**
-     * Sorts the horse offers by number of views.
-     *
-     * @param filter the filter for the offers (e.g., "most-viewed", "least-viewed")
-     * @return a list of sorted horse offers by number of views
-     */
-    List<OfferViewModel> sortedHorseOffersByView(String filter);
+    Page<OfferViewModel> sortedOffersByView(String filter, Pageable pageable);
 
-    /**
-     * Sorts the accessories offers by price.
-     *
-     * @param filter the filter for the offers (e.g., "ascending", "descending")
-     * @return a list of sorted accessories offers by price
-     */
-    List<OfferViewModel> sortedAccessoriesOffersByPrice(String filter);
 
-    /**
-     * Sorts the accessories offers by date.
-     *
-     * @param filter the filter for the offers (e.g., "new", "old")
-     * @return a list of sorted accessories offers by date
-     */
-    List<OfferViewModel> sortedAccessoriesOffersByDate(String filter);
+    Page<OfferViewModel> sortedHorseOffersByPrice(String filter, Pageable pageable);
 
-    /**
-     * Sorts the accessories offers by number of views.
-     *
-     * @param filter the filter for the offers (e.g., "most-viewed", "least-viewed")
-     * @return a list of sorted accessories offers by number of views
-     */
-    List<OfferViewModel> sortedAccessoriesOffersByView(String filter);
+
+    Page<OfferViewModel> sortedHorseOffersByDate(String filter, Pageable pageable);
+
+
+    Page<OfferViewModel> sortedHorseOffersByView(String filter, Pageable pageable);
+
+
+    Page<OfferViewModel> sortedAccessoriesOffersByPrice(String filter, Pageable pageable);
+
+
+    Page<OfferViewModel> sortedAccessoriesOffersByDate(String filter, Pageable pageable);
+
+
+    Page<OfferViewModel> sortedAccessoriesOffersByView(String filter, Pageable pageable);
 }

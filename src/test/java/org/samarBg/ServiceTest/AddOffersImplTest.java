@@ -6,14 +6,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.samarBg.model.entities.*;
-import org.samarBg.model.entities.enums.OfferCategory;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.service.CurrentUserService;
-import org.samarBg.service.implementation.AddOffersImpl;
+import org.samarBg.service.serviceImpl.AddOffersImpl;
 import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.samarBg.service.implementation;
+package org.samarBg.service.serviceImpl;
 
 import org.samarBg.model.entities.AccessoryOfferEntity;
 import org.samarBg.model.entities.BaseEntity;
@@ -11,7 +11,6 @@ import org.samarBg.service.AddOffersService;
 import org.samarBg.service.CurrentUserService;
 import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
