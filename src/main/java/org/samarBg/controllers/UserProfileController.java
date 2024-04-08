@@ -36,8 +36,7 @@ public class UserProfileController {
     }
 
     @GetMapping("/user-detail")
-    public String showUserDetail(Model model,
-                                 @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) org.springframework.data.domain.Pageable pageable) {
+    public String showUserDetail(Model model) {
         String username = currentUserService.getCurrentUser().getUsername();
         List<OfferViewModel> userOffersPage = offerService.getAllOffersForUser(username);
 
@@ -47,6 +46,8 @@ public class UserProfileController {
         model.addAttribute("userProfile", userProfileViewModel);
         return "user-detail";
     }
+
+
     @GetMapping("/userProfileDetail")
     public String showUserProfile(Model model) {
         // Извличане на атрибута "user" от модела
@@ -54,14 +55,13 @@ public class UserProfileController {
         model.addAttribute("user",userProfileViewModel);
         return "userProfileDetail";
     }
-    @PostMapping("/getProfileDetail/{username}")
-    public String viewUserProfileDetail(@PathVariable String username, RedirectAttributes redirectAttributes) {
+
+    @GetMapping("/getProfileDetail/{username}")
+    public String viewUserProfileDetail(@PathVariable String username,
+                                        RedirectAttributes redirectAttributes) {
         // Намираме потребителя по потребителското име
         UserEntity user = userService.findUserByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Потребителят не е намерен."));
-
-        // Създаваме нов Pageable обект за извличане на първата страница с обяви
-        Pageable pageable = (Pageable) PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
 
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
         userProfileViewModel.setUserName(user.getUsername());
@@ -72,10 +72,7 @@ public class UserProfileController {
         userProfileViewModel.setProfileImageUrl(user.getImageUrl());
         userProfileViewModel.setLastOnline(user.getLastOnline());
 
-        // Вземаме обявите на потребителя от сервиза за обяви с подадения Pageable
-        List<OfferViewModel> userOffersPage = offerService.getAllOffersForUser(username);
-        List<OfferViewModel> userOffers = userOffersPage; // Вземаме списъка с обяви от текущата страница
-
+        List<OfferViewModel> userOffers = offerService.getAllOffersForUser(username);
         userProfileViewModel.setUserOffers(userOffers);
 
         // Пренасочваме с добавяне на атрибут "user"

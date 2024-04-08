@@ -11,6 +11,7 @@
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/samarbg-5ed359.webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/pagination-styles.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -65,11 +66,11 @@
           </div>
           <div>
             <div class="form-block-5 w-form">
-              <form method="post"
+              <form method="get"
                     th:action="@{/allHorses}"
-                    id="email-form-3" name="email-form-3" data-name="Email Form 3" class="form-6" data-wf-page-id="660d36b1388326f5f5a03f4b" data-wf-element-id="599196a8-0d83-5537-e206-01b6964c9aa4">
+                    id="filter-form" class="form-6" >
                 <label for="filter-select" class="field-label-11">Филтър</label>
-                <select id="filter-select" name="filter-select" data-name="filter select" class="select-field-4 w-select">
+                <select id="filter-select" th:name="filter" class="select-field-4 w-select">
                   <option value="null">Сортирай по...</option>
                   <option value="New">Най-нови -&gt;</option>
                   <option value="Old">Най-стари -&gt;</option>
@@ -91,6 +92,36 @@
             </div>
           <div class="uui-blog01_component">
             <div class="uui-blog01_list-wrapper">
+              <!-- Pagination -->
+              <div class="pagination">
+                <ul>
+                  <!-- Първа страница -->
+                  <li th:if="${offers.hasPrevious()}">
+                    <!-- Генериране на URL с параметър за филтър -->
+                    <a class="arrow" th:href="@{/allHorses(page=0, size=${offers.size}, filter=${#strings.isEmpty(filter) ? null : filter})}">&#171;</a>
+                  </li>
+                  <!-- Предишна страница -->
+                  <li th:if="${offers.hasPrevious()}">
+                    <!-- Генериране на URL с параметър за филтър -->
+                    <a class="arrow" th:href="@{/allHorses(page=${offers.number - 1}, size=${offers.size}, filter=${#strings.isEmpty(filter) ? null : filter})}">&#8249;</a>
+                  </li>
+                  <!-- Всички страници -->
+                  <li th:each="pageNumber : ${#numbers.sequence(0, offers.totalPages - 1)}" th:class="${pageNumber == offers.number ? 'active' : ''}">
+                    <!-- Генериране на URL с параметър за филтър -->
+                    <a th:href="@{/allHorses(page=${pageNumber}, size=${offers.size}, filter=${#strings.isEmpty(filter) ? null : filter})}" th:text="${pageNumber + 1}"></a>
+                  </li>
+                  <!-- Следваща страница -->
+                  <li th:if="${offers.hasNext()}">
+                    <!-- Генериране на URL с параметър за филтър -->
+                    <a class="arrow" th:href="@{/allHorses(page=${offers.number + 1}, size=${offers.size}, filter=${#strings.isEmpty(filter) ? null : filter})}">&#8250;</a>
+                  </li>
+                  <!-- Последна страница -->
+                  <li th:if="${offers.hasNext()}">
+                    <!-- Генериране на URL с параметър за филтър -->
+                    <a class="arrow" th:href="@{/allHorses(page=${offers.totalPages - 1}, size=${offers.size}, filter=${#strings.isEmpty(filter) ? null : filter})}">&#187;</a>
+                  </li>
+                </ul>
+              </div>
               <div class="w-layout-grid uui-blog01_list" >
                 <div class="adswindow" th:each="offer : ${offers}" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
                 <!-- offer-model.html за всяка обява -->
@@ -98,6 +129,26 @@
                   <!-- Включване на модела на обявата -->
                   <div th:replace="fragments/offer-model"></div>
                 </div>
+              </div>
+              <!-- Pagination -->
+              <div  class="pagination">
+                <ul>
+                  <li th:if="${offers.hasPrevious()}">
+                    <a class="arrow" th:href="@{/allHorses(page=0, size=${offers.size}, filter=${offers.sort})}">&#171;</a>
+                  </li>
+                  <li th:if="${offers.hasPrevious()}">
+                    <a class="arrow" th:href="@{/allHorses(page=${offers.number - 1}, size=${offers.size}, filter=${offers.sort})}">&#8249;</a>
+                  </li>
+                  <li th:each="pageNumber : ${#numbers.sequence(0, offers.totalPages - 1)}" th:class="${pageNumber == offers.number ? 'active' : ''}">
+                    <a th:href="@{/allHorses(page=${pageNumber}, size=${offers.size}, filter=${offers.sort})}" th:text="${pageNumber + 1}"></a>
+                  </li>
+                  <li th:if="${offers.hasNext()}">
+                    <a class="arrow" th:href="@{/allHorses(page=${offers.number + 1}, size=${offers.size}, filter=${offers.sort})}">&#8250;</a>
+                  </li>
+                  <li th:if="${offers.hasNext()}">
+                    <a class="arrow" th:href="@{/allHorses(page=${offers.totalPages - 1}, size=${offers.size}, filter=${offers.sort})}">&#187;</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

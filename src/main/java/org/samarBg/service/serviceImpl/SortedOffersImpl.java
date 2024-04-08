@@ -97,7 +97,7 @@ public class SortedOffersImpl implements SortedOfferService {
         Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         List<OfferViewModel> sortedOffers = allHorseOffersByDate.stream()
-                .sorted("Expensive".equals(filter) ? dateComparator.reversed() : dateComparator)
+                .sorted("New".equals(filter) ? dateComparator.reversed() : dateComparator)
                 .collect(Collectors.toList());
         // Създаваме нов Page със сортираните обяви
         int start = (int) pageable.getOffset();
@@ -145,7 +145,7 @@ public class SortedOffersImpl implements SortedOfferService {
         Comparator<OfferViewModel> dateComparator = Comparator.comparing(OfferViewModel::getCreateDate);
 
         List<OfferViewModel> sortedOffers = allAccessoriesHorseOffersByDate.stream()
-                .sorted("Expensive".equals(filter) ? dateComparator.reversed() : dateComparator)
+                .sorted("New".equals(filter) ? dateComparator.reversed() : dateComparator)
                 .collect(Collectors.toList());
         // Създаваме нов Page със сортираните обяви
         int start = (int) pageable.getOffset();

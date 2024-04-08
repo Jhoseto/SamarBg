@@ -31,42 +31,6 @@ public class OffersController {
         this.offerImageRepository = offerImageRepository;
     }
 
-//    @GetMapping("/allOffers")
-//    public String getAllOffers(@RequestParam(defaultValue = "0") int page,
-//                               @RequestParam(defaultValue = "12") int size,
-//                               Model model) throws Exception {
-//        // Изчисляване на номера на страницата (page) и размера на страницата (size)
-//        PageRequest pageRequest = PageRequest.of(page, size);
-//
-//        // Извличане на обяви със странициране
-//        Page<OfferViewModel> offersPage = offerService.getAllOffers(PageRequest.of(page, size));
-//
-//        // Подаване на страницираните обяви към Thymeleaf шаблона
-//        model.addAttribute("offers", offersPage);
-//        return "allOffers";
-//    }
-
-//    @GetMapping("/allHorses")
-//    public String getAllHorses(Model model,
-//                               @RequestParam(defaultValue = "0") int page,
-//                               @RequestParam(defaultValue = "12") int size) throws Exception {
-//        PageRequest pageRequest = PageRequest.of(page, size);
-//        Page<OfferViewModel> offers = offerService.getAllHorsesOffers(pageRequest);
-//
-//        model.addAttribute("offers", offers);
-//        return "allHorses";
-//    }
-//
-//    @GetMapping("/allAccessories")
-//    public String getAllAccessory(Model model,
-//                                  @RequestParam(defaultValue = "0") int page,
-//                                  @RequestParam(defaultValue = "12") int size) {
-//        PageRequest pageRequest = PageRequest.of(page, size);
-//        Page<OfferViewModel> offers = offerService.getAllAccessoryOffers(pageRequest);
-//
-//        model.addAttribute("offers", offers);
-//        return "allAccessories";
-//    }
 
 
     @GetMapping("/offerdetail/{offerId}")
@@ -85,7 +49,7 @@ public class OffersController {
         }
     }
 
-    @GetMapping("/allHorses/{offerId}")
+    @GetMapping("/horsesOffersDetail/{offerId}")
     public String showHorseOfferDetailPage(@PathVariable Long offerId, Model model) {
         OfferViewModel offer = offerService.findOfferById(offerId);
 

@@ -29,21 +29,20 @@ public class OfferServiceImpl implements OfferService {
     private final UserRepository userRepository;
     private final CurrentUserService currentUserService;
     private final OfferImageRepository offerImageRepository;
-    private final UserService userService;
+
 
     @Autowired
     public OfferServiceImpl(HorseOfferRepository horseOfferRepository,
                             AccessoriesOfferRepository accessoriesOfferRepository,
                             UserRepository userRepository,
                             CurrentUserService currentUserService,
-                            OfferImageRepository offerImageRepository,
-                            UserService userService) {
+                            OfferImageRepository offerImageRepository) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
         this.userRepository = userRepository;
         this.currentUserService = currentUserService;
         this.offerImageRepository = offerImageRepository;
-        this.userService = userService;
+
     }
 
 

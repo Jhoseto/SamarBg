@@ -12,6 +12,7 @@
     <link href="css/normalize.css" rel="stylesheet" type="text/css">
     <link href="css/webflow.css" rel="stylesheet" type="text/css">
     <link href="css/samarbg-5ed359.webflow.css" rel="stylesheet" type="text/css">
+    <link href="css/pagination-styles.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -84,10 +85,6 @@
                 </div>
                 <div class="uui-blog01_component">
                     <div class="uui-blog01_list-wrapper">
-                        <!-- Pagination -->
-                        <div
-                                th:replace="~{fragments/pagination::pagination}">
-                        </div>
                         <div class="w-layout-grid uui-blog01_list">
                             <div class="adswindow" th:each="offer : ${user.userOffers}" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
                                 <div th:replace="fragments/offer-model"></div>

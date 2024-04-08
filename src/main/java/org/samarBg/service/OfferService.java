@@ -22,6 +22,7 @@ public interface OfferService {
     void deleteOffer(Long offerId);
 
     List<OfferViewModel> getAllOffersForUser(String username);
+
     List<OfferViewModel> getOffersBySearchingWord(String searchingWord);
 
 }
