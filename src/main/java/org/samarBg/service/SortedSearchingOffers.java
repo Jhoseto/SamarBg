@@ -8,7 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public interface SortedSearchingOffers {
 
-    Page<OfferViewModel> sortedSearchingByWord(String word, String filter, Pageable pageable);
+    Page<OfferViewModel> sortedSearchingByWordAndCategory(String word,
+                                                          String filter,
+                                                          Pageable pageable,
+                                                          String mainCategory,
+                                                          String cityCategory,
+                                                          String horseCategory,
+                                                          String genderCategory,
+                                                          String accessoriesCategory);
 
 
 }

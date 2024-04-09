@@ -3190,6 +3190,10 @@ img {
   width: 60%;
 }
 
+.text-field-6::placeholder {
+  text-align: center;
+}
+
 .div-block-51 {
   background-color: #ffdfa2;
   border: 1px solid #945631;
@@ -3224,11 +3228,11 @@ img {
   justify-content: center;
   margin: 0 auto;
   padding-left: 0;
-  padding-right: 101px;
+  padding-right: 0;
   font-family: Droid Serif, serif;
   font-size: 18px;
   font-weight: 400;
-  display: flex;
+  display: block;
 }
 
 .heading-6._2 {

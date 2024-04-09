@@ -62,27 +62,27 @@ public class LoginPageController {
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
 
-            // Аутентикация на потребителя чрез Spring Security
-            Authentication authentication = userServiceImpl.authenticateUser(userModel.getEmail(), userModel.getPassword());
+            if (user.isActive()) {
+                // Аутентикация на потребителя чрез Spring Security
+                Authentication authentication = userServiceImpl.authenticateUser(userModel.getEmail(), userModel.getPassword());
 
-            if (authentication != null) {
-                // Потребителят е аутентикиран
-                if (user.isActive()) {
+                if (authentication != null) {
+                    // Потребителят е аутентикиран
                     // Потребителят е активен
                     user.setLastOnline(Instant.now());
                     userRepository.save(user);
-                    // Създаване на RememberMe кукито
-                    rememberMeServices.loginSuccess(request, response, authentication);
-                    return "redirect:/";
                 } else {
-                    // Потребителят не е активен
-                    redirectAttributes.addFlashAttribute("error", "Вашият акаунт не е активен. За да го активирате, " +
-                            "кликнете на изпратения от нас ЛИНК за активация");
+                    // Грешна парола
+                    redirectAttributes.addFlashAttribute("error", "Грешна парола!");
                     return "redirect:/login";
                 }
+                // Създаване на RememberMe кукито
+                rememberMeServices.loginSuccess(request, response, authentication);
+                return "redirect:/";
             } else {
-                // Грешна парола
-                redirectAttributes.addFlashAttribute("error", "Грешна парола!");
+                // Потребителят не е активен
+                redirectAttributes.addFlashAttribute("error", "Вашият акаунт не е активен. За да го активирате, " +
+                        "кликнете на изпратения от нас ЛИНК за активация");
                 return "redirect:/login";
             }
         } else {

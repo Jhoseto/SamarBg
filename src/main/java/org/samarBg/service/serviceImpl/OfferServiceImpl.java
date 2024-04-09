@@ -229,14 +229,22 @@ public class OfferServiceImpl implements OfferService {
         List<OfferViewModel> searchingOffers = new ArrayList<>();
         List<OfferViewModel> allOffers = getAllOffers();
 
-        for (OfferViewModel offer : allOffers) {
-            String userName = offer.getAuthorName();
-            String offerName = offer.getOfferName();
-            if (offerName.contains(searchingWord) || userName.contains(searchingWord)){
-                searchingOffers.add(offer);
+        if (!searchingWord.isEmpty()){
+            String searchLowerCase = searchingWord.toLowerCase();
+
+            for (OfferViewModel offer : allOffers) {
+                String userName = offer.getAuthorName().toLowerCase();
+                String offerName = offer.getOfferName().toLowerCase();
+
+                // Проверка за съвпадение в малки букви
+                if (offerName.contains(searchLowerCase) || userName.contains(searchLowerCase)) {
+                    searchingOffers.add(offer);
+                }
             }
+            return searchingOffers;
+        }else {
+            return allOffers;
         }
-        return searchingOffers;
     }
 }
 

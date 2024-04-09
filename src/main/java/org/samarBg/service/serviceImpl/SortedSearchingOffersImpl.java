@@ -1,5 +1,8 @@
 package org.samarBg.service.serviceImpl;
 
+import org.samarBg.model.entities.enums.AccessoriesCategory;
+import org.samarBg.model.entities.enums.HorseCategory;
+import org.samarBg.model.entities.enums.Sex;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.SortedSearchingOffers;
 import org.samarBg.view.OfferViewModel;
@@ -25,10 +28,57 @@ public class SortedSearchingOffersImpl implements SortedSearchingOffers {
 
 
     @Override
-    public Page<OfferViewModel> sortedSearchingByWord(String word, String filter, Pageable pageable) {
+    public Page<OfferViewModel> sortedSearchingByWordAndCategory(String word, String filter, Pageable pageable,
+                                                                 String mainCategory, String cityCategory,
+                                                                 String horseCategory, String genderCategory,
+                                                                 String accessoriesCategory) {
         List<OfferViewModel> searchingOffers = offerService.getOffersBySearchingWord(word);
-        Comparator<OfferViewModel> comparator;
 
+        // Filtering by MainCategory (if selected)
+        if (!mainCategory.equals("none")  && !mainCategory.isEmpty()) {
+            searchingOffers = searchingOffers.stream()
+                    .filter(offer -> offer.getOfferCategory().toString().equals(mainCategory))
+                    .collect(Collectors.toList());
+        }
+
+        // Filtering by City (if selected)
+        if (!cityCategory.equals("none") && !cityCategory.isEmpty()) {
+            searchingOffers = searchingOffers.stream()
+                    .filter(offer -> offer.getCity().toString().equalsIgnoreCase(cityCategory))
+                    .collect(Collectors.toList());
+        }
+
+        // Filtering by HorseCategory (if selected)
+        if (!horseCategory.equals("none") && !horseCategory.isEmpty()) {
+            searchingOffers = searchingOffers.stream()
+                    .filter(offer -> {
+                        HorseCategory offerHorseCategory = offer.getHorseCategory();
+                        return offerHorseCategory != null && offerHorseCategory.toString().equals(horseCategory);
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        // Filtering by GenderCategory (if selected)
+        if (!genderCategory.equals("none") && !genderCategory.isEmpty()) {
+            searchingOffers = searchingOffers.stream()
+                    .filter(offer -> {
+                        Sex offerSex = offer.getSex();
+                        return offerSex != null && offerSex.toString().equalsIgnoreCase(genderCategory);
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        // Filtering by accessoriesCategory (if selected)
+        if (!accessoriesCategory.equals("none") && !accessoriesCategory.isEmpty()) {
+            searchingOffers = searchingOffers.stream()
+                    .filter(offer -> {
+                        AccessoriesCategory offerAccessoriesCategory = offer.getAccessoriesCategory();
+                        return offerAccessoriesCategory != null && offerAccessoriesCategory.toString().equalsIgnoreCase(accessoriesCategory);
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        Comparator<OfferViewModel> comparator;
         switch (filter) {
             case "New":
                 comparator = Comparator.comparing(OfferViewModel::getCreateDate).reversed();
@@ -49,7 +99,6 @@ public class SortedSearchingOffersImpl implements SortedSearchingOffers {
                 comparator = Comparator.comparing(OfferViewModel::getCreateDate).reversed();
                 break;
         }
-
         List<OfferViewModel> sortedOffers = searchingOffers.stream()
                 .sorted(comparator)
                 .collect(Collectors.toList());
