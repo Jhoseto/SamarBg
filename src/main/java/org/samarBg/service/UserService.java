@@ -2,38 +2,35 @@ package org.samarBg.service;
 
 import org.samarBg.model.entities.UserEntity;
 import org.samarBg.view.UserProfileViewModel;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * The UserService interface provides methods for user-related operations.
- * These methods allow for retrieving user information from the database.
+ * Service for managing users.
  */
-@Service
 public interface UserService {
 
     /**
-     * Retrieve a user entity by email.
+     * Finds a user by email.
      *
-     * @param email the email address of the user
-     * @return an Optional containing the user entity, or empty if not found
+     * @param email the email of the user
+     * @return an Optional containing the user, if exists
      */
     Optional<UserEntity> findUserByEmail(String email);
 
     /**
-     * Retrieve a user entity by username.
+     * Finds a user by username.
      *
      * @param username the username of the user
-     * @return an Optional containing the user entity, or empty if not found
+     * @return an Optional containing the user, if exists
      */
     Optional<UserEntity> findUserByUsername(String username);
 
     /**
-     * Retrieve a list of user profiles.
+     * Retrieves information for all users in the system.
      *
-     * @return a list of UserProfileViewModel objects representing user profiles
+     * @return a list of user profile models (UserProfileViewModel)
      */
     List<UserProfileViewModel> getAllUsers();
 }

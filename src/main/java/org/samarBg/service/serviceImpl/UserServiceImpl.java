@@ -17,14 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of the UserService interface.
+ */
 @Service
-
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final MapperForUsers mapperForUsers;
-
 
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
@@ -36,15 +38,29 @@ public class UserServiceImpl implements UserService {
         this.mapperForUsers = mapperForUsers;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<UserEntity> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<UserEntity> findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-
+    /**
+     * Authenticates a user using email and password.
+     *
+     * @param email    the email of the user
+     * @param password the password of the user
+     * @return an Authentication object if authentication is successful, otherwise null
+     */
     public Authentication authenticateUser(String email, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
@@ -56,11 +72,15 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<UserProfileViewModel> getAllUsers() {
         List<UserProfileViewModel> allUsers = new ArrayList<>();
         List<UserEntity> users = userRepository.findAll();
 
-        // Мапиране на потребителите към UserProfileViewModel с MapperForUsers
+        // Mapping users to UserProfileViewModel using MapperForUsers
         for (UserEntity user : users) {
             UserProfileViewModel userProfileViewModel = mapperForUsers.mapUserToProfileViewModel(user);
             allUsers.add(userProfileViewModel);

@@ -59,8 +59,9 @@
               method="get"
               th:action="@{/searchingByWords}"
               class="form-4" data-wf-page-id="660d36b1388326f5f5a03f4b" data-wf-element-id="f87e62cd-346f-c25a-3a2b-7c7a1338d27d">
-          <input name="searchingWord" class="text-field-6 w-input" maxlength="256" th:name="searchingWord" placeholder="Търси по име на Обява или Потребител..." type="text" id="name">
+          <input th:name="searchingWord" class="text-field-6 w-input" maxlength="256" placeholder="Търси по име на Обява или Потребител..." type="text" id="searchInput">
           <input type="submit" data-wait="Please wait..." class="submit-button-3 w-button" value="Търси">
+          <input type="hidden" id="currentFilter" name="filter">
         </form>
         <div>
           <p th:if="${error}" th:text="${error}" class="error-text" style="color: #dc3838;"></p>
@@ -167,8 +168,54 @@
             </div>
           </div>
           <div>
+            <div class="form-block-5 w-form">
+              <form method="get"
+                    th:action="@{/searchingByWords}"
+                    id="filter-form" class="form-6">
+                <label for="filter-select" class="field-label-11">Филтър</label>
+                <select id="filter-select" th:name="filter" class="select-field-4 w-select">
+                  <option value="">Сортирай по...</option>
+                  <option value="New">Най-нови -&gt;</option>
+                  <option value="Old">Най-стари -&gt;</option>
+                  <option value="Favorites">Най-популярни-&gt;</option>
+                  <option value="Expensive">Най-скъпи-&gt;</option>
+                  <option value="Cheap">Най-евтини-&gt;</option>
+                </select>
+                <input type="hidden" name="searchingWord" th:value="${searchingWord}">
+                <input type="submit" data-wait="Please wait..." class="submit-button-4 w-button" value="Филтрирай">
+              </form>
+              <div class="w-form-done">
+                <div th:if="${successMessage}" class="error-message">
+                  <p th:text="${successMessage}" class="error-text" style="color: #ffffff;" ></p>
+                </div>
+                <div class="w-form-fail">
+                  <p th:if="${error}" class="error-text" style="color: #e1e1e1;"></p>
+                  <p th:text="${error}" class="error-text" style="color: #d5d5d5;"></p>
+                </div>
+              </div>
+            </div>
           <div class="uui-blog01_component">
             <div class="uui-blog01_list-wrapper">
+              <!-- Pagination -->
+              <div th:if="${offers != null }" class="pagination">
+                <ul>
+                  <li th:if="${offers.hasPrevious()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=0, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#171;</a>
+                  </li>
+                  <li th:if="${offers.hasPrevious()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=${offers.number - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#8249;</a>
+                  </li>
+                  <li th:each="pageNumber : ${#numbers.sequence(0, offers.totalPages - 1)}" th:class="${pageNumber == offers.number ? 'active' : ''}">
+                    <a th:href="@{/searchingByWords(page=${pageNumber}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}" th:text="${pageNumber + 1}"></a>
+                  </li>
+                  <li th:if="${offers.hasNext()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=${offers.number + 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#8250;</a>
+                  </li>
+                  <li th:if="${offers.hasNext()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=${offers.totalPages - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#187;</a>
+                  </li>
+                </ul>
+              </div>
               <div class="w-layout-grid uui-blog01_list">
                 <div class="adswindow" th:each="offer : ${offers}" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
                   <!-- offer-model.html за всяка обява -->
@@ -176,6 +223,26 @@
                   <!-- Включване на модела на обявата -->
                   <div th:replace="fragments/offer-model"></div>
                 </div>
+              </div>
+              <!-- Pagination -->
+              <div th:if="${offers != null }" class="pagination">
+                <ul>
+                  <li th:if="${offers.hasPrevious()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=0, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#171;</a>
+                  </li>
+                  <li th:if="${offers.hasPrevious()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=${offers.number - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#8249;</a>
+                  </li>
+                  <li th:each="pageNumber : ${#numbers.sequence(0, offers.totalPages - 1)}" th:class="${pageNumber == offers.number ? 'active' : ''}">
+                    <a th:href="@{/searchingByWords(page=${pageNumber}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}" th:text="${pageNumber + 1}"></a>
+                  </li>
+                  <li th:if="${offers.hasNext()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=${offers.number + 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#8250;</a>
+                  </li>
+                  <li th:if="${offers.hasNext()}">
+                    <a class="arrow" th:href="@{/searchingByWords(page=${offers.totalPages - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#187;</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -228,6 +295,57 @@
   });
 </script>
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Избиране на елемент за филтъра
+    const filterSelect = document.getElementById('filter-select');
+    // Избиране на скритото поле за филтъра
+    const hiddenFilterInput = document.getElementById('currentFilter');
+
+    // Проверка дали селекторът за филтъра е наличен
+    if (filterSelect && hiddenFilterInput) {
+      // Установяване на текущата стойност на филтъра като стойност на скритото поле
+      hiddenFilterInput.value = filterSelect.value;
+
+      // Следи промените в селектора за филтъра и актуализирай скритото поле
+      filterSelect.addEventListener('change', function() {
+        hiddenFilterInput.value = filterSelect.value;
+      });
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Възстановяване на стойности от localStorage при зареждане на страницата
+    const searchInput = document.getElementById('searchInput');
+    const filterSelect = document.getElementById('filter-select');
+    let currentFilter = '';
+
+    if (localStorage.getItem('searchingWord')) {
+      searchInput.value = localStorage.getItem('searchingWord');
+    }
+
+    if (localStorage.getItem('filter')) {
+      filterSelect.value = localStorage.getItem('filter');
+    }
+
+    // Запазване на стойности в localStorage при въвеждане на нови данни
+    searchInput.addEventListener('input', function() {
+      localStorage.setItem('searchingWord', searchInput.value);
+    });
+
+    filterSelect.addEventListener('change', function() {
+      localStorage.setItem('filter', filterSelect.value);
+    });
+
+    // Изтриване на стойности от localStorage при изпращане на формата
+    const searchForm = document.getElementById('search-form');
+    searchForm.addEventListener('submit', function() {
+      localStorage.removeItem('searchingWord');
+      localStorage.removeItem('filter');
+    });
+  });
+</script>
+<script>
   function redirectToOfferDetail(offerId) {
     window.location.href = '/offerdetail/' + offerId;
   }
@@ -243,6 +361,6 @@
 </body>
 <!-- Here you can include loading animation or message -->
 <div th:unless="${offers}">
-  <h1>Loading...</h1>
+  <h1></h1>
 </div>
 </html>

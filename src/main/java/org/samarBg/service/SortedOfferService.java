@@ -35,4 +35,6 @@ public interface SortedOfferService {
 
 
     Page<OfferViewModel> sortedAccessoriesOffersByView(String filter, Pageable pageable);
+
+
 }
