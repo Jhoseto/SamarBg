@@ -1,5 +1,4 @@
-![SamarBg Logo]([link_to_your_logo_image](https://github.com/Jhoseto/SamarBg/blob/master/src/main/resources/static/images/logo3-p-1600.png))
-
+![SamarBg Logo](https://github.com/Jhoseto/SamarBg/blob/master/src/main/resources/static/images/logo3-p-1600.png)
 
 SamarBg
 Introduction
