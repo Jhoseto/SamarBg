@@ -11,29 +11,46 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * MapperForAccessory is a service class responsible for mapping AccessoryOfferEntity to OfferViewModel.
+ * This mapper is used to convert an AccessoryOfferEntity object into its corresponding OfferViewModel representation.
+ */
 @Service
 public final class MapperForAccessory {
+
     private final UserRepository userRepository;
     private final OfferImageRepository offerImageRepository;
 
-    public MapperForAccessory(UserRepository userRepository,
-                           OfferImageRepository offerImageRepository) {
+    /**
+     * Constructs a new MapperForAccessory instance.
+     *
+     * @param userRepository     UserRepository for accessing user data.
+     * @param offerImageRepository OfferImageRepository for accessing offer image data.
+     */
+    public MapperForAccessory(UserRepository userRepository, OfferImageRepository offerImageRepository) {
         this.userRepository = userRepository;
         this.offerImageRepository = offerImageRepository;
     }
 
+    /**
+     * Maps an AccessoryOfferEntity to an OfferViewModel.
+     *
+     * @param accessory The AccessoryOfferEntity to map.
+     * @return The mapped OfferViewModel.
+     */
     public OfferViewModel mapAccessoryToOffer(AccessoryOfferEntity accessory) {
 
         OfferViewModel offer = new OfferViewModel();
         String userName = accessory.getAuthorName();
 
-        if (userName != null){
+        if (userName != null) {
             Optional<UserEntity> optionalUser = userRepository.findByUsername(userName);
 
-            if (optionalUser.isPresent()){
+            if (optionalUser.isPresent()) {
                 UserEntity user = optionalUser.get();
 
-                // Извличане на информация от обекта за аксесоар
+                // Extract information from the accessory object
                 offer.setAuthorRegistrationData(user.getCreated());
                 offer.setAuthorOffersNumbers(user.getUserOffersCount());
                 offer.setAuthorProfileImage(user.getImageUrl());
@@ -51,14 +68,15 @@ public final class MapperForAccessory {
                 offer.setModifiedDate(accessory.getModified());
                 offer.setOfferViewCount(accessory.getOfferViewCounter());
                 offer.setVideoLink(accessory.getVideoLink());
+                offer.setIsActive(accessory.getIsActive());
 
-                // Извличане на URL адресите на снимките от базата данни
+                // Retrieve image URLs from the database
                 List<String> imageUrls = new ArrayList<>();
 
                 List<OfferImageEntity> images = offerImageRepository.findByAccessoryOfferId(accessory.getId());
 
                 for (OfferImageEntity image : images) {
-                    imageUrls.add(image.getImagePath()); // Получаване на URL адреса на снимката
+                    imageUrls.add(image.getImagePath()); // Get the image URL
                 }
                 offer.setImagesUrls(imageUrls);
                 offer.setBasicImageUrl(imageUrls.isEmpty() ? null : imageUrls.get(0));

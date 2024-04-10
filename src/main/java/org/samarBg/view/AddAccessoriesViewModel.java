@@ -16,26 +16,40 @@ public class AddAccessoriesViewModel {
     @NotNull
     @Size(min = 5, max = 50, message = "Невалидно име на обявата! Въведете минимум 5 и максимум 50 символа.")
     private String offerName;
+
     private String basicImageUrl;
+
     private List<MultipartFile> images;
+
     @NotNull(message = "Моля, изберете категория на вашия аксесоар ")
     private AccessoriesCategory accessoriesCategory;
+
     @NotNull
     @DecimalMax(value = "99999.99", message = "Моля, въведете реалистична цифра за цена")
     private BigDecimal price;
+
     @NotNull
     @Size(min = 9, max = 15, message = "Моля въведете реален телефонен номер")
     private String phone;
+
     boolean hiddenPhone;
+
     @NotNull(message = "Моля изберете населено място")
     private City city;
+
     @NotNull(message = "Моля напишете описание на обявата ")
     @Size(min = 20, max = 1000, message = "Описанието на обявата трябва да бъде минимум 20 и максимум 1000 символа !")
+
     private String description;
+
     private String authorName;
+
     private int offerViewCount;
+
     private Instant createDate;
+
     private Instant modifiedDate;
+
     private String videoLink;
 
 

@@ -13,50 +13,98 @@ import java.util.List;
 @Table(name = "accessory_offers")
 public class AccessoryOfferEntity extends BaseEntity {
 
+    /**
+     * The name of the accessory offer.
+     */
     @Column(nullable = false)
     private String offerName;
 
+    /**
+     * The category of the accessory offer.
+     */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OfferCategory category;
 
+    /**
+     * The author's name of the accessory offer.
+     */
     @Column(nullable = false)
     private String authorName;
 
+    /**
+     * The URL of the basic image for the accessory offer.
+     */
     @Column
     private String basicImageUrl;
+
+    /**
+     * The phone number associated with the accessory offer.
+     */
     @Column(nullable = false)
     private String phone;
 
+    /**
+     * Flag indicating whether the phone number should be hidden.
+     */
     @Column
     private Boolean hiddenPhone;
 
+    /**
+     * The city associated with the accessory offer.
+     */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private City city;
 
+    /**
+     * The price of the accessory offer.
+     */
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
+    /**
+     * The description of the accessory offer.
+     */
     @Column(nullable = false)
     @Size(max = 500)
     private String description;
 
+    /**
+     * The category of accessories associated with the offer.
+     */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AccessoriesCategory accessoriesCategory;
 
+    /**
+     * The list of images associated with the accessory offer.
+     */
     @OneToMany(mappedBy = "accessoryOffer", cascade = CascadeType.ALL)
     private List<OfferImageEntity> images;
 
+    /**
+     * Counter for the number of views of the accessory offer.
+     */
     @Column
     private int offerViewCounter;
 
+    /**
+     * Flag indicating whether the accessory offer is active.
+     */
     @Column
     private int isActive;
 
+    /**
+     * The video link associated with the accessory offer.
+     */
     @Column
     private String videoLink;
+
+
+
+
+
 
 
     public String getOfferName() {

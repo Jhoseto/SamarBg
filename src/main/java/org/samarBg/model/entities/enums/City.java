@@ -1,5 +1,7 @@
 package org.samarBg.model.entities.enums;
-
+/**
+ * Represents an enumeration of Towns categories.
+ */
 public enum City {
     NONE("-"),
     BLAGOEVGRAD("Благоевград"),

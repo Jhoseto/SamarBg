@@ -8,7 +8,6 @@ import org.mockito.MockitoAnnotations;
 import org.samarBg.model.entities.*;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
-import org.samarBg.service.CurrentUserService;
 import org.samarBg.service.serviceImpl.AddOffersImpl;
 import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;

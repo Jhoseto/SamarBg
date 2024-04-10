@@ -87,4 +87,25 @@ public class UserServiceImpl implements UserService {
         }
         return allUsers;
     }
+
+    /**
+     * Retrieves information about the currently logged-in user.
+     *
+     * @return the UserEntity object representing the currently logged-in user, or null if no user is logged in
+     */
+    public UserEntity getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+            if (userOptional.isPresent()) {
+                return userOptional.get();
+            } else {
+                // Потребителят не е намерен по потребителско име, и се търси по имейл
+                Optional<UserEntity> userByEmailOptional = userRepository.findByEmail(username);
+                return userByEmailOptional.orElse(null);
+            }
+        }
+        return null;
+    }
 }

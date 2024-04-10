@@ -1,5 +1,7 @@
 package org.samarBg.model.entities.enums;
-
+/**
+ * Represents an enumeration of accessory categories.
+ */
 public enum AccessoriesCategory {
 
     HORSESHOES("Подкови"),

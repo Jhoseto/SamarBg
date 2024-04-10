@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +30,6 @@ public class UserSettingsController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-
     @Autowired
     public UserSettingsController(UserSettingsService userSettingsService,
                                   UserRepository userRepository,
@@ -41,99 +39,104 @@ public class UserSettingsController {
         this.passwordEncoder = passwordEncoder;
     }
 
-
+    // Show user settings page
     @GetMapping("/user-settings")
     public String showUserSettings() {
         return "user-settings";
     }
 
-
+    // Model attribute for settings form one
     @ModelAttribute("saveFormOne")
     public SettingsFormOneViewModel saveFormOne() {
         return new SettingsFormOneViewModel();
     }
+
+    // Handle saving settings form one
     @PostMapping("/user-settings/saveFormOne")
-    public String saveFormOne(@ModelAttribute("saveFormOne")SettingsFormOneViewModel settingsFormOneViewModel,
+    public String saveFormOne(@ModelAttribute("saveFormOne") SettingsFormOneViewModel settingsFormOneViewModel,
                               RedirectAttributes redirectAttributes) {
 
-        // Получаваме Имейл-а на текущия потребител от CurrentUserService
+        // Get the email of the current authenticated user
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        // Намираме потребителя в базата данни по email
+        // Find the user in the database by email
         Optional<UserEntity> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isPresent()) {
             UserEntity currentUser = userOptional.get();
 
-            // Проверка и задаване на realName
+            // Set realName if empty
             if (settingsFormOneViewModel.getRealName().isEmpty()) {
                 settingsFormOneViewModel.setRealName(currentUser.getRealName());
             }
 
-            // Проверка и задаване на phone
-            if (settingsFormOneViewModel.getPhone().isEmpty()){
+            // Set phone if empty
+            if (settingsFormOneViewModel.getPhone().isEmpty()) {
                 settingsFormOneViewModel.setPhone(currentUser.getPhone());
             }
-            // Подаваме нужната информация за текущия потребител на метода за запазване
+
+            // Save settings form one
             userSettingsService.saveSettingsFormOne(
                     currentUser,
                     settingsFormOneViewModel.getRealName(),
                     settingsFormOneViewModel.getPhone(),
                     settingsFormOneViewModel.getCity()
             );
-            redirectAttributes.addFlashAttribute("massageFormOne", "Новите настройки са запазени !");
+
+            redirectAttributes.addFlashAttribute("messageFormOne", "New settings saved successfully!");
             return "redirect:/user-settings";
         } else {
-            redirectAttributes.addFlashAttribute("errorFormOne", "Грешка при запазване на настройките !");
+            redirectAttributes.addFlashAttribute("errorFormOne", "Error saving settings!");
         }
-        redirectAttributes.addFlashAttribute("errorFormOne",
-                "Грешка в потребителската сесия ! Моля влезте в вашия профил.");
+
+        redirectAttributes.addFlashAttribute("errorFormOne", "Error in user session! Please log in to your profile.");
         return "redirect:/login";
     }
 
-
+    // Model attribute for profile image upload
     @ModelAttribute("profileImageViewModel")
     public ProfileImageViewModel profileImageViewModel() {
         return new ProfileImageViewModel();
     }
+
+    // Handle profile image upload
     @PostMapping("/user-settings/uploadProfileImage")
     public String uploadImage(@Valid @ModelAttribute("profileImageViewModel") ProfileImageViewModel profileImageViewModel,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors()) {
-            // Обработка на грешките при валидация
             return "redirect:/user-settings";
         }
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         MultipartFile file = profileImageViewModel.getProfileImgFile();
 
-        // Валидация на формата на файла
+        // Validate file format
         if (file == null || !file.getContentType().startsWith("image")) {
-            redirectAttributes.addFlashAttribute("errorImg", "Файлът трябва да бъде изображение (jpg, png, bmp, gif).");
+            redirectAttributes.addFlashAttribute("errorImg", "File must be an image (jpg, png, bmp, gif).");
             return "redirect:/user-settings";
         }
 
-        // Валидация на размера на файла
+        // Validate file size
         if (file.getSize() > 5 * 1024 * 1024) { // 5 MB
-            redirectAttributes.addFlashAttribute("errorImg", "Файлът трябва да бъде по-малък от 5 MB.");
+            redirectAttributes.addFlashAttribute("errorImg", "File size must be less than 5 MB.");
             return "redirect:/user-settings";
         }
-        // Валидация за фалшиво разширение на файла
+
+        // Validate file extension
         String originalFilename = file.getOriginalFilename();
         if (originalFilename != null && !originalFilename.matches("^[^.]*\\.[^.]*$")) {
-            redirectAttributes.addFlashAttribute("errorImg", "Невалиден формат на файла");
+            redirectAttributes.addFlashAttribute("errorImg", "Invalid file format.");
             return "redirect:/user-settings";
         }
 
         try {
             userSettingsService.uploadProfileImage(email, file);
-
-            redirectAttributes.addFlashAttribute("messageImg", "Файлът е качен успешно!");
-            return "redirect:/user-settings";
+            redirectAttributes.addFlashAttribute("messageImg", "File uploaded successfully!");
         } catch (IOException e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("errorImg", "Грешка при качване на файла.");
+            redirectAttributes.addFlashAttribute("errorImg", "Error uploading file.");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorImg", e.getMessage());
         }
@@ -141,56 +144,56 @@ public class UserSettingsController {
         return "redirect:/user-settings";
     }
 
-
-
+    // Model attribute for change password
     @ModelAttribute("changePasswordViewModel")
     public ChangePasswordViewModel changePasswordViewModel() {
         return new ChangePasswordViewModel();
     }
+
+    // Handle changing user password
     @PostMapping("/user-settings/changePassword")
     public String changePassword(@Valid @ModelAttribute("changePasswordViewModel") ChangePasswordViewModel changePasswordViewModel,
-                              BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes){
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<UserEntity> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
 
-            // Проверка за съвпадение на старата парола
+            // Validate old password
             if (passwordEncoder.matches(changePasswordViewModel.getOldPassword(), user.getPassword())) {
 
-                // Валидация на новата парола
+                // Validate new password
                 if (bindingResult.hasFieldErrors("newPassword")) {
                     String errorMessage = Objects.requireNonNull(bindingResult.getFieldError("newPassword")).getDefaultMessage();
                     redirectAttributes.addFlashAttribute("errorChangePassword", errorMessage);
                     return "redirect:/user-settings";
                 }
-                //Ако паролите не съвпадат
+
+                // Check if passwords match
                 if (!changePasswordViewModel.isPasswordsMatch()) {
-                    redirectAttributes.addFlashAttribute("errorChangePassword","Грешка в поворението на новата парола !" );
+                    redirectAttributes.addFlashAttribute("errorChangePassword", "Passwords do not match.");
                     return "redirect:/user-settings";
                 }
-                // криптиране на новата парола
+
+                // Encode new password
                 String newPassword = passwordEncoder.encode(changePasswordViewModel.getNewPassword());
 
-                // Запазване на новата парола
+                // Save new password
                 user.setPassword(newPassword);
                 userRepository.save(user);
-                // Актуализиране на датата и часа на модификация
                 user.setModified(Instant.now());
 
-                redirectAttributes.addFlashAttribute("successMessageChangePassword", "Паролата е успешно сменена.");
+                redirectAttributes.addFlashAttribute("successMessageChangePassword", "Password changed successfully.");
             } else {
-                // Старата парола не съвпада с тази в базата данни
-                redirectAttributes.addFlashAttribute("errorChangePassword", "Грешна стара парола. Моля, опитайте отново.");
+                redirectAttributes.addFlashAttribute("errorChangePassword", "Incorrect old password. Please try again.");
             }
         } else {
-            // Потребителят не е намерен в базата данни
-            redirectAttributes.addFlashAttribute("error", "Грешка в сървъра ! Моля влезте в профила си отново.");
+            redirectAttributes.addFlashAttribute("error", "Server error! Please log in to your profile again.");
             return "redirect:/login";
         }
+
         return "redirect:/user-settings";
     }
 }
-

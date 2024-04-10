@@ -1,5 +1,8 @@
 package org.samarBg.service;
 
+import org.springframework.stereotype.Service;
+
+
 import org.samarBg.model.entities.UserEntity;
 import org.samarBg.view.UserProfileViewModel;
 
@@ -9,6 +12,7 @@ import java.util.Optional;
 /**
  * Service for managing users.
  */
+
 public interface UserService {
 
     /**
@@ -33,4 +37,11 @@ public interface UserService {
      * @return a list of user profile models (UserProfileViewModel)
      */
     List<UserProfileViewModel> getAllUsers();
+
+    /**
+     * Retrieves the current authenticated user.
+     *
+     * @return the current user entity
+     */
+    UserEntity getCurrentUser();
 }

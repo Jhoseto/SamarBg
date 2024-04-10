@@ -1,5 +1,7 @@
 package org.samarBg.model.entities.enums;
-
+/**
+ * Represents an enumeration of Main categories in project.
+ */
 public enum OfferCategory {
     HORSES("Коне"),
     ACCESSORIES("Аксесоари");

@@ -4,12 +4,23 @@ import org.samarBg.model.entities.UserEntity;
 import org.samarBg.view.UserProfileViewModel;
 import org.springframework.stereotype.Service;
 
+/**
+ * MapperForUsers is a service class responsible for mapping UserEntity to UserProfileViewModel.
+ * This mapper converts a UserEntity object into its corresponding UserProfileViewModel representation.
+ */
 @Service
 public class MapperForUsers {
 
+    /**
+     * Maps a UserEntity to a UserProfileViewModel.
+     *
+     * @param user The UserEntity to map.
+     * @return The mapped UserProfileViewModel.
+     */
     public UserProfileViewModel mapUserToProfileViewModel(UserEntity user) {
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
-        // Мапиране на данни от UserEntity към UserProfileViewModel
+
+        // Mapping data from UserEntity to UserProfileViewModel
         userProfileViewModel.setId(user.getId());
         userProfileViewModel.setUserName(user.getUsername());
         userProfileViewModel.setEmail(user.getEmail());

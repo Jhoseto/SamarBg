@@ -11,32 +11,45 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * MapperForHorses is a service class responsible for mapping HorseOfferEntity to OfferViewModel.
+ * This mapper converts a HorseOfferEntity object into its corresponding OfferViewModel representation.
+ */
 @Service
 public final class MapperForHorses {
+
     private final UserRepository userRepository;
     private final OfferImageRepository offerImageRepository;
 
-    public MapperForHorses(UserRepository userRepository,
-                           OfferImageRepository offerImageRepository) {
+    /**
+     * Constructs a new MapperForHorses instance.
+     *
+     * @param userRepository     UserRepository for accessing user data.
+     * @param offerImageRepository OfferImageRepository for accessing offer image data.
+     */
+    public MapperForHorses(UserRepository userRepository, OfferImageRepository offerImageRepository) {
         this.userRepository = userRepository;
         this.offerImageRepository = offerImageRepository;
     }
 
+    /**
+     * Maps a HorseOfferEntity to an OfferViewModel.
+     *
+     * @param horse The HorseOfferEntity to map.
+     * @return The mapped OfferViewModel.
+     */
     public OfferViewModel mapHorseToOffer(HorseOfferEntity horse) {
-        // Преобразуване на информацията за коня в обява
         OfferViewModel offer = new OfferViewModel();
-
-        // Намиране на потребителя по ID на обявата
         String userName = horse.getAuthorName();
 
         if (userName != null) {
-            // Намиране на потребителя по потребителското име
             Optional<UserEntity> optionalUser = userRepository.findByUsername(userName);
 
             if (optionalUser.isPresent()) {
                 UserEntity user = optionalUser.get();
 
-                // Извличане на необходимите данни от потребителя и присвояване на полетата на обекта OfferViewModel
+                // Extract necessary data from the user and assign to OfferViewModel fields
                 offer.setAuthorRegistrationData(user.getCreated());
                 offer.setAuthorOffersNumbers(user.getUserOffersCount());
                 offer.setAuthorProfileImage(user.getImageUrl());
@@ -55,14 +68,15 @@ public final class MapperForHorses {
                 offer.setModifiedDate(horse.getModified());
                 offer.setOfferViewCount(horse.getOfferViewCounter());
                 offer.setVideoLink(horse.getVideoLink());
+                offer.setIsActive(horse.getIsActive());
 
-                // Извличане на URL адресите на снимките от базата данни
+                // Retrieve image URLs from the database
                 List<String> imageUrls = new ArrayList<>();
 
                 List<OfferImageEntity> images = offerImageRepository.findByHorseOfferId(horse.getId());
 
                 for (OfferImageEntity image : images) {
-                    imageUrls.add(image.getImagePath()); // Получаване на URL адреса на снимката
+                    imageUrls.add(image.getImagePath()); // Get the image URL
                 }
 
                 offer.setImagesUrls(imageUrls);

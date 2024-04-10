@@ -1,5 +1,7 @@
 package org.samarBg.model.entities.enums;
-
+/**
+ * Represents an enumeration of gender.
+ */
 public enum Sex {
     MALE("Мъжки"),
     FEMALE("Женски");

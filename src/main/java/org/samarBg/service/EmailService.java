@@ -7,6 +7,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service responsible for sending emails for user-related actions.
+ */
 @Service
 public class EmailService {
     private final JavaMailSender emailSender;
@@ -17,32 +20,38 @@ public class EmailService {
         this.emailSender = emailSender;
     }
 
+    /**
+     * Sends a confirmation email with a provided confirmation link to the recipient.
+     *
+     * @param recipientEmail   The email address of the recipient
+     * @param confirmationLink  The confirmation link to include in the email
+     * @throws MailException   If an error occurs during email sending
+     */
     public void sendConfirmationEmail(String recipientEmail, String confirmationLink) throws MailException {
-        // Създаване на обект за изпращане на имейл
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        // Задаване на адреса на получателя
+
         mailMessage.setTo(recipientEmail);
-        // Задаване на темата на имейла
         mailMessage.setSubject("Samar.bg - Потвърждение на регистрация");
-        // Задаване на съдържанието на имейла с целия линк за потвърждение
         mailMessage.setText("Кликнете на линка за да потвърдите вашият Email адрес.\n"+confirmationLink);
 
-        // Изпращане на имейла
         emailSender.send(mailMessage);
     }
 
-//TODO forgotten password email
+    /**
+     * Sends a forgotten password email with a provided confirmation link to the recipient.
+     *
+     * @param recipientEmail   The email address of the recipient
+     * @param confirmationLink  The link for password reset to include in the email
+     * @throws MailException   If an error occurs during email sending
+     */
+    //TODO forgotten password email
     public void sendForgottenPasswordEmail(String recipientEmail, String confirmationLink) throws MailException {
-        // Създаване на обект за изпращане на имейл
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        // Задаване на адреса на получателя
+
         mailMessage.setTo(recipientEmail);
-        // Задаване на темата на имейла
         mailMessage.setSubject("Samar.bg - Потвърждение на регистрация");
-        // Задаване на съдържанието на имейла с целия линк за потвърждение
         mailMessage.setText("Кликнете на линка за да потвърдите вашият Email адрес.\n"+confirmationLink);
 
-        // Изпращане на имейла
         emailSender.send(mailMessage);
     }
 }

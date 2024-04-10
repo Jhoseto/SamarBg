@@ -8,7 +8,7 @@ import org.samarBg.model.entities.enums.OfferCategory;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.service.AddOffersService;
-import org.samarBg.service.CurrentUserService;
+import org.samarBg.service.UserService;
 import org.samarBg.view.AddAccessoriesViewModel;
 import org.samarBg.view.AddOfferHorseViewModel;
 import org.springframework.stereotype.Service;
@@ -29,16 +29,16 @@ public class AddOffersImpl implements AddOffersService{
 
     private final HorseOfferRepository horseOfferRepository;
     private final AccessoriesOfferRepository accessoriesOfferRepository;
-    private final CurrentUserService currentUserService;
+    private final UserService userService;
 
 
     public AddOffersImpl(HorseOfferRepository horseOfferRepository,
                          AccessoriesOfferRepository accessoriesOfferRepository,
-                         CurrentUserService currentUserService) {
+                         UserService userService) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
+        this.userService = userService;
 
-        this.currentUserService = currentUserService;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AddOffersImpl implements AddOffersService{
         HorseOfferEntity horseOffer = new HorseOfferEntity();
 
         // Получаваме Имейл-а на текущия потребител от CurrentUserService
-        String username = currentUserService.getCurrentUser().getUsername();
+        String username = userService.getCurrentUser().getUsername();
 
         List<OfferImageEntity> images = new ArrayList<>();
         for (String imageUrl : imageUrls) {
@@ -83,7 +83,7 @@ public class AddOffersImpl implements AddOffersService{
         AccessoryOfferEntity accessoriesOffer = new AccessoryOfferEntity();
 
         // Getting userName for current user from CurrentUserService
-        String username = currentUserService.getCurrentUser().getUsername();
+        String username = userService.getCurrentUser().getUsername();
 
         List<OfferImageEntity> images = new ArrayList<>();
         for (String imageUrl : imageUrls) {
@@ -116,7 +116,7 @@ public class AddOffersImpl implements AddOffersService{
     @Override
     public List<String> uploadImages(List<MultipartFile> files) throws IOException {
         List<String> imageUrls = new ArrayList<>();
-        int userOfferNumber = currentUserService.getCurrentUser().getUserOffersCount();
+        int userOfferNumber = userService.getCurrentUser().getUserOffersCount();
 
         for (MultipartFile file : files) {
             if (file.getSize()!=0){

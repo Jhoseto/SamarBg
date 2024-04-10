@@ -11,12 +11,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * Implementation of SortedSearchingOffers service interface.
+ * This service provides methods to perform sorted searching of offers based on various filters.
+ */
 @Service
 public class SortedSearchingOffersImpl implements SortedSearchingOffers {
 
@@ -26,29 +28,40 @@ public class SortedSearchingOffersImpl implements SortedSearchingOffers {
         this.offerService = offerService;
     }
 
-
+    /**
+     * Perform sorted searching of offers based on specified word and category filters.
+     *
+     * @param word              The search keyword.
+     * @param filter            The sorting filter (e.g., New, Old, Expensive, Cheap, Favorites).
+     * @param pageable          The pagination information.
+     * @param mainCategory      The main category filter.
+     * @param cityCategory      The city category filter.
+     * @param horseCategory     The horse category filter.
+     * @param genderCategory    The gender category filter.
+     * @param accessoriesCategory The accessories category filter.
+     * @return A paginated list of sorted OfferViewModel objects.
+     */
     @Override
     public Page<OfferViewModel> sortedSearchingByWordAndCategory(String word, String filter, Pageable pageable,
                                                                  String mainCategory, String cityCategory,
                                                                  String horseCategory, String genderCategory,
                                                                  String accessoriesCategory) {
+        // Get all offers matching the search word
         List<OfferViewModel> searchingOffers = offerService.getOffersBySearchingWord(word);
 
-        // Filtering by MainCategory (if selected)
-        if (!mainCategory.equals("none")  && !mainCategory.isEmpty()) {
+        // Apply filters based on selected categories
+        if (!mainCategory.equals("none") && !mainCategory.isEmpty()) {
             searchingOffers = searchingOffers.stream()
                     .filter(offer -> offer.getOfferCategory().toString().equals(mainCategory))
                     .collect(Collectors.toList());
         }
 
-        // Filtering by City (if selected)
         if (!cityCategory.equals("none") && !cityCategory.isEmpty()) {
             searchingOffers = searchingOffers.stream()
                     .filter(offer -> offer.getCity().toString().equalsIgnoreCase(cityCategory))
                     .collect(Collectors.toList());
         }
 
-        // Filtering by HorseCategory (if selected)
         if (!horseCategory.equals("none") && !horseCategory.isEmpty()) {
             searchingOffers = searchingOffers.stream()
                     .filter(offer -> {
@@ -58,7 +71,6 @@ public class SortedSearchingOffersImpl implements SortedSearchingOffers {
                     .collect(Collectors.toList());
         }
 
-        // Filtering by GenderCategory (if selected)
         if (!genderCategory.equals("none") && !genderCategory.isEmpty()) {
             searchingOffers = searchingOffers.stream()
                     .filter(offer -> {
@@ -68,7 +80,6 @@ public class SortedSearchingOffersImpl implements SortedSearchingOffers {
                     .collect(Collectors.toList());
         }
 
-        // Filtering by accessoriesCategory (if selected)
         if (!accessoriesCategory.equals("none") && !accessoriesCategory.isEmpty()) {
             searchingOffers = searchingOffers.stream()
                     .filter(offer -> {
@@ -78,6 +89,7 @@ public class SortedSearchingOffersImpl implements SortedSearchingOffers {
                     .collect(Collectors.toList());
         }
 
+        // Apply sorting based on selected filter
         Comparator<OfferViewModel> comparator;
         switch (filter) {
             case "New":
@@ -95,19 +107,22 @@ public class SortedSearchingOffersImpl implements SortedSearchingOffers {
             case "Favorites":
                 comparator = Comparator.comparing(OfferViewModel::getOfferViewCount).reversed();
                 break;
-            default: // Default sorting By Date
-                comparator = Comparator.comparing(OfferViewModel::getCreateDate).reversed();
+            default:
+                comparator = Comparator.comparing(OfferViewModel::getCreateDate).reversed(); // Default sorting by Date (newest first)
                 break;
         }
+
+        // Sort the offers based on the selected comparator
         List<OfferViewModel> sortedOffers = searchingOffers.stream()
                 .sorted(comparator)
                 .collect(Collectors.toList());
 
-        // Pagination
+        // Perform pagination
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), sortedOffers.size());
         List<OfferViewModel> pagedOffers = sortedOffers.subList(start, end);
 
+        // Create a Page object containing the paginated and sorted offers
         return new PageImpl<>(pagedOffers, pageable, sortedOffers.size());
     }
 }

@@ -29,6 +29,7 @@ public class OfferViewModel {
     private Instant authorRegistrationData;
     private Instant authorLastOnlineDate;
     private String authorProfileImage;
+    private int isActive;
 
 
 
@@ -221,6 +222,15 @@ public class OfferViewModel {
 
     public OfferViewModel setAuthorProfileImage(String authorProfileImage) {
         this.authorProfileImage = authorProfileImage;
+        return this;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public OfferViewModel setIsActive(int isActive) {
+        this.isActive = isActive;
         return this;
     }
 }

@@ -3,12 +3,14 @@ package org.samarBg.view;
 import org.samarBg.model.entities.enums.City;
 import org.samarBg.model.entities.enums.HorseCategory;
 import org.samarBg.model.entities.enums.Sex;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+
 
 public class AddOfferHorseViewModel {
 

@@ -1,7 +1,6 @@
 package org.samarBg.securityAndComponent;
 
 import org.samarBg.model.entities.UserEntity;
-import org.samarBg.service.CurrentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

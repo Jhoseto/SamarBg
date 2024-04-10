@@ -54,20 +54,20 @@
   <div>
     <section class="section-2">
       <div class="div-block-16">
-        <h1 class="heading-2" th:text="${@currentUserService.getCurrentUser().getUsername()}">Nickname</h1>
+        <h1 class="heading-2" th:text="${@userServiceImpl.getCurrentUser().getUsername()}">Nickname</h1>
         <div class="form1 w-form">
           <form id="email-form" name="email-form" data-name="Email Form" method="post" class="form-2" data-wf-page-id="65f1c0868302ac690ca6e1b5" data-wf-element-id="1025ebf2-521a-d196-ab77-95c4aecc627e"><label for="field" class="field-label-8">Име</label>
-            <div class="text-block-6" th:text="${@currentUserService.getCurrentUser().getRealName() != null ? @currentUserService.getCurrentUser().getRealName() : '-'}">ime na potrebitel</div><label for="email" class="field-label-6">Електронна поща</label>
-            <div class="text-block-7" th:text="${@currentUserService.getCurrentUser().getEmail() != null ? @currentUserService.getCurrentUser()?.getEmail() : '-'}">elektronna poshta</div><label for="field" class="field-label-6">Телефон</label>
-            <div class="text-block-8" th:text="${@currentUserService.getCurrentUser().getPhone() != null ? @currentUserService.getCurrentUser()?.getPhone() : '-'}">telefon</div><label for="CityField" class="field-label-7">Населено място</label>
-            <div class="text-block-9" th:text="${@currentUserService.getCurrentUser().getCity() != null ? @currentUserService.getCurrentUser()?.getCity().toBG() : '-'}">grad</div>
+            <div class="text-block-6" th:text="${@userServiceImpl.getCurrentUser().getRealName() != null ? @userServiceImpl.getCurrentUser().getRealName() : '-'}">ime na potrebitel</div><label for="email" class="field-label-6">Електронна поща</label>
+            <div class="text-block-7" th:text="${@userServiceImpl.getCurrentUser().getEmail() != null ? @userServiceImpl.getCurrentUser()?.getEmail() : '-'}">elektronna poshta</div><label for="field" class="field-label-6">Телефон</label>
+            <div class="text-block-8" th:text="${@userServiceImpl.getCurrentUser().getPhone() != null ? @userServiceImpl.getCurrentUser()?.getPhone() : '-'}">telefon</div><label for="CityField" class="field-label-7">Населено място</label>
+            <div class="text-block-9" th:text="${@userServiceImpl.getCurrentUser().getCity() != null ? @userServiceImpl.getCurrentUser()?.getCity().toBG() : '-'}">grad</div>
             <label for="lastOnline" class="field-label-6">Последно активен на:</label>
-            <div class="text-block-6" th:text="${#dates.format(@currentUserService.getCurrentUser()?.getLastOnline(), 'yyyy/MM/dd HH:mm')}">lastOnline</div>
+            <div class="text-block-6" th:text="${#dates.format(@userServiceImpl.getCurrentUser()?.getLastOnline(), 'yyyy/MM/dd HH:mm')}">lastOnline</div>
           </form>
         </div>
       </div>
       <div id="w-node-_1025ebf2-521a-d196-ab77-95c4aecc62a8-0ca6e1b5" class="div-block-14">
-        <img th:src="${@currentUserService.getCurrentUser()?.getImageUrl() != null ? @currentUserService.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" alt="" class="image-14" width="350" height="auto"></div>
+        <img th:src="${@userServiceImpl.getCurrentUser()?.getImageUrl() != null ? @userServiceImpl.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" alt="" class="image-14" width="350" height="auto"></div>
     </section>
   </div>
   <header id="blog-header-1" class="uui-section_blog01">
@@ -76,7 +76,7 @@
         <div class="uui-padding-vertical-xhuge-2">
           <div class="uui-text-align-center">
             <div class="uui-max-width-large align-center">
-              <h2 class="uui-heading-large" th:text="'Всички обяви на ' + ${@currentUserService.getCurrentUser().username}"></h2>
+              <h2 class="uui-heading-large" th:text="'Всички обяви на ' + ${@userServiceImpl.getCurrentUser().username}"></h2>
             </div>
           </div>
           <div class="uui-blog01_component">

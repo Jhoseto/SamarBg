@@ -52,7 +52,7 @@
 </div>
   <div class="div-block-12"></div>
   <div class="div-block-51">
-    <h1 class="heading-6">Търси по ключова дума</h1><style> </style>
+    <h1 class="heading-6">Търси по ключова дума</h1>
     <div class="div-block-50">
       <div class="form-block-4 w-form">
         <form id="email-form-2" name="email-form-2" data-name="Email Form 2"
@@ -214,19 +214,24 @@
               <div th:if="${offers != null }" class="pagination">
                 <ul>
                   <li th:if="${offers.hasPrevious()}">
-                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=0, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#171;</a>
+                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=0, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord},
+                    mainCategory=${mainCategory}, cityCategory=${cityCategory}, horseCategory=${horseCategory}, genderCategory=${genderCategory}, accessoriesCategory=${accessoriesCategory})}">&#171;</a>
                   </li>
                   <li th:if="${offers.hasPrevious()}">
-                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=${offers.number - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#8249;</a>
+                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=${offers.number - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord},
+                    mainCategory=${mainCategory}, cityCategory=${cityCategory}, horseCategory=${horseCategory}, genderCategory=${genderCategory}, accessoriesCategory=${accessoriesCategory})}">&#8249;</a>
                   </li>
                   <li th:each="pageNumber : ${#numbers.sequence(0, offers.totalPages - 1)}" th:class="${pageNumber == offers.number ? 'active' : ''}">
-                    <a th:href="@{/searchingByWordsAndCategory(page=${pageNumber}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}" th:text="${pageNumber + 1}"></a>
+                    <a th:href="@{/searchingByWordsAndCategory(page=${pageNumber}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord},
+                    mainCategory=${mainCategory}, cityCategory=${cityCategory}, horseCategory=${horseCategory}, genderCategory=${genderCategory}, accessoriesCategory=${accessoriesCategory})}" th:text="${pageNumber + 1}"></a>
                   </li>
                   <li th:if="${offers.hasNext()}">
-                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=${offers.number + 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#8250;</a>
+                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=${offers.number + 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord},
+                    mainCategory=${mainCategory}, cityCategory=${cityCategory}, horseCategory=${horseCategory}, genderCategory=${genderCategory}, accessoriesCategory=${accessoriesCategory})}">&#8250;</a>
                   </li>
                   <li th:if="${offers.hasNext()}">
-                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=${offers.totalPages - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord})}">&#187;</a>
+                    <a class="arrow" th:href="@{/searchingByWordsAndCategory(page=${offers.totalPages - 1}, size=${offers.size}, filter=${offersSort}, searchingWord=${searchingWord},
+                    mainCategory=${mainCategory}, cityCategory=${cityCategory}, horseCategory=${horseCategory}, genderCategory=${genderCategory}, accessoriesCategory=${accessoriesCategory})}">&#187;</a>
                   </li>
                 </ul>
               </div>
