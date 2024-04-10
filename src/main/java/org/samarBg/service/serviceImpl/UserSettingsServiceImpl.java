@@ -1,7 +1,7 @@
 package org.samarBg.service.serviceImpl;
 
-import org.samarBg.model.entities.UserEntity;
-import org.samarBg.model.entities.enums.City;
+import org.samarBg.models.UserEntity;
+import org.samarBg.models.enums.City;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.service.UserSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;

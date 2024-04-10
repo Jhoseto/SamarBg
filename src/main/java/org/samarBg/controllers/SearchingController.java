@@ -1,7 +1,7 @@
 package org.samarBg.controllers;
 
 import org.samarBg.service.SortedSearchingOffers;
-import org.samarBg.view.OfferViewModel;
+import org.samarBg.views.OfferViewModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;

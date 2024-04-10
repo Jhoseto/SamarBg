@@ -1,7 +1,7 @@
 package org.samarBg;
 
-import org.samarBg.model.entities.*;
-import org.samarBg.model.entities.enums.*;
+import org.samarBg.models.*;
+import org.samarBg.models.enums.*;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.UserRepository;

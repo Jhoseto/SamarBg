@@ -1,11 +1,11 @@
 package org.samarBg.service.serviceImpl;
 
-import org.samarBg.model.entities.enums.AccessoriesCategory;
-import org.samarBg.model.entities.enums.HorseCategory;
-import org.samarBg.model.entities.enums.Sex;
+import org.samarBg.models.enums.AccessoriesCategory;
+import org.samarBg.models.enums.HorseCategory;
+import org.samarBg.models.enums.Sex;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.SortedSearchingOffers;
-import org.samarBg.view.OfferViewModel;
+import org.samarBg.views.OfferViewModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

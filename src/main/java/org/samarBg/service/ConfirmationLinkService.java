@@ -1,6 +1,6 @@
 package org.samarBg.service;
 
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.models.UserEntity;
 import org.springframework.stereotype.Service;
 /**
  * Service for generating confirmation links for user accounts.

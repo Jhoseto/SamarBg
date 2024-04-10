@@ -1,6 +1,6 @@
 package org.samarBg.service;
 
-import org.samarBg.view.OfferViewModel;
+import org.samarBg.views.OfferViewModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

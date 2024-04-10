@@ -1,10 +1,10 @@
 package org.samarBg.service.serviceImpl;
 
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.models.UserEntity;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.service.Mappers.MapperForUsers;
 import org.samarBg.service.UserService;
-import org.samarBg.view.UserProfileViewModel;
+import org.samarBg.views.UserProfileViewModel;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

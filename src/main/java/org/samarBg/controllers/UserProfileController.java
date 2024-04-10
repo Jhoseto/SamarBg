@@ -1,10 +1,10 @@
 package org.samarBg.controllers;
 
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.models.UserEntity;
 import org.samarBg.service.serviceImpl.OfferServiceImpl;
 import org.samarBg.service.serviceImpl.UserServiceImpl;
-import org.samarBg.view.OfferViewModel;
-import org.samarBg.view.UserProfileViewModel;
+import org.samarBg.views.OfferViewModel;
+import org.samarBg.views.UserProfileViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,20 +17,18 @@ public class UserProfileController {
 
     private final UserServiceImpl userService;
     private final OfferServiceImpl offerService;
-    private final CurrentUserService currentUserService;
+
 
 
     public UserProfileController(UserServiceImpl userService,
-                                 OfferServiceImpl offerService,
-                                 CurrentUserService currentUserService) {
+                                 OfferServiceImpl offerService) {
         this.userService = userService;
         this.offerService = offerService;
-        this.currentUserService = currentUserService;
     }
 
     @GetMapping("/user-detail")
     public String showUserDetail(Model model) {
-        String username = currentUserService.getCurrentUser().getUsername();
+        String username = userService.getCurrentUser().getUsername();
         List<OfferViewModel> userOffersPage = offerService.getAllOffersForUser(username);
 
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel();

@@ -1,8 +1,8 @@
 package org.samarBg.controllers;
 
 import org.samarBg.service.AddOffersService;
-import org.samarBg.view.AddAccessoriesViewModel;
-import org.samarBg.view.AddOfferHorseViewModel;
+import org.samarBg.views.AddAccessoriesViewModel;
+import org.samarBg.views.AddOfferHorseViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

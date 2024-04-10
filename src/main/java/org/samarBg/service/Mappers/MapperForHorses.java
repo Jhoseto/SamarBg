@@ -1,11 +1,11 @@
 package org.samarBg.service.Mappers;
 
-import org.samarBg.model.entities.HorseOfferEntity;
-import org.samarBg.model.entities.OfferImageEntity;
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.models.HorseOfferEntity;
+import org.samarBg.models.OfferImageEntity;
+import org.samarBg.models.UserEntity;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.view.OfferViewModel;
+import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

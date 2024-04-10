@@ -1,11 +1,11 @@
 package org.samarBg.controllers;
 
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.models.UserEntity;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.service.UserSettingsService;
-import org.samarBg.view.ChangePasswordViewModel;
-import org.samarBg.view.ProfileImageViewModel;
-import org.samarBg.view.SettingsFormOneViewModel;
+import org.samarBg.views.ChangePasswordViewModel;
+import org.samarBg.views.ProfileImageViewModel;
+import org.samarBg.views.SettingsFormOneViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,10 +1,8 @@
 package org.samarBg.service;
 
-import org.springframework.stereotype.Service;
 
-
-import org.samarBg.model.entities.UserEntity;
-import org.samarBg.view.UserProfileViewModel;
+import org.samarBg.models.UserEntity;
+import org.samarBg.views.UserProfileViewModel;
 
 import java.util.List;
 import java.util.Optional;

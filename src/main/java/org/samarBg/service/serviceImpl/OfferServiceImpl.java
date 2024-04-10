@@ -1,10 +1,10 @@
 package org.samarBg.service.serviceImpl;
 
-import org.samarBg.model.entities.AccessoryOfferEntity;
-import org.samarBg.model.entities.HorseOfferEntity;
-import org.samarBg.model.entities.OfferImageEntity;
-import org.samarBg.model.entities.UserEntity;
-import org.samarBg.model.entities.enums.OfferCategory;
+import org.samarBg.models.AccessoryOfferEntity;
+import org.samarBg.models.HorseOfferEntity;
+import org.samarBg.models.OfferImageEntity;
+import org.samarBg.models.UserEntity;
+import org.samarBg.models.enums.OfferCategory;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.OfferImageRepository;
@@ -12,10 +12,10 @@ import org.samarBg.repository.UserRepository;
 import org.samarBg.service.Mappers.MapperForAccessory;
 import org.samarBg.service.Mappers.MapperForHorses;
 import org.samarBg.service.OfferService;
-import org.samarBg.view.OfferViewModel;
+import org.samarBg.service.UserService;
+import org.samarBg.views.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +33,7 @@ public class OfferServiceImpl implements OfferService {
     private final HorseOfferRepository horseOfferRepository;
     private final AccessoriesOfferRepository accessoriesOfferRepository;
     private final UserRepository userRepository;
-    private final CurrentUserService currentUserService;
+    private final UserService userService;
     private final OfferImageRepository offerImageRepository;
 
     /**
@@ -42,19 +42,19 @@ public class OfferServiceImpl implements OfferService {
      * @param horseOfferRepository      the repository for HorseOfferEntity
      * @param accessoriesOfferRepository the repository for AccessoryOfferEntity
      * @param userRepository             the repository for UserEntity
-     * @param currentUserService         the service for handling current user operations
+     * @param userService         the service for handling  user operations
      * @param offerImageRepository       the repository for OfferImageEntity
      */
     @Autowired
     public OfferServiceImpl(HorseOfferRepository horseOfferRepository,
                             AccessoriesOfferRepository accessoriesOfferRepository,
                             UserRepository userRepository,
-                            CurrentUserService currentUserService,
+                            UserService userService,
                             OfferImageRepository offerImageRepository) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
         this.userRepository = userRepository;
-        this.currentUserService = currentUserService;
+        this.userService = userService;
         this.offerImageRepository = offerImageRepository;
     }
 
@@ -183,14 +183,14 @@ public class OfferServiceImpl implements OfferService {
         if (horseOffer.isPresent()) {
             HorseOfferEntity offer = horseOffer.get();
             offer.setIsActive(1);
-            currentUserService.getCurrentUser().setUserOffersCount(
-                    currentUserService.getCurrentUser().getUserOffersCount() + 1);
+            userService.getCurrentUser().setUserOffersCount(
+                    userService.getCurrentUser().getUserOffersCount() + 1);
             horseOfferRepository.save(offer);
         } else if (accessoryOffer.isPresent()) {
             AccessoryOfferEntity offer = accessoryOffer.get();
             offer.setIsActive(1);
-            currentUserService.getCurrentUser().setUserOffersCount(
-                    currentUserService.getCurrentUser().getUserOffersCount() + 1);
+            userService.getCurrentUser().setUserOffersCount(
+                    userService.getCurrentUser().getUserOffersCount() + 1);
             accessoriesOfferRepository.save(offer);
         } else {
             throw new IllegalArgumentException("The offer not found in the database");

@@ -2,7 +2,7 @@ package org.samarBg.repository;
 
 
 
-import org.samarBg.model.entities.UserRoleEntity;
+import org.samarBg.models.UserRoleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

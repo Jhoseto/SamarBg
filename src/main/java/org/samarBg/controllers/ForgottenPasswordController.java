@@ -1,8 +1,8 @@
 package org.samarBg.controllers;
 
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.models.UserEntity;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.view.ForgottenPasswordViewModel;
+import org.samarBg.views.ForgottenPasswordViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

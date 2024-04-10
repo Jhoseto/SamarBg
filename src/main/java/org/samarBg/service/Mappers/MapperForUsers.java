@@ -1,7 +1,7 @@
 package org.samarBg.service.Mappers;
 
-import org.samarBg.model.entities.UserEntity;
-import org.samarBg.view.UserProfileViewModel;
+import org.samarBg.models.UserEntity;
+import org.samarBg.views.UserProfileViewModel;
 import org.springframework.stereotype.Service;
 
 /**

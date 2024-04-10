@@ -1,14 +1,14 @@
 package org.samarBg.controllers;
 
-import org.samarBg.model.entities.BaseEntity;
-import org.samarBg.model.entities.UserEntity;
-import org.samarBg.model.entities.UserRoleEntity;
-import org.samarBg.model.entities.enums.UserRole;
+import org.samarBg.models.BaseEntity;
+import org.samarBg.models.UserEntity;
+import org.samarBg.models.UserRoleEntity;
+import org.samarBg.models.enums.UserRole;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.repository.UserRoleRepository;
 import org.samarBg.service.ConfirmationLinkService;
 import org.samarBg.service.EmailService;
-import org.samarBg.view.UserRegistrationViewModel;
+import org.samarBg.views.UserRegistrationViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

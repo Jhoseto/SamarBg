@@ -1,7 +1,7 @@
 package org.samarBg.service;
 
-import org.samarBg.view.AddAccessoriesViewModel;
-import org.samarBg.view.AddOfferHorseViewModel;
+import org.samarBg.views.AddAccessoriesViewModel;
+import org.samarBg.views.AddOfferHorseViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

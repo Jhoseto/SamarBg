@@ -1,12 +1,10 @@
 package org.samarBg.controllers;
 
 
-import org.samarBg.model.entities.OfferImageEntity;
+import org.samarBg.models.OfferImageEntity;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.service.OfferService;
-import org.samarBg.view.OfferViewModel;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

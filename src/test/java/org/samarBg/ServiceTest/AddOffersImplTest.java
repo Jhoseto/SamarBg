@@ -5,12 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.samarBg.model.entities.*;
+import org.samarBg.models.AccessoryOfferEntity;
+import org.samarBg.models.HorseOfferEntity;
+import org.samarBg.models.UserEntity;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
+import org.samarBg.service.UserService;
 import org.samarBg.service.serviceImpl.AddOffersImpl;
-import org.samarBg.view.AddAccessoriesViewModel;
-import org.samarBg.view.AddOfferHorseViewModel;
+import org.samarBg.views.AddAccessoriesViewModel;
+import org.samarBg.views.AddOfferHorseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ public class AddOffersImplTest {
     private AccessoriesOfferRepository accessoriesOfferRepository;
 
     @Mock
-    private CurrentUserService currentUserService;
+    private UserService userService;
 
     @InjectMocks
     private AddOffersImpl addOffersService;
@@ -41,7 +44,7 @@ public class AddOffersImplTest {
     public void testAddHorseOffer() {
         // Mocking current user service
         UserEntity mockUser = new UserEntity(/* Mock user details */);
-        when(currentUserService.getCurrentUser()).thenReturn(mockUser);
+        when(userService.getCurrentUser()).thenReturn(mockUser);
 
         // Mocking view model and file list
         AddOfferHorseViewModel viewModel = new AddOfferHorseViewModel();
@@ -64,7 +67,7 @@ public class AddOffersImplTest {
     public void testAddAccessoriesOffer() {
         // Mocking current user service
         UserEntity mockUser = new UserEntity(/* Mock user details */);
-        when(currentUserService.getCurrentUser()).thenReturn(mockUser);
+        when(userService.getCurrentUser()).thenReturn(mockUser);
 
         // Mocking view model and file list
         AddAccessoriesViewModel viewModel = new AddAccessoriesViewModel();

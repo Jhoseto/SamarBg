@@ -1,7 +1,7 @@
 package org.samarBg.service;
 
-import org.samarBg.model.entities.UserEntity;
-import org.samarBg.model.entities.enums.City;
+import org.samarBg.models.UserEntity;
+import org.samarBg.models.enums.City;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

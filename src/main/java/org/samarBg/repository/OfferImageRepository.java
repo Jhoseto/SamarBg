@@ -1,6 +1,6 @@
 package org.samarBg.repository;
 
-import org.samarBg.model.entities.OfferImageEntity;
+import org.samarBg.models.OfferImageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

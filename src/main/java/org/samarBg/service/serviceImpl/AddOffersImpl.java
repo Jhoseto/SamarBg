@@ -1,16 +1,16 @@
 package org.samarBg.service.serviceImpl;
 
-import org.samarBg.model.entities.AccessoryOfferEntity;
-import org.samarBg.model.entities.BaseEntity;
-import org.samarBg.model.entities.HorseOfferEntity;
-import org.samarBg.model.entities.OfferImageEntity;
-import org.samarBg.model.entities.enums.OfferCategory;
+import org.samarBg.models.AccessoryOfferEntity;
+import org.samarBg.models.BaseEntity;
+import org.samarBg.models.HorseOfferEntity;
+import org.samarBg.models.OfferImageEntity;
+import org.samarBg.models.enums.OfferCategory;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.service.AddOffersService;
 import org.samarBg.service.UserService;
-import org.samarBg.view.AddAccessoriesViewModel;
-import org.samarBg.view.AddOfferHorseViewModel;
+import org.samarBg.views.AddAccessoriesViewModel;
+import org.samarBg.views.AddOfferHorseViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

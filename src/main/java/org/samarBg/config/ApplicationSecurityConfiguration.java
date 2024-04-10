@@ -13,25 +13,33 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+/**
+ * Configuration class for application security settings.
+ */
 @Configuration
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Constructor injecting custom user details service and password encoder.
+     */
     @Autowired
     public ApplicationSecurityConfiguration(UserDetailsService customUserDetailsService,
                                             PasswordEncoder passwordEncoder) {
         this.customUserDetailsService = customUserDetailsService;
         this.passwordEncoder = passwordEncoder;
-
     }
 
+    /**
+     * Configures HTTP security settings for the application.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                // Разрешаване на статичните ресурси
+                // Permit access to static resources
                 .antMatchers(
                         "/images/usersImg/**",
                         "/images/offerImg/**",
@@ -44,6 +52,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .antMatchers(
                         "/",
                         "/index",
+                        "/searching",
                         "/allAccessories",
                         "/allHorses",
                         "/allOffers",
@@ -54,28 +63,26 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         "/login",
                         "/user/logout",
                         "/confirm").permitAll()
-                // Забраняване на всичко останало за неаутентифицирани потребители
+                // Deny access to any other URLs for unauthenticated users
                 .anyRequest().authenticated()
 
-            .and()
-                .rememberMe() // Запомняне на потребителя
-                .key(rememberMeKey()) // Уникален ключ за запомняне
+                .and()
+                .rememberMe() // Remember me functionality
+                .key(rememberMeKey()) // Unique key for remember me
 
-            .and()
+                .and()
                 .logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/index")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me") // Изтриване на бисквитките за запомняне и сесията
+                .deleteCookies("JSESSIONID", "remember-me") // Delete cookies for session and remember me
                 .permitAll()
 
-                // Настройка на управлението на сесиите
-            .and()
+                .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // Сесията се създава автоматично
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // Session creation policy
 
-                // Обработка на изключенията
-            .and()
+                .and()
                 .exceptionHandling()
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     response.sendRedirect("/login?error=AccessDenied >>>it is only available to administrators<<<");
@@ -84,28 +91,14 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                     response.sendRedirect("/login?error=AccessDenied >>>Need to LOGIN IN first !<<<");
                 })
 
-                // други настройки за сигурност...
-            .and()
-                //CSFR защита
+                .and()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and();
-
-//                // Ограничава изпълнението на скриптове само от текущия домейн
-//                .headers()
-//                .contentSecurityPolicy("script-src 'self' 'unsafe-inline' 'unsafe-eval' static/js/");
-////
-//                // Установява Strict Transport Security (HSTS) за повишаване на сигурността при HTTPS
-//            .and()
-//                .httpStrictTransportSecurity()
-//                .includeSubDomains(true)
-//                .maxAgeInSeconds(31536000);
     }
 
-
-
-
-
-
+    /**
+     * Configures authentication manager builder to use custom user details service and password encoder.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -113,16 +106,19 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .passwordEncoder(passwordEncoder);
     }
 
-
+    /**
+     * Generates a unique key for remember me functionality.
+     */
     @Bean
     public String rememberMeKey() {
         return KeyGenerator.generateKey();
     }
 
+    /**
+     * Creates a token-based remember me services using the custom user details service and remember me key.
+     */
     @Bean
     public TokenBasedRememberMeServices tokenBasedRememberMeServices() {
         return new TokenBasedRememberMeServices(rememberMeKey(), customUserDetailsService);
     }
-
-
 }

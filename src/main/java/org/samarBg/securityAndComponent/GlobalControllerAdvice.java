@@ -1,6 +1,7 @@
 package org.samarBg.securityAndComponent;
 
-import org.samarBg.model.entities.UserEntity;
+import org.samarBg.models.UserEntity;
+import org.samarBg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
-    private final CurrentUserService currentUserService;
+    private final UserService userService;
 
     /**
      * Конструктор за GlobalControllerAdvice класа.
@@ -22,8 +23,8 @@ public class GlobalControllerAdvice {
      * @param currentUserService Сервиз за текущия потребител
      */
     @Autowired
-    public GlobalControllerAdvice(CurrentUserService currentUserService) {
-        this.currentUserService = currentUserService;
+    public GlobalControllerAdvice(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -35,7 +36,7 @@ public class GlobalControllerAdvice {
     public UserEntity getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            return currentUserService.getCurrentUser();
+            return userService.getCurrentUser();
         }
         return null;
     }

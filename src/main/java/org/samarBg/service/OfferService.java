@@ -1,6 +1,6 @@
 package org.samarBg.service;
 
-import org.samarBg.view.OfferViewModel;
+import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
