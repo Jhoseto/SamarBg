@@ -16,6 +16,7 @@ Spring Security: Implements robust authentication and authorization mechanisms t
 Thymeleaf and HTML/CSS/JavaScript: Dynamic views are created using Thymeleaf for server-side HTML rendering, complemented by HTML, CSS, and JavaScript for enhanced styling and interactivity.
 
 Swagger/OpenAPI: API documentation is generated using Swagger/OpenAPI, facilitating automatic documentation generation and easier API consumption by developers.
+https://localhost:2662/swagger-ui/index.html#/
 
 Key Features
 Advertisement Management: Users can seamlessly add new advertisements for horse sales or equestrian accessories through the user-friendly interface.
