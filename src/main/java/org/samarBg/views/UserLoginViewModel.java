@@ -3,7 +3,16 @@ package org.samarBg.views;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+/**
+ * View model representing user login information.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>email:</b> The email address used for login. Must not be null and must be a valid email format.</li>
+ *     <li><b>password:</b> The password used for login. Must not be null and must have a minimum length of 6 characters.</li>
+ *     <li><b>isActive:</b> Flag indicating whether the user account is active.</li>
+ * </ul>
+ */
 public class UserLoginViewModel {
     @NotNull
     @Email

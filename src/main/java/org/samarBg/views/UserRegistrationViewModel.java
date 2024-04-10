@@ -1,7 +1,18 @@
 package org.samarBg.views;
 
 import javax.validation.constraints.*;
-
+/**
+ * View model representing user registration information.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>username:</b> The username for registration.</li>
+ *     <li><b>email:</b> The email address for registration.</li>
+ *     <li><b>regPassword:</b> The password for registration.</li>
+ *     <li><b>confirmPassword:</b> The password confirmation field for registration.</li>
+ *     <li><b>userModelConfirmationCode:</b> The confirmation code for user registration.</li>
+ * </ul>
+ */
 public class UserRegistrationViewModel {
 
 

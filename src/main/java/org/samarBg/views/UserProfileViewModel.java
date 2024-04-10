@@ -6,6 +6,22 @@ import java.time.Instant;
 import java.util.List;
 
 
+/**
+ * View model representing user profile information.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>id:</b> The unique identifier of the user.</li>
+ *     <li><b>userName:</b> The username of the user.</li>
+ *     <li><b>realName:</b> The real name of the user.</li>
+ *     <li><b>profileImageUrl:</b> The URL of the user's profile image.</li>
+ *     <li><b>email:</b> The email address of the user.</li>
+ *     <li><b>phone:</b> The phone number of the user.</li>
+ *     <li><b>city:</b> The city where the user is located.</li>
+ *     <li><b>userOffers:</b> A list of offers created by the user.</li>
+ *     <li><b>lastOnline:</b> The date and time when the user was last online.</li>
+ * </ul>
+ */
 public class UserProfileViewModel {
     private Long id;
     private String userName;

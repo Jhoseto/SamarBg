@@ -10,7 +10,28 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
-
+/**
+ * View model representing the data needed to add a horse offer.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>offerName:</b> The name of the horse offer.</li>
+ *     <li><b>basicImageUrl:</b> The URL of the basic image for the horse offer.</li>
+ *     <li><b>images:</b> The list of images for the horse offer.</li>
+ *     <li><b>horseCategory:</b> The category of the horse (e.g., race horse, pony, etc.).</li>
+ *     <li><b>sex:</b> The sex of the horse (male or female).</li>
+ *     <li><b>price:</b> The price of the horse offer.</li>
+ *     <li><b>phone:</b> The phone number for contacting the horse owner.</li>
+ *     <li><b>hiddenPhone:</b> Flag indicating whether the phone number should be hidden in the offer.</li>
+ *     <li><b>city:</b> The city where the horse is located.</li>
+ *     <li><b>description:</b> The description of the horse offer.</li>
+ *     <li><b>authorName:</b> The name of the author posting the offer.</li>
+ *     <li><b>offerViewCount:</b> The number of times the offer has been viewed.</li>
+ *     <li><b>createDate:</b> The date and time when the offer was created.</li>
+ *     <li><b>modifiedDate:</b> The date and time when the offer was last modified.</li>
+ *     <li><b>videoLink:</b> The link to a video showcasing the horse.</li>
+ * </ul>
+ */
 public class AddOfferHorseViewModel {
 
     @NotNull

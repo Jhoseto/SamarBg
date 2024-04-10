@@ -5,7 +5,35 @@ import org.samarBg.models.enums.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-
+/**
+ * View model representing the data needed to display an offer.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>id:</b> The unique identifier of the offer.</li>
+ *     <li><b>basicImageUrl:</b> The URL of the basic image for the offer.</li>
+ *     <li><b>imagesUrls:</b> The list of URLs for additional images associated with the offer.</li>
+ *     <li><b>offerCategory:</b> The category of the offer (e.g., horse, accessories, etc.).</li>
+ *     <li><b>horseCategory:</b> The category of the horse offer (if applicable).</li>
+ *     <li><b>accessoriesCategory:</b> The category of the accessories offer (if applicable).</li>
+ *     <li><b>sex:</b> The sex of the horse (if applicable).</li>
+ *     <li><b>price:</b> The price of the offer.</li>
+ *     <li><b>phone:</b> The phone number for contacting the offer owner.</li>
+ *     <li><b>city:</b> The city where the offer is located.</li>
+ *     <li><b>offerName:</b> The name/title of the offer.</li>
+ *     <li><b>description:</b> The description of the offer.</li>
+ *     <li><b>offerViewCount:</b> The number of times the offer has been viewed.</li>
+ *     <li><b>videoLink:</b> The link to a video showcasing the offer.</li>
+ *     <li><b>createDate:</b> The date and time when the offer was created.</li>
+ *     <li><b>modifiedDate:</b> The date and time when the offer was last modified.</li>
+ *     <li><b>authorName:</b> The name of the author posting the offer.</li>
+ *     <li><b>authorOffersNumbers:</b> The total number of offers posted by the author.</li>
+ *     <li><b>authorRegistrationData:</b> The date and time when the author registered.</li>
+ *     <li><b>authorLastOnlineDate:</b> The date and time when the author was last online.</li>
+ *     <li><b>authorProfileImage:</b> The URL of the author's profile image.</li>
+ *     <li><b>isActive:</b> Flag indicating whether the offer is currently active.</li>
+ * </ul>
+ */
 public class OfferViewModel {
 
     private Long id;

@@ -1,7 +1,18 @@
 package org.samarBg.views;
 
 import org.samarBg.models.enums.*;
-
+/**
+ * View model representing the search criteria for filtering offers by category.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>mainCategory:</b> The main category of the offer (e.g., horses, accessories).</li>
+ *     <li><b>city:</b> The city where the offers are located.</li>
+ *     <li><b>horseCategory:</b> The category of the horse (e.g., race horse, pony, etc.).</li>
+ *     <li><b>sex:</b> The sex of the horse (male or female).</li>
+ *     <li><b>accessoriesCategory:</b> The category of the accessories (e.g., saddle, bridle, etc.).</li>
+ * </ul>
+ */
 public class SearchingCategoryViewModel {
     private OfferCategory mainCategory;
     private City city;

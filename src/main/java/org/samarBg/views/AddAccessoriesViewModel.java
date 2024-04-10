@@ -1,6 +1,5 @@
 package org.samarBg.views;
 
-import io.swagger.annotations.ApiModel;
 import org.samarBg.models.enums.AccessoriesCategory;
 import org.samarBg.models.enums.City;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +9,27 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-
+/**
+ * View model representing the data needed to add an accessories offer.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>offerName:</b> The name of the accessories offer.</li>
+ *     <li><b>basicImageUrl:</b> The URL of the basic image for the accessories offer.</li>
+ *     <li><b>images:</b> The list of images for the accessories offer.</li>
+ *     <li><b>accessoriesCategory:</b> The category of the accessories (e.g., saddle, bridle, etc.).</li>
+ *     <li><b>price:</b> The price of the accessories offer.</li>
+ *     <li><b>phone:</b> The phone number for contacting the accessories owner.</li>
+ *     <li><b>hiddenPhone:</b> Flag indicating whether the phone number should be hidden in the offer.</li>
+ *     <li><b>city:</b> The city where the accessories are located.</li>
+ *     <li><b>description:</b> The description of the accessories offer.</li>
+ *     <li><b>authorName:</b> The name of the author posting the offer.</li>
+ *     <li><b>offerViewCount:</b> The number of times the offer has been viewed.</li>
+ *     <li><b>createDate: </b>The date and time when the offer was created.</li>
+ *     <li><b>modifiedDate: </b>The date and time when the offer was last modified.</li>
+ *     <li><b>videoLink:</b> The link to a video showcasing the accessories.</li>
+ * </ul>
+ */
 public class AddAccessoriesViewModel {
     @NotNull
     @Size(min = 5, max = 50, message = "Невалидно име на обявата! Въведете минимум 5 и максимум 50 символа.")

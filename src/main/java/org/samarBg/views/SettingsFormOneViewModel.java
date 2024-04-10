@@ -1,7 +1,16 @@
 package org.samarBg.views;
 
 import org.samarBg.models.enums.City;
-
+/**
+ * View model representing the settings form part one.
+ * <p>
+ * This view model contains the following fields:
+ * <ul>
+ *     <li><b>realName:</b> The real name of the user.</li>
+ *     <li><b>phone:</b> The phone number of the user.</li>
+ *     <li><b>city:</b> The city where the user resides.</li>
+ * </ul>
+ */
 public class SettingsFormOneViewModel {
 
 
