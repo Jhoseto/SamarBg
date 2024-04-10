@@ -1,3 +1,6 @@
+![SamarBg Logo]([link_to_your_logo_image](https://github.com/Jhoseto/SamarBg/blob/master/src/main/resources/static/images/logo3-p-1600.png))
+
+
 SamarBg
 Introduction
 SamarBg is a web application designed for horse and equestrian accessory sales. It leverages Java and Spring Boot alongside a MySQL database to provide a robust and functional platform for users.
