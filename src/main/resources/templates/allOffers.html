@@ -93,7 +93,7 @@
           <div class="uui-blog01_component">
             <div class="uui-blog01_list-wrapper">
               <!-- Pagination -->
-              <div  class="pagination">
+              <div  class="pagination" >
                 <ul>
                   <li th:if="${offers.hasPrevious()}">
                     <a class="arrow" th:href="@{/allOffers(page=0, size=${offers.size}, filter=${offers.sort})}">&#171;</a>
@@ -113,7 +113,7 @@
                 </ul>
               </div>
               <div class="w-layout-grid uui-blog01_list" id="offersContainer">
-                <div class="adswindow" th:each="offer : ${offers}" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
+                <div class="adswindow" th:each="offer : ${offers}" >
                 <!-- offer-model.html за всяка обява -->
 
                   <!-- Включване на модела на обявата -->
@@ -158,7 +158,7 @@
 <script>
 
   function redirectToOfferDetail(offerId) {
-    window.location.href = '/offerdetail/' + offerId;
+    window.location.href = '/offerdetail/' + offerId ;
   }
 
   // Показване на целия екран, когато обявите се заредят

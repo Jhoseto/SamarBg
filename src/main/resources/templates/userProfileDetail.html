@@ -86,7 +86,7 @@
                 <div class="uui-blog01_component">
                     <div class="uui-blog01_list-wrapper">
                         <div class="w-layout-grid uui-blog01_list">
-                            <div class="adswindow" th:each="offer : ${user.userOffers}" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
+                            <div class="adswindow" th:each="offer : ${user.userOffers}" >
                                 <div th:replace="fragments/offer-model"></div>
                             </div>
                         </div>

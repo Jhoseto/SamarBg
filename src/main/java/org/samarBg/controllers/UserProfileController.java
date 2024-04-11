@@ -35,6 +35,7 @@ public class UserProfileController {
         userProfileViewModel.setUserOffers(userOffersPage); // Получаваме списъка с обяви от текущата страница
 
         model.addAttribute("userProfile", userProfileViewModel);
+        model.addAttribute("offers", userOffersPage);
         return "user-detail";
     }
 

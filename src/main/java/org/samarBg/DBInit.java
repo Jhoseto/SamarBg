@@ -6,6 +6,7 @@ import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.UserRepository;
 import org.samarBg.repository.UserRoleRepository;
+import org.samarBg.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ public class DBInit implements CommandLineRunner {
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
+    private UserService userService;
 
 
 
@@ -28,12 +30,14 @@ public class DBInit implements CommandLineRunner {
                   AccessoriesOfferRepository accessoriesOfferRepository,
                   UserRepository userRepository,
                   UserRoleRepository userRoleRepository,
-                  PasswordEncoder passwordEncoder) {
+                  PasswordEncoder passwordEncoder,
+                  UserService userService) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
 
@@ -44,6 +48,7 @@ public class DBInit implements CommandLineRunner {
 
         //intHorseOffer();
        // intUsers();
+        //userService.promoteUserToAdmin("Bai Marin");
     }
 
     public static void setCurrentTimeStamps(BaseEntity baseEntity){

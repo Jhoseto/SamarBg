@@ -1,16 +1,17 @@
 /* Стилове за бутоните "Редактирай" и "Изтрий" */
+
 .buttons-ex {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 7px;
-
+    margin: 7px 5px;
+    z-index: 9998;
 }
 
 /* Общ стил на бутоните */
 .form-block-2 button {
+    position: relative;
     background-color: #8B4513;
     color: #fff;
     padding: 5px 8px;
@@ -18,6 +19,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    z-index: 9998;
 }
 
 /* Ефект при хостване на бутоните */
@@ -38,21 +40,21 @@
 
 /* Стил за бутон "Редактирай" */
 .edit-button {
-    background-color: #4CAF50; /* Зелен цвят за редактиране */
+    background-color: #6b4226; /* Зелен цвят за редактиране */
 }
 
 /* Стил за бутон "Изтрий" */
 .delete-button {
-    background-color: #FF6347; /* Червен цвят за изтриване */
+    background-color: #6b4226; /* Червен цвят за изтриване */
 }
 
 /* Ефект на промяна на цвета при хостване за бутон "Редактирай" */
 .edit-button:hover {
-    background-color: #45A049; /* По-тъмен зелен цвят при хостване */
+    background-color: #6b4226; /* По-тъмен зелен цвят при хостване */
 }
 
 /* Ефект на промяна на цвета при хостване за бутон "Изтрий" */
 .delete-button:hover {
-    background-color: #E53935; /* По-тъмен червен цвят при хостване */
+    background-color: #6b4226; /* По-тъмен червен цвят при хостване */
 }
 

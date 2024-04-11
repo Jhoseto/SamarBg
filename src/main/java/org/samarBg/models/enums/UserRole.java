@@ -12,5 +12,6 @@ public enum UserRole {
     /**
      * Regular user role.
      */
-    USER
+    USER;
+
 }

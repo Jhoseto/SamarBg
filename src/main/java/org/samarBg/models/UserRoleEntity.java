@@ -15,7 +15,7 @@ public class UserRoleEntity {
      * The unique identifier of the user role.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     /**

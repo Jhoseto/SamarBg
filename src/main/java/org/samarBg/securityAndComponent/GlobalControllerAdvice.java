@@ -20,7 +20,7 @@ public class GlobalControllerAdvice {
     /**
      * Конструктор за GlobalControllerAdvice класа.
      *
-     * @param currentUserService Сервиз за текущия потребител
+     * @param userService Сервиз за текущия потребител
      */
     @Autowired
     public GlobalControllerAdvice(UserService userService) {

@@ -42,4 +42,20 @@ public interface UserService {
      * @return the current user entity
      */
     UserEntity getCurrentUser();
+
+    /**
+     * Promotes a user to admin role.
+     *
+     * @param username the username of the user to promote
+     * @throws RuntimeException if the user or the admin role is not found
+     */
+    void promoteUserToAdmin(String username);
+
+    /**
+     * Promotes a admin to user role.
+     *
+     * @param username the username of the user to promote
+     * @throws RuntimeException if the user or the user role is not found
+     */
+    void promoteAdminToUser(String username);
 }

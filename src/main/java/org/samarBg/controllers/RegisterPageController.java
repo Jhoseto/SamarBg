@@ -21,10 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class RegisterPageController {
@@ -110,10 +107,8 @@ public class RegisterPageController {
 
     //инцилизация на нов профил
     private void intUsers(UserRegistrationViewModel userRegistrationViewModel){
-        // Създаване на потребителски роли
-        UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRole.ADMIN);
-        UserRoleEntity userRole = new UserRoleEntity().setRole(UserRole.USER);
-        userRoleRepository.saveAll(List.of(adminRole, userRole));
+        // Зареждане на ролята USER от базата данни
+        UserRole userRole = UserRole.USER;
 
         UserEntity newUser = new UserEntity();
         String confirmationLink = confirmationLinkService.generateConfirmationLink(newUser); // Генериране на целия линк
@@ -125,7 +120,7 @@ public class RegisterPageController {
                 .setActive(false)
                 .setImageUrl("images/userNameIcon1.png")
                 .setUserConfirmationCode(confirmationCode)
-                .setUserRoles(Collections.singleton(UserRole.USER));
+                .setUserRoles(Collections.singleton(userRole));
         setCurrentTimeStamps(newUser);
 
 

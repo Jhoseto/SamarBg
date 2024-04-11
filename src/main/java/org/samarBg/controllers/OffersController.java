@@ -4,6 +4,8 @@ package org.samarBg.controllers;
 import org.samarBg.models.OfferImageEntity;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.service.OfferService;
+import org.samarBg.service.UserService;
+import org.samarBg.service.serviceImpl.UserServiceImpl;
 import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -20,13 +23,14 @@ public class OffersController {
 
     private final OfferService offerService;
     private final OfferImageRepository offerImageRepository;
-
+    private final UserServiceImpl userServiceImpl;
 
 
     public OffersController(OfferService offerService,
-                            OfferImageRepository offerImageRepository) {
+                            OfferImageRepository offerImageRepository, UserServiceImpl userServiceImpl) {
         this.offerService = offerService;
         this.offerImageRepository = offerImageRepository;
+        this.userServiceImpl = userServiceImpl;
     }
 
 
@@ -108,10 +112,12 @@ public class OffersController {
         }
     }
 
-    @PostMapping("/deleteOffer/{offerId}")
-    public String deletePreviewOffer(@PathVariable Long offerId) {
+    @PostMapping("/deleteOfferOptional/{offerId}")
+    public String deleteOfferOptional(@PathVariable Long offerId, HttpServletRequest request) {
         offerService.deleteOffer(offerId);
-        return "redirect:/addOffers";
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
 }

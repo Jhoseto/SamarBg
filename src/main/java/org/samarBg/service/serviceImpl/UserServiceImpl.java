@@ -1,7 +1,10 @@
 package org.samarBg.service.serviceImpl;
 
 import org.samarBg.models.UserEntity;
+import org.samarBg.models.UserRoleEntity;
+import org.samarBg.models.enums.UserRole;
 import org.samarBg.repository.UserRepository;
+import org.samarBg.repository.UserRoleRepository;
 import org.samarBg.service.Mappers.MapperForUsers;
 import org.samarBg.service.UserService;
 import org.samarBg.views.UserProfileViewModel;
@@ -13,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,15 +31,18 @@ public class UserServiceImpl implements UserService {
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final MapperForUsers mapperForUsers;
+    private final UserRoleRepository userRoleRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
                            UserDetailsService userDetailsService,
-                           MapperForUsers mapperForUsers) {
+                           MapperForUsers mapperForUsers,
+                           UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.mapperForUsers = mapperForUsers;
+        this.userRoleRepository = userRoleRepository;
     }
 
     /**
@@ -107,5 +114,60 @@ public class UserServiceImpl implements UserService {
             }
         }
         return null;
+    }
+
+
+    @Transactional
+    public void promoteUserToAdmin(String username) {
+        // Намери потребителя по потребителско име
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+
+            // Намери ролята "ADMIN" в базата данни
+            Optional<UserRoleEntity> adminRoleOptional = userRoleRepository.findByRole(UserRole.ADMIN);
+
+            if (adminRoleOptional.isPresent()) {
+                // Промени ролята на потребителя към "ADMIN"
+                user.getUserRoles().clear(); // Изчистваме старите роли
+                user.getUserRoles().add(adminRoleOptional.get().getRole()); // Добавяме новата роля
+
+                // Запиши промените в базата данни
+                userRepository.save(user);
+            } else {
+                throw new RuntimeException("Role 'ADMIN' not found in the database.");
+            }
+        } else {
+            throw new RuntimeException("User is already an ADMIN.");
+        }
+    }
+
+
+    @Override
+    public void promoteAdminToUser(String username) {
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+
+            // find role ADMIN in dataBase
+            Optional<UserRoleEntity> userRoleOptional = userRoleRepository.findById(user.getId());
+
+            if (userRoleOptional.isPresent()) {
+                UserRole userRole = userRoleOptional.get().getRole();
+
+                // Change user role from USER to ADMIN
+                user.getUserRoles().clear(); // Delete old roles
+                user.getUserRoles().add(userRole); // Add new role
+
+                // Save
+                userRepository.save(user);
+            } else {
+                throw new RuntimeException("Role 'USER' not found in the database.");
+            }
+        } else {
+            throw new RuntimeException("User not found with username: " + username);
+        }
     }
 }

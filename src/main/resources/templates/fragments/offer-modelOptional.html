@@ -24,7 +24,8 @@
 <body>
 
 <div th:fragment="offer-model" >
-    <div class="form-block-2 w-form">
+    <div>
+    <div class="form-block-2 w-form" th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
         <form th:action="@{'/offerdetail'}"
               method="get"
               id="wf-form-offerForm" name="wf-form-offerForm" data-name="offerForm" data-wf-page-id="65e0e0a71318170a4920cd09" data-wf-element-id="b24b3dcc-291a-eef9-365d-fc8334d94f7c">
@@ -67,20 +68,23 @@
         <div class="w-form-fail">
             <div>Oops! Something went wrong while submitting the form.</div>
         </div>
-        <div class="buttons-ex">
-            <!-- Бутон за редактиране -->
-            <form th:action="@{'/editOffer/' + ${offer.id}}"
-                  method="get">
-                <button type="submit" class="edit-button">Редактирай</button>
+    </div>
+        <div class="buttons-ex" >
+            <form th:action="@{'/editOffer/' + ${offer.id}}" method="get">
+                <button type="button" class="edit-button" onclick="editOffer('${offer.id}')">Редактирай</button>
             </form>
             <!-- Бутон за изтриване -->
-            <form th:action="@{'/deleteOffer/' + ${offer.id}}"
-                  method="post">
+            <form th:action="@{'/deleteOfferOptional/' + ${offer.id}}" method="post" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете офертата?');">
+                <!-- Бутон за изтриване -->
                 <button type="submit" class="delete-button">Изтрий</button>
             </form>
         </div>
     </div>
 </div>
-
+<script>
+    function redirectToOfferDetail(offerId) {
+        window.location.href = '/offerdetail/' + offerId;
+    }
+</script>
 </body>
 </html>

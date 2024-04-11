@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <!-- This site was created in Webflow. https://www.webflow.com -->
 <!-- Last Published: Thu Mar 07 2024 20:13:54 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-page="65e0e0a71318170a4920cd09" data-wf-site="65dbafc99f6b400b3852fc07" lang="bg" xmlns:th="https://www.thymeleaf.org">
+<html data-wf-page="65e0e0a71318170a4920cd09" data-wf-site="65dbafc99f6b400b3852fc07" lang="bg"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>AllAds</title>
@@ -24,7 +26,8 @@
 <body>
 
 <div th:fragment="offer-model" >
-    <div class="form-block-2 w-form">
+    <div>
+    <div class="form-block-2 w-form"  th:attr="onclick='redirectToOfferDetail(\'' + ${offer.id} + '\')'">
         <form th:action="@{'/offerdetail'}"
               method="get"
               id="wf-form-offerForm" name="wf-form-offerForm" data-name="offerForm" data-wf-page-id="65e0e0a71318170a4920cd09" data-wf-element-id="b24b3dcc-291a-eef9-365d-fc8334d94f7c">
@@ -68,7 +71,25 @@
             <div>Oops! Something went wrong while submitting the form.</div>
         </div>
     </div>
+    </div>
+    <div class="buttons-ex" th:if="${#authorization.expression('isAuthenticated()')} and ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        <form th:action="@{'/editOffer/' + ${offer.id}}" method="get">
+            <button type="button" class="edit-button" onclick="editOffer('${offer.id}')">Редактирай</button>
+        </form>
+        <!-- Бутон за изтриване -->
+        <form th:action="@{'/deleteOfferOptional/' + ${offer.id}}" method="post" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете офертата?');">
+            <!-- Бутон за изтриване -->
+            <button type="submit" class="delete-button">Изтрий</button>
+        </form>
+    </div>
 </div>
+<script>
+    function redirectToOfferDetail(offerId) {
+        window.location.href = '/offerdetail/' + offerId;
+    }
+</script>
+<script>
 
+</script>
 </body>
 </html>
