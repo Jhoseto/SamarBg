@@ -73,12 +73,10 @@
     </div>
     </div>
     <div class="buttons-ex" th:if="${#authorization.expression('isAuthenticated()')} and ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-        <form th:action="@{'/editOffer/' + ${offer.id}}" method="get">
-            <button type="button" class="edit-button" onclick="editOffer('${offer.id}')">Редактирай</button>
-        </form>
+
+        <button type="button" class="edit-button" th:attr="onclick='redirectToEditOffer(\'' + ${offer.id} + '\')'">Редактирай</button>
         <!-- Бутон за изтриване -->
         <form th:action="@{'/deleteOfferOptional/' + ${offer.id}}" method="post" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете офертата?');">
-            <!-- Бутон за изтриване -->
             <button type="submit" class="delete-button">Изтрий</button>
         </form>
     </div>
@@ -88,8 +86,11 @@
         window.location.href = '/offerdetail/' + offerId;
     }
 </script>
-<script>
-
+<script th:inline="javascript">
+    function redirectToEditOffer(offerId) {
+        var editUrl = '/editOffer/' + offerId;
+        window.location.href = editUrl;
+    }
 </script>
 </body>
 </html>

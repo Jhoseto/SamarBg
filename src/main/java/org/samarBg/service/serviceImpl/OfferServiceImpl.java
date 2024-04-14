@@ -1,28 +1,33 @@
 package org.samarBg.service.serviceImpl;
 
-import org.samarBg.models.AccessoryOfferEntity;
-import org.samarBg.models.HorseOfferEntity;
-import org.samarBg.models.OfferImageEntity;
-import org.samarBg.models.UserEntity;
+import org.samarBg.models.*;
 import org.samarBg.models.enums.OfferCategory;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.repository.UserRepository;
+import org.samarBg.service.AddOffersService;
 import org.samarBg.service.Mappers.MapperForAccessory;
 import org.samarBg.service.Mappers.MapperForHorses;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UserService;
 import org.samarBg.views.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.nio.file.StandardCopyOption;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of {@link OfferService} for managing and processing offer-related operations.
@@ -35,6 +40,8 @@ public class OfferServiceImpl implements OfferService {
     private final UserRepository userRepository;
     private final UserService userService;
     private final OfferImageRepository offerImageRepository;
+    private final AddOffersService addOffersService;
+
 
     /**
      * Constructs a new OfferServiceImpl instance with the required repositories and services.
@@ -44,18 +51,21 @@ public class OfferServiceImpl implements OfferService {
      * @param userRepository             the repository for UserEntity
      * @param userService         the service for handling  user operations
      * @param offerImageRepository       the repository for OfferImageEntity
+     * @param addOffersService   the service for handling offers operations
      */
     @Autowired
     public OfferServiceImpl(HorseOfferRepository horseOfferRepository,
                             AccessoriesOfferRepository accessoriesOfferRepository,
                             UserRepository userRepository,
                             UserService userService,
-                            OfferImageRepository offerImageRepository) {
+                            OfferImageRepository offerImageRepository,
+                            AddOffersService addOffersService) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
         this.userRepository = userRepository;
         this.userService = userService;
         this.offerImageRepository = offerImageRepository;
+        this.addOffersService = addOffersService;
     }
 
     /**
@@ -263,6 +273,8 @@ public class OfferServiceImpl implements OfferService {
         // Delete images from the database
         offerImageRepository.deleteAll(images);
     }
+
+
 
     /**
      * Retrieves all offers created by a specific user.

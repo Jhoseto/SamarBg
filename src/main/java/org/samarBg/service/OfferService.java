@@ -2,13 +2,15 @@ package org.samarBg.service;
 
 import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * Service interface for managing offers.
  */
-@Service
+
 public interface OfferService {
 
     /**
@@ -79,5 +81,8 @@ public interface OfferService {
      * @return List of offers matching the searching word
      */
     List<OfferViewModel> getOffersBySearchingWord(String searchingWord);
+
+
+
 
 }

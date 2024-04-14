@@ -89,7 +89,7 @@ public class AddOffersImpl implements AddOffersService{
         for (String imageUrl : imageUrls) {
             OfferImageEntity offerImage = new OfferImageEntity();
             offerImage.setImagePath(imageUrl); // мапиране на пътя към снимката
-            offerImage.setAccessoryOffer(accessoriesOffer); // Свързване на снимката с обявата за кон
+            offerImage.setAccessoryOffer(accessoriesOffer); // Свързване на снимката с обявата
             images.add(offerImage);
         }
 

@@ -71,7 +71,7 @@
     </div>
         <div class="buttons-ex" >
             <form th:action="@{'/editOffer/' + ${offer.id}}" method="get">
-                <button type="button" class="edit-button" onclick="editOffer('${offer.id}')">Редактирай</button>
+                <button type="button" class="edit-button" th:attr="onclick='redirectToOfferEdit(\'' + ${offer.id} + '\')'">Редактирай</button>
             </form>
             <!-- Бутон за изтриване -->
             <form th:action="@{'/deleteOfferOptional/' + ${offer.id}}" method="post" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете офертата?');">
@@ -84,6 +84,9 @@
 <script>
     function redirectToOfferDetail(offerId) {
         window.location.href = '/offerdetail/' + offerId;
+    }
+    function redirectToOfferEdit(offerId) {
+        window.location.href = '/editOffer/' + offerId;
     }
 </script>
 </body>
