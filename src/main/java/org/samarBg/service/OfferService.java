@@ -82,7 +82,15 @@ public interface OfferService {
      */
     List<OfferViewModel> getOffersBySearchingWord(String searchingWord);
 
-
-
+    /**
+     * Retrieves a list of the newest offers.
+     *
+     * This method retrieves a list of OfferViewModel objects representing the newest offers.
+     * The criteria for determining "newest" offers can vary and should be specified in the
+     * implementation of the OfferService.
+     *
+     * @return A list of OfferViewModel objects representing the newest offers.
+     */
+    List<OfferViewModel> getNewestOffers();
 
 }

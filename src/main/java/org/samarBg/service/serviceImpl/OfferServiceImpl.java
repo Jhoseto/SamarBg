@@ -6,26 +6,17 @@ import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.service.AddOffersService;
 import org.samarBg.service.Mappers.MapperForAccessory;
 import org.samarBg.service.Mappers.MapperForHorses;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UserService;
 import org.samarBg.views.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,8 +31,6 @@ public class OfferServiceImpl implements OfferService {
     private final UserRepository userRepository;
     private final UserService userService;
     private final OfferImageRepository offerImageRepository;
-    private final AddOffersService addOffersService;
-
 
     /**
      * Constructs a new OfferServiceImpl instance with the required repositories and services.
@@ -51,21 +40,18 @@ public class OfferServiceImpl implements OfferService {
      * @param userRepository             the repository for UserEntity
      * @param userService         the service for handling  user operations
      * @param offerImageRepository       the repository for OfferImageEntity
-     * @param addOffersService   the service for handling offers operations
      */
     @Autowired
     public OfferServiceImpl(HorseOfferRepository horseOfferRepository,
                             AccessoriesOfferRepository accessoriesOfferRepository,
                             UserRepository userRepository,
                             UserService userService,
-                            OfferImageRepository offerImageRepository,
-                            AddOffersService addOffersService) {
+                            OfferImageRepository offerImageRepository) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
         this.userRepository = userRepository;
         this.userService = userService;
         this.offerImageRepository = offerImageRepository;
-        this.addOffersService = addOffersService;
     }
 
     /**
@@ -93,7 +79,6 @@ public class OfferServiceImpl implements OfferService {
                 allOffers.add(mapAccessoriesToOffer.mapAccessoryToOffer(accessoryOffer));
             }
         }
-
         return allOffers;
     }
 
@@ -275,7 +260,6 @@ public class OfferServiceImpl implements OfferService {
     }
 
 
-
     /**
      * Retrieves all offers created by a specific user.
      *
@@ -284,10 +268,6 @@ public class OfferServiceImpl implements OfferService {
      * @throws IllegalArgumentException if the user is not found
      */
     public List<OfferViewModel> getAllOffersForUser(String username) {
-        // Find the user by username
-        UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found."));
-
         List<OfferViewModel> userOffers = new ArrayList<>();
         List<OfferViewModel> allOffers = getAllOffers();
 
@@ -298,7 +278,6 @@ public class OfferServiceImpl implements OfferService {
                 userOffers.add(offerViewModel);
             }
         }
-
         return userOffers;
     }
 
@@ -329,5 +308,29 @@ public class OfferServiceImpl implements OfferService {
         } else {
             return allOffers;
         }
+    }
+
+
+    /**
+     * Retrieves a list of the newest offers based on their creation date.
+     * <p>
+     * This method fetches all available offers, sorts them based on their creation date in descending order,
+     * and then retrieves the top 12 newest offers.
+     *
+     * @return A list of OfferViewModel objects representing the 12 newest offers, sorted by creation date.
+     */
+    public List<OfferViewModel> getNewestOffers() {
+        List<OfferViewModel> allOffers = getAllOffers();
+
+        // Comparator to sort offers by creation date in descending order
+        Comparator<OfferViewModel> comparator = Comparator.comparing(OfferViewModel::getCreateDate).reversed();
+        allOffers.sort(comparator);
+
+        // Retrieve the top 12 newest offers
+        List<OfferViewModel> newestOffers = allOffers.stream()
+                .limit(12)
+                .collect(Collectors.toList());
+
+        return newestOffers;
     }
 }
