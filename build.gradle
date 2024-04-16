@@ -29,8 +29,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
+
+
+
     //TEST
     testImplementation 'org.springframework.security:spring-security-test'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'org.owasp.encoder:encoder:1.2.3'

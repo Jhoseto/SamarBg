@@ -1,0 +1,11 @@
+<div th:fragment="userList">
+
+    <img th:src="${user.profileImageUrl}" alt="avatar" />
+    <div class="about">
+        <div class="name" th:text="${user.userName}">Username</div>
+        <div class="status">
+            <i class="fa fa-circle online"></i> online
+        </div>
+    </div>
+
+</div>
