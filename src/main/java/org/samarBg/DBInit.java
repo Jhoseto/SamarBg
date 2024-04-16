@@ -5,8 +5,6 @@ import org.samarBg.models.enums.*;
 import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.repository.UserRoleRepository;
-import org.samarBg.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -20,24 +18,19 @@ public class DBInit implements CommandLineRunner {
     private HorseOfferRepository horseOfferRepository;
     private AccessoriesOfferRepository accessoriesOfferRepository;
     private UserRepository userRepository;
-    private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
-    private UserService userService;
+
 
 
 
     public DBInit(HorseOfferRepository horseOfferRepository,
                   AccessoriesOfferRepository accessoriesOfferRepository,
                   UserRepository userRepository,
-                  UserRoleRepository userRoleRepository,
-                  PasswordEncoder passwordEncoder,
-                  UserService userService) {
+                  PasswordEncoder passwordEncoder) {
         this.horseOfferRepository = horseOfferRepository;
         this.accessoriesOfferRepository = accessoriesOfferRepository;
         this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userService = userService;
     }
 
 
@@ -58,9 +51,7 @@ public class DBInit implements CommandLineRunner {
 
 
     private void intUsers(){
-        UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRole.ADMIN);
-        UserRoleEntity userRole = new UserRoleEntity().setRole(UserRole.USER);
-        userRoleRepository.saveAll(List.of(adminRole,userRole));
+
 
         UserEntity admin = new UserEntity();
         admin.setUsername("Konstantin")
@@ -69,7 +60,7 @@ public class DBInit implements CommandLineRunner {
                 .setImageUrl("images/usersImg/konstantinImg.jpg")
                 .setCity(City.valueOf(String.valueOf(City.SMOLYAN)))
                 .setPhone("0886913296")
-                .setUserRoles(Collections.singleton(UserRole.USER));
+                .setRole(UserRole.USER);
         setCurrentTimeStamps(admin);
         userRepository.save(admin);
     }

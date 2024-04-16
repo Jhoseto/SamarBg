@@ -1,11 +1,19 @@
-<div th:fragment="userList">
+<div th:fragment="userList"
+     xmlns:th="https://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <img th:src="${user.profileImageUrl}" alt="avatar" />
     <div class="about">
         <div class="name" th:text="${user.userName}">Username</div>
         <div class="status">
-            <i class="fa fa-circle online"></i> online
+            <div th:if="${user.onlineStatus == 1}">
+                <i class="fa fa-circle online"></i>
+                <span>online</span>
+            </div>
+            <div th:unless="${user.onlineStatus == 1}">
+                <i class="fa fa-circle offline"></i>
+                <span>offline</span>
+            </div>
         </div>
     </div>
-
 </div>

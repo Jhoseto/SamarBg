@@ -29,7 +29,7 @@ public class MapperForUsers {
         userProfileViewModel.setLastOnline(user.getLastOnline());
         userProfileViewModel.setPhone(user.getPhone());
         userProfileViewModel.setProfileImageUrl(user.getImageUrl());
-
+        userProfileViewModel.setOnlineStatus(user.getOnlineStatus());
         return userProfileViewModel;
     }
 }

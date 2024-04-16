@@ -3,7 +3,8 @@ package org.samarBg.service;
 
 import org.samarBg.models.UserEntity;
 import org.samarBg.views.UserProfileViewModel;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,15 @@ import java.util.Optional;
 
 public interface UserService {
 
+    /**
+     * Authenticates a user using the provided email and password.
+     *
+     * @param email    The email of the user to authenticate
+     * @param password The password of the user to authenticate
+     * @return An object representing the successful authentication of the user
+     * @throws AuthenticationException If there is an error during authentication, typically due to invalid username or password
+     */
+    Authentication authenticateUser(String email, String password);
     /**
      * Finds a user by email.
      *

@@ -76,10 +76,8 @@ public class UserEntity extends BaseEntity {
     /**
      * Set of roles assigned to the user (enum type).
      */
-    @ElementCollection
     @Enumerated(EnumType.STRING)
-    @Column
-    private Set<UserRole> userRoles = new HashSet<>();
+    private UserRole role;
 
     /**
      * The timestamp indicating the user's last online activity.
@@ -87,7 +85,10 @@ public class UserEntity extends BaseEntity {
     @Column(columnDefinition = "TIMESTAMP")
     protected Instant lastOnline;
 
-
+    /**
+     * Indicator for Online/Offline status on user.
+     */
+    private int onlineStatus;
 
 
 
@@ -190,12 +191,12 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
+    public UserRole getRole() {
+        return role;
     }
 
-    public UserEntity setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public UserEntity setRole(UserRole role) {
+        this.role = role;
         return this;
     }
 
@@ -205,6 +206,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setLastOnline(Instant lastOnline) {
         this.lastOnline = lastOnline;
+        return this;
+    }
+
+    public int getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public UserEntity setOnlineStatus(int onlineStatus) {
+        this.onlineStatus = onlineStatus;
         return this;
     }
 }

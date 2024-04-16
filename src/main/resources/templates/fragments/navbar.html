@@ -84,8 +84,7 @@
                                             <form id="logout-form" th:action="@{/user/logout}" method="post" style="display: none;">
                                                 <input type="submit" value="Logout" />
                                             </form>
-                                            <!-- Използвайте Thymeleaf за автоматично изпращане на формата при щракване -->
-                                            <a href="#" th:onclick="document.getElementById('logout-form').submit()" class="dropdown-link-3 w-dropdown-link">Изход</a>
+                                            <a th:onclick="document.getElementById('logout-form').submit()" class="dropdown-link-3 w-dropdown-link">Изход</a>
                                         </div>
                                     </div>
                                 </nav>

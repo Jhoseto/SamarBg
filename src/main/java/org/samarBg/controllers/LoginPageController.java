@@ -3,10 +3,12 @@ package org.samarBg.controllers;
 
 import org.samarBg.models.UserEntity;
 import org.samarBg.repository.UserRepository;
+import org.samarBg.service.UserService;
 import org.samarBg.service.serviceImpl.UserServiceImpl;
 import org.samarBg.views.UserLoginViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.Instant;
 import java.util.Optional;
@@ -24,17 +27,17 @@ import java.util.Optional;
 @Controller
 public class LoginPageController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
     private final UserRepository userRepository;
 
-    // БИсквитка
+    // Cookie
     private final TokenBasedRememberMeServices rememberMeServices;
 
     @Autowired
-    public LoginPageController(UserServiceImpl userServiceImpl,
+    public LoginPageController(UserService userService,
                                UserRepository userRepository,
                                TokenBasedRememberMeServices rememberMeServices) {
-        this.userServiceImpl = userServiceImpl;
+        this.userService = userService;
         this.userRepository = userRepository;
         this.rememberMeServices = rememberMeServices;
     }
@@ -57,14 +60,14 @@ public class LoginPageController {
                         HttpServletRequest request) {
 
         // Търсене на потребител в базата данни по имейла
-        Optional<UserEntity> userOptional = userServiceImpl.findUserByEmail(userModel.getEmail());
+        Optional<UserEntity> userOptional = userService.findUserByEmail(userModel.getEmail());
 
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
 
             if (user.isActive()) {
                 // Аутентикация на потребителя чрез Spring Security
-                Authentication authentication = userServiceImpl.authenticateUser(userModel.getEmail(), userModel.getPassword());
+                Authentication authentication = userService.authenticateUser(userModel.getEmail(), userModel.getPassword());
 
                 if (authentication != null) {
                     // Потребителят е аутентикиран
@@ -91,6 +94,5 @@ public class LoginPageController {
             return "redirect:/login";
         }
     }
-
 }
 

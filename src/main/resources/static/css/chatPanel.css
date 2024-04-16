@@ -5,7 +5,7 @@
 
 body {
 
-  background: #C5DDEB;
+  background: #fde1af;
   font: 14px/20px "Lato", Arial, sans-serif;
   padding: 40px 0;
   color: white;
@@ -72,14 +72,14 @@ body {
 .chat {
   width: 490px;
   float: left;
-  background: rgba(242, 245, 248, 0.45);
+  background: rgba(242, 245, 248, 0.62);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   color: #434651;
 }
 .chat .chat-header {
   padding: 20px;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #3a3737;
 }
 .chat .chat-header img {
   float: left;
@@ -98,11 +98,11 @@ body {
   font-size: 16px;
 }
 .chat .chat-header .chat-num-messages {
-  color: #92959E;
+  color: #323b43;
 }
 .chat .chat-header .fa-star {
   float: right;
-  color: #874e2d;
+  color: #f6c522;
   font-size: 20px;
   margin-top: 12px;
 }
@@ -193,7 +193,7 @@ body {
 }
 
 .offline {
-  color: #E38968;
+  color: #fd5f2c;
 }
 
 .me {

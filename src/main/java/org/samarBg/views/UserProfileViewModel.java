@@ -32,6 +32,7 @@ public class UserProfileViewModel {
     private City city;
     private List<OfferViewModel> userOffers;
     private Instant lastOnline;
+    private int onlineStatus;
 
 
     public Long getId() {
@@ -112,6 +113,15 @@ public class UserProfileViewModel {
 
     public UserProfileViewModel setUserOffers(List<OfferViewModel> userOffers) {
         this.userOffers = userOffers;
+        return this;
+    }
+
+    public int getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public UserProfileViewModel setOnlineStatus(int onlineStatus) {
+        this.onlineStatus = onlineStatus;
         return this;
     }
 }

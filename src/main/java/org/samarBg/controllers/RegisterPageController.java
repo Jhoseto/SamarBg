@@ -2,10 +2,8 @@ package org.samarBg.controllers;
 
 import org.samarBg.models.BaseEntity;
 import org.samarBg.models.UserEntity;
-import org.samarBg.models.UserRoleEntity;
 import org.samarBg.models.enums.UserRole;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.repository.UserRoleRepository;
 import org.samarBg.service.ConfirmationLinkService;
 import org.samarBg.service.EmailService;
 import org.samarBg.views.UserRegistrationViewModel;
@@ -28,19 +26,16 @@ public class RegisterPageController {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final UserRoleRepository userRoleRepository;
     private final ConfirmationLinkService confirmationLinkService;
     private final EmailService emailService;
 
     @Autowired
     public RegisterPageController(PasswordEncoder passwordEncoder,
                                   UserRepository userRepository,
-                                  UserRoleRepository userRoleRepository,
                                   ConfirmationLinkService confirmationLinkService,
                                   EmailService emailService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
         this.confirmationLinkService = confirmationLinkService;
         this.emailService = emailService;
     }
@@ -105,14 +100,14 @@ public class RegisterPageController {
     }
 
 
-    //инцилизация на нов профил
-    private void intUsers(UserRegistrationViewModel userRegistrationViewModel){
-        // Зареждане на ролята USER от базата данни
+    private void intUsers(UserRegistrationViewModel userRegistrationViewModel) {
+        // Зареждане на ролята USER
         UserRole userRole = UserRole.USER;
 
+        // Инициализиране на нов потребителски профил
         UserEntity newUser = new UserEntity();
-        String confirmationLink = confirmationLinkService.generateConfirmationLink(newUser); // Генериране на целия линк
         String confirmationCode = generateConfirmationCode();
+        String confirmationLink = confirmationLinkService.generateConfirmationLink(newUser);
 
         newUser.setUsername(userRegistrationViewModel.getUsername())
                 .setPassword(passwordEncoder.encode(userRegistrationViewModel.getRegPassword()))
@@ -120,17 +115,17 @@ public class RegisterPageController {
                 .setActive(false)
                 .setImageUrl("images/userNameIcon1.png")
                 .setUserConfirmationCode(confirmationCode)
-                .setUserRoles(Collections.singleton(userRole));
-        setCurrentTimeStamps(newUser);
+                .setRole(userRole); // Задаване на ролята
 
+        setCurrentTimeStamps(newUser);
 
         // Записване на новия потребителски профил в базата данни
         userRepository.save(newUser);
 
         // Изпращане на потвърждаващ имейл с целия линк за потвърждение на имейл
-        emailService.sendConfirmationEmail(newUser.getEmail(), confirmationLink+newUser.getUserConfirmationCode());
+        emailService.sendConfirmationEmail(newUser.getEmail(), confirmationLink + newUser.getUserConfirmationCode());
 
-        System.out.println("Email sended to "+newUser.getEmail());
+        System.out.println("Email sent to " + newUser.getEmail());
     }
 
     //Времето на създаване и ъпдейтване

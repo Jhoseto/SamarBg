@@ -1,6 +1,9 @@
 package org.samarBg.config;
 
+import org.samarBg.models.UserEntity;
+import org.samarBg.repository.UserRepository;
 import org.samarBg.securityAndComponent.KeyGenerator;
+import org.samarBg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,15 +24,21 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     private final UserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
     /**
      * Constructor injecting custom user details service and password encoder.
      */
     @Autowired
     public ApplicationSecurityConfiguration(UserDetailsService customUserDetailsService,
-                                            PasswordEncoder passwordEncoder) {
+                                            PasswordEncoder passwordEncoder,
+                                            UserService userService,
+                                            UserRepository userRepository) {
         this.customUserDetailsService = customUserDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -74,6 +83,12 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/index")
+                .addLogoutHandler((request, response, authentication) -> {
+                    // Update user status in DataBase
+                    UserEntity currentUser = userService.getCurrentUser();
+                    currentUser.setOnlineStatus(0);
+                    userRepository.save(currentUser);
+                })
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID", "remember-me") // Delete cookies for session and remember me
                 .permitAll()
