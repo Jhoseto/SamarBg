@@ -1,5 +1,6 @@
 package org.samarBg.controllers;
 
+import org.samarBg.models.UserEntity;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UserService;
 import org.samarBg.service.WebSocketService;
