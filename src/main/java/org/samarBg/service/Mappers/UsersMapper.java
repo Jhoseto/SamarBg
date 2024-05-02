@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * This mapper converts a UserEntity object into its corresponding UserProfileViewModel representation.
  */
 @Service
-public class MapperForUsers {
+public class UsersMapper {
 
     /**
      * Maps a UserEntity to a UserProfileViewModel.
@@ -30,6 +30,9 @@ public class MapperForUsers {
         userProfileViewModel.setPhone(user.getPhone());
         userProfileViewModel.setProfileImageUrl(user.getImageUrl());
         userProfileViewModel.setOnlineStatus(user.getOnlineStatus());
+        userProfileViewModel.setCreated(user.getCreated());
+        userProfileViewModel.setUserOfferCount(user.getUserOffersCount());
+        userProfileViewModel.setRole(user.getRole());
         return userProfileViewModel;
     }
 }

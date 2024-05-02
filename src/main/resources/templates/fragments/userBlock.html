@@ -1,0 +1,94 @@
+
+<div class="w-form" th:fragment="userBlock">
+    <form
+          class="form-8" data-wf-page-id="6620ad6d7aa75f6a7dfaec03" data-wf-element-id="b364b8eb-1f21-ab83-3bde-b4e6635b45c2">
+        <input type="hidden" id="userId" name="userId" th:value="${user.id}" />
+        <input type="hidden" id="actionType" name="actionType" />
+        <div class="div-block-69">
+            <div class="div-block-66 _99">
+                <div id="w-node-_54a9dd7a-abdd-ce8b-8526-c3c71948a5c2-7dfaec03" class="div-block-67">
+                    <div th:text="${user.id}" class="text-block-23">ID</div>
+                </div>
+                <div class="div-block-67">
+                    <div th:text="${user.userName}" class="text-block-23">Потребителско Име</div>
+                </div>
+                <div class="div-block-67">
+                    <div th:text="${user.email}" class="text-block-23">Email</div>
+                </div>
+                <div class="div-block-67">
+                    <div class="text-block-23" th:text="${user.realName != null ? user.realName : '---'}">Реално Име</div>
+                </div>
+                <div class="div-block-67">
+                    <div class="text-block-23" th:text="${user.created}">Дата на Регистрация</div>
+                </div>
+                <div class="div-block-67">
+                    <div class="text-block-23" th:text="${user.userOfferCount != null ? user.userOfferCount : '---'}">Брой качени<br>Обяви</div>
+                </div>
+                <div class="div-block-67">
+                    <div class="text-block-23" th:text="${user.lastOnline != null ? user.lastOnline : '---'}">Последно активен</div>
+                </div>
+                <div class="div-block-67">
+                    <img th:src="${user.profileImageUrl != null ? user.profileImageUrl : '---'}" loading="lazy" width="50" alt=""></div>
+                <div id="w-node-_54a9dd7a-abdd-ce8b-8526-c3c71948a5de-7dfaec03" class="div-block-67">
+                    <select id="field" name="field" data-name="Field" class="select-field-5 w-select">
+                        <option th:value="${user.role}" th:text="${user.getRole.toBG()}">momentna rolia</option>
+                        <option value="ADMIN">Админ</option>
+                        <option value="USER">Потребител</option>
+                    </select></div>
+            </div>
+            <div id="w-node-_88c3c742-d43a-6101-e8f5-2969e7db995a-7dfaec03" class="div-block-70">
+                <!-- Бутон за смяна на ролята -->
+                <form th:action="@{'/changeUserRole/' + ${user.id}}" method="post" id="changeRoleForm">
+                    <button type="submit" onclick="return confirm('Сигурни ли сте, че искате да промените ролята?')"
+                            class="submit-button-6 _2 w-button">
+                        Смяна на ролята
+                    </button>
+                </form>
+
+                <!-- Бутон за изтриване на потребителя -->
+                <form th:action="@{'/deleteUser/' + ${user.id}}" method="post" id="deleteUserForm">
+                    <button type="submit" onclick="return confirm('Сигурни ли сте, че искате да изтриете потребителя?')"
+                            class="submit-button-6 w-button">
+                        Изтрий
+                    </button>
+                </form>
+            </div>
+        </div>
+    </form>
+    <div class="w-form-done">
+        <div>Thank you! Your submission has been received!</div>
+    </div>
+    <div class="w-form-fail">
+        <div>Oops! Something went wrong while submitting the form.</div>
+    </div>
+</div>
+<script>
+    function prepareAction(action, userId, currentRole) {
+        // Set actionType based on the selected action
+        document.getElementById('actionType').value = action;
+
+        // Set userId if necessary
+        document.getElementById('userId').value = userId;
+
+        if (action === 'deleteUser') {
+            // Show delete confirmation modal
+            document.getElementById('confirmDeleteModal').style.display = 'block';
+        } else {
+            // Submit the form for other actions (like changeRole)
+            document.getElementById('email-form-' + userId).submit();
+        }
+    }
+
+    function deleteUser() {
+        // Hide the modal
+        document.getElementById('confirmDeleteModal').style.display = 'none';
+
+        // Submit the form for deleteUser action
+        document.getElementById('email-form-' + document.getElementById('userId').value).submit();
+    }
+
+    function closeModal() {
+        // Hide the modal without taking any action
+        document.getElementById('confirmDeleteModal').style.display = 'none';
+    }
+</script>

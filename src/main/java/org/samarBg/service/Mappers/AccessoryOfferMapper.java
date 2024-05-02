@@ -17,7 +17,7 @@ import java.util.Optional;
  * This mapper is used to convert an AccessoryOfferEntity object into its corresponding OfferViewModel representation.
  */
 @Service
-public final class MapperForAccessory {
+public final class AccessoryOfferMapper {
 
     private final UserRepository userRepository;
     private final OfferImageRepository offerImageRepository;
@@ -28,7 +28,7 @@ public final class MapperForAccessory {
      * @param userRepository     UserRepository for accessing user data.
      * @param offerImageRepository OfferImageRepository for accessing offer image data.
      */
-    public MapperForAccessory(UserRepository userRepository, OfferImageRepository offerImageRepository) {
+    public AccessoryOfferMapper(UserRepository userRepository, OfferImageRepository offerImageRepository) {
         this.userRepository = userRepository;
         this.offerImageRepository = offerImageRepository;
     }

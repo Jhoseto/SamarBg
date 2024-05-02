@@ -1,5 +1,9 @@
 package org.samarBg.controllers;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.samarBg.service.AddOffersService;
 import org.samarBg.views.AddAccessoriesViewModel;
 import org.samarBg.views.AddOfferHorseViewModel;
@@ -31,10 +35,14 @@ public class AddOffersController {
     }
 
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = AddOfferHorseViewModel.class), mediaType = "application/json") }),
+    })
     @ModelAttribute("addHorseOffer")
     public AddOfferHorseViewModel addHorseOffer() {
         return new AddOfferHorseViewModel();
     }
+
     @PostMapping("/addOffers/addHorseOffer")
     public String addHorseOffer(@ModelAttribute("addHorseOffer") @Valid AddOfferHorseViewModel addOfferHorseViewModel,
                                 @RequestParam("files") MultipartFile[] files,

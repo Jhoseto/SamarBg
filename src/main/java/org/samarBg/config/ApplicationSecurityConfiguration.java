@@ -84,8 +84,6 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/index")
                 .addLogoutHandler((request, response, authentication) -> {
-                    // Тук можете да извършите допълнителни действия при излизане от системата
-                    // Например, да актуализирате статуса на потребителя в базата данни
                     UserEntity currentUser = userService.getCurrentUser();
                     currentUser.setOnlineStatus(0);
                     userRepository.save(currentUser);

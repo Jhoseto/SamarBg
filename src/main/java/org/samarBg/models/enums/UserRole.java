@@ -11,11 +11,22 @@ public enum UserRole {
     /**
      * Administrator role.
      */
-    ADMIN,
+    ADMIN("Администратор"),
 
     /**
      * Regular user role.
      */
-    USER;
+    USER("Потребител");
 
+
+
+    private final String BG;
+
+    UserRole(String bg) {
+        this.BG = bg;
+    }
+
+    public String toBG() {
+        return BG;
+    }
 }

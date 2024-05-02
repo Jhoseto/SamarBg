@@ -6,8 +6,8 @@ import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.service.Mappers.MapperForAccessory;
-import org.samarBg.service.Mappers.MapperForHorses;
+import org.samarBg.service.Mappers.AccessoryOfferMapper;
+import org.samarBg.service.Mappers.HorseOfferMapper;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UserService;
 import org.samarBg.views.OfferViewModel;
@@ -61,8 +61,8 @@ public class OfferServiceImpl implements OfferService {
      */
     public List<OfferViewModel> getAllOffers() {
         List<OfferViewModel> allOffers = new ArrayList<>();
-        MapperForHorses mapHorseToOffer = new MapperForHorses(userRepository, offerImageRepository);
-        MapperForAccessory mapAccessoriesToOffer = new MapperForAccessory(userRepository, offerImageRepository);
+        HorseOfferMapper mapHorseToOffer = new HorseOfferMapper(userRepository, offerImageRepository);
+        AccessoryOfferMapper mapAccessoriesToOffer = new AccessoryOfferMapper(userRepository, offerImageRepository);
 
         // Retrieve all horse offers from the repository and map them to OfferViewModel objects
         List<HorseOfferEntity> horseOffers = horseOfferRepository.findAll();
@@ -89,7 +89,7 @@ public class OfferServiceImpl implements OfferService {
      */
     public List<OfferViewModel> getAllAccessoryOffers() {
         List<OfferViewModel> allAccessoryOffers = new ArrayList<>();
-        MapperForAccessory mapAccessoriesToOffer = new MapperForAccessory(userRepository, offerImageRepository);
+        AccessoryOfferMapper mapAccessoriesToOffer = new AccessoryOfferMapper(userRepository, offerImageRepository);
 
         List<AccessoryOfferEntity> accessoryOffers = accessoriesOfferRepository.findAll();
         for (AccessoryOfferEntity accessoryOffer : accessoryOffers) {
@@ -107,7 +107,7 @@ public class OfferServiceImpl implements OfferService {
      */
     public List<OfferViewModel> getAllHorsesOffers() {
         List<OfferViewModel> allActiveHorsesOffers = new ArrayList<>();
-        MapperForHorses mapHorseToOffer = new MapperForHorses(userRepository, offerImageRepository);
+        HorseOfferMapper mapHorseToOffer = new HorseOfferMapper(userRepository, offerImageRepository);
 
         List<HorseOfferEntity> horseOffers = horseOfferRepository.findAll();
         for (HorseOfferEntity horseOffer : horseOffers) {
@@ -126,8 +126,8 @@ public class OfferServiceImpl implements OfferService {
      * @throws IllegalArgumentException if the offer with the specified ID is not found
      */
     public OfferViewModel findOfferById(Long offerId) {
-        MapperForHorses mapHorseToOffer = new MapperForHorses(userRepository, offerImageRepository);
-        MapperForAccessory mapAccessoriesToOffer = new MapperForAccessory(userRepository, offerImageRepository);
+        HorseOfferMapper mapHorseToOffer = new HorseOfferMapper(userRepository, offerImageRepository);
+        AccessoryOfferMapper mapAccessoriesToOffer = new AccessoryOfferMapper(userRepository, offerImageRepository);
 
         Optional<HorseOfferEntity> horseOfferOptional = horseOfferRepository.findById(offerId);
         if (horseOfferOptional.isPresent()) {

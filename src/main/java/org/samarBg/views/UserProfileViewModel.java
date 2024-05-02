@@ -1,6 +1,7 @@
 package org.samarBg.views;
 
 import org.samarBg.models.enums.City;
+import org.samarBg.models.enums.UserRole;
 
 import java.time.Instant;
 import java.util.List;
@@ -33,6 +34,9 @@ public class UserProfileViewModel {
     private List<OfferViewModel> userOffers;
     private Instant lastOnline;
     private int onlineStatus;
+    private Instant created;
+    private int userOfferCount;
+    private UserRole role;
 
 
     public Long getId() {
@@ -122,6 +126,33 @@ public class UserProfileViewModel {
 
     public UserProfileViewModel setOnlineStatus(int onlineStatus) {
         this.onlineStatus = onlineStatus;
+        return this;
+    }
+
+    public Instant getCreated() {
+        return created;
+    }
+
+    public UserProfileViewModel setCreated(Instant created) {
+        this.created = created;
+        return this;
+    }
+
+    public int getUserOfferCount() {
+        return userOfferCount;
+    }
+
+    public UserProfileViewModel setUserOfferCount(int userOfferCount) {
+        this.userOfferCount = userOfferCount;
+        return this;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public UserProfileViewModel setRole(UserRole role) {
+        this.role = role;
         return this;
     }
 }

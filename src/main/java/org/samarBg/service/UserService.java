@@ -68,4 +68,23 @@ public interface UserService {
      * @throws RuntimeException if the user or the user role is not found
      */
     void promoteAdminToUser(String username);
+
+    /**
+     * Changes the role of the user identified by the given userId.
+     * If the user's current role is USER, it promotes the user to ADMIN.
+     * If the user's current role is ADMIN, it demotes the user to USER.
+     * Saves the updated user entity after the role change.
+     *
+     * @param userId the unique identifier of the user whose role will be changed
+     */
+    void changeUserRole(Long userId);
+
+    /**
+     * Deletes the user with the specified userId from the system.
+     * If the user is found in the repository, it is removed from the database.
+     * If the user is not found, no action is taken.
+     *
+     * @param userId the unique identifier of the user to be deleted
+     */
+    void deleteUser(Long userId);
 }

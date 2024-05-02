@@ -3,7 +3,7 @@ package org.samarBg.service.serviceImpl;
 import org.samarBg.models.UserEntity;
 import org.samarBg.models.enums.UserRole;
 import org.samarBg.repository.UserRepository;
-import org.samarBg.service.Mappers.MapperForUsers;
+import org.samarBg.service.Mappers.UsersMapper;
 import org.samarBg.service.UserService;
 import org.samarBg.views.UserProfileViewModel;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,16 +27,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
-    private final MapperForUsers mapperForUsers;
+    private final UsersMapper usersMapper;
 
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
                            UserDetailsService userDetailsService,
-                           MapperForUsers mapperForUsers) {
+                           UsersMapper usersMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
-        this.mapperForUsers = mapperForUsers;
+        this.usersMapper = usersMapper;
     }
 
     /**
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
         // Mapping users to UserProfileViewModel using MapperForUsers
         for (UserEntity user : users) {
-            UserProfileViewModel userProfileViewModel = mapperForUsers.mapUserToProfileViewModel(user);
+            UserProfileViewModel userProfileViewModel = usersMapper.mapUserToProfileViewModel(user);
             allUsers.add(userProfileViewModel);
         }
         return allUsers;
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
             if (userOptional.isPresent()) {
                 return userOptional.get();
             } else {
-                // Потребителят не е намерен по потребителско име, и се търси по имейл
+                // The user not found by userName, then find by Email
                 Optional<UserEntity> userByEmailOptional = userRepository.findByEmail(username);
                 return userByEmailOptional.orElse(null);
             }
@@ -145,6 +145,37 @@ public class UserServiceImpl implements UserService {
             }
         } else {
             throw new RuntimeException("User not found with username: " + username);
+        }
+    }
+
+    @Override
+    public void changeUserRole(Long userId) {
+        Optional<UserEntity> user = userRepository.findById(userId);
+
+        if (user.isPresent()){
+            UserEntity currentUser = user.get();
+           if (currentUser.getRole().equals(UserRole.USER)){
+               promoteUserToAdmin(currentUser.getUsername());
+           }else {
+               promoteAdminToUser(currentUser.getUsername());
+           }
+           userRepository.save(currentUser);
+
+        }else {
+            System.out.println("User not found !");
+        }
+    }
+
+    @Override
+    public void deleteUser(Long userId){
+        Optional<UserEntity> user = userRepository.findById(userId);
+        if (user.isPresent()){
+            UserEntity currentUser = user.get();
+            System.out.println("Delete user => "+currentUser.getUsername());
+            userRepository.delete(currentUser);
+
+        }else {
+            System.out.println("Delete operation false ! The User not exist");
         }
     }
 }

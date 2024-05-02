@@ -17,7 +17,7 @@ import java.util.Optional;
  * This mapper converts a HorseOfferEntity object into its corresponding OfferViewModel representation.
  */
 @Service
-public final class MapperForHorses {
+public final class HorseOfferMapper {
 
     private final UserRepository userRepository;
     private final OfferImageRepository offerImageRepository;
@@ -28,7 +28,7 @@ public final class MapperForHorses {
      * @param userRepository     UserRepository for accessing user data.
      * @param offerImageRepository OfferImageRepository for accessing offer image data.
      */
-    public MapperForHorses(UserRepository userRepository, OfferImageRepository offerImageRepository) {
+    public HorseOfferMapper(UserRepository userRepository, OfferImageRepository offerImageRepository) {
         this.userRepository = userRepository;
         this.offerImageRepository = offerImageRepository;
     }

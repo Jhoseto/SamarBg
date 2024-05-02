@@ -72,7 +72,7 @@
         </div>
     </div>
     </div>
-    <div class="buttons-ex" th:if="${#authorization.expression('isAuthenticated()')} and ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <div class="buttons-ex" th:if="${#authorization.expression('isAuthenticated()') and @userServiceImpl.getCurrentUser()?.getRole() == T(org.samarBg.models.enums.UserRole).ADMIN}">
 
         <button type="button" class="edit-button" th:attr="onclick='redirectToEditOffer(\'' + ${offer.id} + '\')'">Редактирай</button>
         <!-- Бутон за изтриване -->
