@@ -93,4 +93,12 @@ public interface OfferService {
      */
     List<OfferViewModel> getNewestOffers();
 
+    /**
+     * Groups the list of offer view models into sublists, each containing four offer view models.
+     * If the number of offers is not evenly divisible by four, the last sublist may contain fewer than four offers.
+     *
+     * @param offers The list of offer view models to be grouped.
+     * @return List of sublists, each containing four offer view models.
+     */
+    List<List<OfferViewModel>> groupOffers(List<OfferViewModel> offers);
 }

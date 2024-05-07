@@ -333,4 +333,21 @@ public class OfferServiceImpl implements OfferService {
 
         return newestOffers;
     }
+
+    /**
+     * Groups the list of offer view models into sublists, each containing four offer view models.
+     * If the number of offers is not evenly divisible by four, the last sublist may contain fewer than four offers.
+     *
+     * @param offers The list of offer view models to be grouped.
+     * @return List of sublists, each containing four offer view models.
+     */
+    @Override
+   public List<List<OfferViewModel>> groupOffers(List<OfferViewModel> offers) {
+        List<List<OfferViewModel>> grouped = new ArrayList<>();
+        int groupSize = 4;
+        for (int i = 0; i < offers.size(); i += groupSize) {
+            grouped.add(offers.subList(i, Math.min(i + groupSize, offers.size())));
+        }
+        return grouped;
+    }
 }

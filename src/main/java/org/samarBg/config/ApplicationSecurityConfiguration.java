@@ -51,6 +51,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // Permit access to static resources
                 .antMatchers(
                         "/images/usersImg/**",
+                        "/webjars/**",
                         "/images/offerImg/**",
                         "/css/**",
                         "/js/**",

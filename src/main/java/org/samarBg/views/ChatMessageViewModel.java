@@ -10,13 +10,12 @@ public class ChatMessageViewModel {
     private LocalDateTime time;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public ChatMessageViewModel setId(Long id) {
+    public ChatMessageViewModel(Long id, Long senderId, String senderName, String content, LocalDateTime time) {
         this.id = id;
-        return this;
+        this.senderId = senderId;
+        this.senderName = senderName;
+        this.content = content;
+        this.time = time;
     }
 
     public Long getSenderId() {

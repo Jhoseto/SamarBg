@@ -29,8 +29,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
-
-
+    //webSocket and JSON
+    implementation 'org.webjars:sockjs-client:1.1.2'
+    implementation 'org.webjars:stomp-websocket:2.3.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
     //TEST
     testImplementation 'org.springframework.security:spring-security-test'

@@ -80,11 +80,19 @@ public interface UserService {
     void changeUserRole(Long userId);
 
     /**
-     * Deletes the user with the specified userId from the system.
-     * If the user is found in the repository, it is removed from the database.
-     * If the user is not found, no action is taken.
+     * Deletes a user by their user ID.
+     * If the user with the specified ID exists, it is deleted from the repository.
+     * If the user does not exist, no action is taken.
      *
-     * @param userId the unique identifier of the user to be deleted
+     * @param userId The ID of the user to be deleted.
      */
     void deleteUser(Long userId);
+
+    /**
+     * Retrieves the user profile information for the user with the specified username.
+     *
+     * @param userName The username of the user whose profile information is to be retrieved.
+     * @return UserProfileViewModel containing the profile information of the user.
+     */
+    UserProfileViewModel getUserByUsername(String userName);
 }

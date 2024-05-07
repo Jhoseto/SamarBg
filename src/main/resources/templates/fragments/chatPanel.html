@@ -25,9 +25,9 @@
 
     <div class="chat">
       <div class="chat-header clearfix">
-        <img src="/images/usersImg/Bai Marin_profile_image_.jpg" alt="avatar" />
+        <img  src="/images/usersImg/Bai Marin_profile_image_.jpg" alt="avatar" />
         <div class="chat-about">
-          <div class="chat-with">Chat with Bai Marin</div>
+          <div th:text="${user.userName}" class="chat-with">Chat with Bai Marin</div>
           <div class="chat-num-messages">already 902 messages</div>
         </div>
         <i class="fa fa-star"></i>

@@ -3,6 +3,7 @@ package org.samarBg.service.serviceImpl;
 import org.samarBg.models.BaseEntity;
 import org.samarBg.models.MessageEntity;
 import org.samarBg.service.ChatService;
+import org.samarBg.views.ChatMessageViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.samarBg.models.UserEntity;

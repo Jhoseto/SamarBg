@@ -162,9 +162,18 @@ public class UserServiceImpl implements UserService {
            userRepository.save(currentUser);
 
         }else {
-            System.out.println("User not found !");
+            throw new RuntimeException("User not found !");
         }
     }
+
+
+    /**
+     * Deletes a user from the repository based on the provided user ID.
+     * If the user exists in the repository, it is deleted.
+     * If the user does not exist, a message is printed indicating that the delete operation failed.
+     *
+     * @param userId The ID of the user to be deleted.
+     */
 
     @Override
     public void deleteUser(Long userId){
@@ -175,7 +184,27 @@ public class UserServiceImpl implements UserService {
             userRepository.delete(currentUser);
 
         }else {
-            System.out.println("Delete operation false ! The User not exist");
+            throw new RuntimeException("Delete operation false ! The User not exist");
         }
+    }
+
+    /**
+     * Retrieves the user profile information for the user with the specified username.
+     * If a user with the given username exists, their profile information is retrieved and mapped to a UserProfileViewModel object.
+     * If no user with the specified username exists, an empty UserProfileViewModel object is returned.
+     *
+     * @param userName The username of the user whose profile information is to be retrieved.
+     * @return UserProfileViewModel containing the profile information of the user.
+     */
+    @Override
+    public UserProfileViewModel getUserByUsername (String userName) {
+        Optional<UserEntity> user = userRepository.findByUsername(userName);
+
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+        if (user.isPresent()) {
+            UserEntity currentUser = user.get();
+            userProfileViewModel = usersMapper.mapUserToProfileViewModel(currentUser);
+        }
+        return userProfileViewModel;
     }
 }
