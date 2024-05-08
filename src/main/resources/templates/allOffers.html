@@ -1,5 +1,4 @@
-<!DOCTYPE html><!--  This site was created in Webflow. https://www.webflow.com  -->
-<!--  Last Published: Thu Mar 07 2024 20:13:54 GMT+0000 (Coordinated Universal Time)  -->
+<!DOCTYPE html>
 <html data-wf-page="65e0e0a71318170a4920cd09" data-wf-site="65dbafc99f6b400b3852fc07" lang="bg" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
@@ -31,20 +30,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999; /*  z-index да е над всичко друго */
+      z-index: 9999;
     }
-    /* скриване на страницата по време на зареждане */
     body.loading {
       overflow: hidden;
     }
   </style>
 </head>
 <body class="body-4 loading">
-<!-- Loader елемент -->
+<!-- Loader  -->
 <div id="loader" class="loader">
   <div class="div-block-27">
-    <div class="text-block-17">Loading...</div> <!-- Текст за зареждане -->
-    <img src="images/loadingHorse.gif" loading="lazy" width="112" alt="" class="image-18"> <!-- Анимирана икона за зареждане -->
+    <div class="text-block-17">Моля изчакайте...</div>
+    <img src="images/loadingHorse.gif" loading="lazy" width="112" alt="" class="image-18">
   </div>
 </div>
 <div class="div-block-12"></div>

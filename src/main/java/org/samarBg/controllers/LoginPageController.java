@@ -59,37 +59,35 @@ public class LoginPageController {
                         HttpServletResponse response,
                         HttpServletRequest request) {
 
-        // Търсене на потребител в базата данни по имейла
         Optional<UserEntity> userOptional = userService.findUserByEmail(userModel.getEmail());
 
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
 
             if (user.isActive()) {
-                // Аутентикация на потребителя чрез Spring Security
                 Authentication authentication = userService.authenticateUser(userModel.getEmail(), userModel.getPassword());
 
                 if (authentication != null) {
-                    // Потребителят е аутентикиран
-                    // Потребителят е активен
+                    // User is autenticate
+                    // User is active
                     user.setLastOnline(Instant.now());
                     userRepository.save(user);
                 } else {
-                    // Грешна парола
+                    // Wrong password
                     redirectAttributes.addFlashAttribute("error", "Грешна парола!");
                     return "redirect:/login";
                 }
-                // Създаване на RememberMe кукито
+                // Create RememberMe cooke
                 rememberMeServices.loginSuccess(request, response, authentication);
                 return "redirect:/";
             } else {
-                // Потребителят не е активен
+                // User is not active
                 redirectAttributes.addFlashAttribute("error", "Вашият акаунт не е активен. За да го активирате, " +
                         "кликнете на изпратения от нас ЛИНК за активация");
                 return "redirect:/login";
             }
         } else {
-            // Потребителят не е намерен в системата
+            // User not found in DB
             redirectAttributes.addFlashAttribute("error", "Потребил с Имейл -> "+ userModel.getEmail() +" не е намерен в системата!");
             return "redirect:/login";
         }

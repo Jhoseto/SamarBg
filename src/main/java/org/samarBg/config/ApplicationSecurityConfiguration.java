@@ -16,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Configuration class for application security settings.
  */
@@ -100,10 +103,14 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
-                    response.sendRedirect("/login?error=AccessDenied >>>it is only available to administrators<<<");
+                    String errorMessage = "Съдържанието е достъпно само за Администратори !";
+                    String encodedMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
+                    response.sendRedirect("/login?error=" + encodedMessage);
                 })
                 .authenticationEntryPoint((request, response, authException) -> {
-                    response.sendRedirect("/login?error=AccessDenied >>>Need to LOGIN IN first !<<<");
+                    String errorMessage = "Моля влезте в профила си или се регистрирайте за да продължите !";
+                    String encodedMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
+                    response.sendRedirect( "/login?error=" + encodedMessage);
                 })
 
                 .and()

@@ -43,7 +43,7 @@
 <!-- Loader елемент -->
 <div id="loader" class="loader">
   <div class="div-block-27">
-    <div class="text-block-17">Loading...</div> <!-- Текст за зареждане -->
+    <div class="text-block-17">Моля изчакайте...</div> <!-- Текст за зареждане -->
     <img src="images/loadingHorse.gif" loading="lazy" width="112" alt="" class="image-18"> <!-- Анимирана икона за зареждане -->
   </div>
 </div>
@@ -129,7 +129,9 @@
                   <option value="none">-</option>
                   <option value="HORSE">Кон</option>
                   <option value="PONY">Пони</option>
-                  <option value="Third">Тежкотоварен кон</option>
+                  <option value="HEAVYHAULER">Тежкотоварен кон</option>
+                  <option value="MULE">Муле</option>
+                  <option value="DONKEY">Магаре</option>
                 </select>
                 <label for="genderCategory" class="field-label-10 _3 align-center-2">Пол</label>
                 <select th:name="genderCategory" id="genderCategory" data-name="Field 3" class="select-field-3 _2 w-select">
@@ -149,7 +151,7 @@
                 </select></div>
             </div>
           </div>
-          <input id="submit" type="submit" data-wait="Please wait..." class="submit-button-3 _2 w-button" value="Търси по категория">
+          <input id="submit" type="submit" data-wait="Please wait..." class="submit-button-3 _2 w-button" value="Търси">
           <input type="hidden" name="searchingWord" th:value="${searchingWord}">
           <input type="hidden" value="filter-select" name="filter">
         </form>
@@ -343,7 +345,6 @@
   });
 </script>
 </body>
-<!-- Here you can include loading animation or message -->
 <div th:unless="${offers}">
   <h1></h1>
 </div>
