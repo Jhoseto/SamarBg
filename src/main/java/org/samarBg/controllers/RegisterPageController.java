@@ -55,7 +55,7 @@ public class RegisterPageController {
         StringBuilder errorMessages = new StringBuilder();
 
         if (result.hasErrors()) {
-            // Проверка за грешки във всички полета и събиране на съобщенията
+
             for (FieldError error : result.getFieldErrors()) {
                 errorMessages.append(error.getDefaultMessage()).append("\n");
             }
@@ -63,15 +63,11 @@ public class RegisterPageController {
             if (!userRegistrationViewModel.isPasswordsMatch()) {
                 errorMessages.append("Паролите не съвпадат. ");
             }
-
-
-            // Добавяне на общото съобщение за грешките към модела
             redirectAttributes.addFlashAttribute("error", errorMessages.toString());
 
-            // Връщаме страницата за регистрация със специфични съобщения за грешките
             return "redirect:/registration";
         } else {
-            // Проверка дали вече съществува потребител с дадения имейл
+
             Optional<UserEntity> existingUserByEmail = userRepository.findByEmail(userRegistrationViewModel.getEmail());
             Optional<UserEntity> existingUserByUsername = userRepository.findByUsername(userRegistrationViewModel.getUsername());
 
@@ -82,7 +78,7 @@ public class RegisterPageController {
 
             }
 
-            // Проверка дали вече съществува потребител с даденото потребителско име
+
             if (existingUserByUsername.isPresent()) {
                 errorMessages.append("Потребител с това потребителско име вече съществува! Изберете друго.");
                 redirectAttributes.addFlashAttribute("error", errorMessages.toString());
@@ -92,7 +88,7 @@ public class RegisterPageController {
             redirectAttributes.addFlashAttribute("successMessage",
                     "Регистрацията е успешна!\nМоля проверете вашия Имейл за да активирате вашия профил.");
 
-            //Запис на Нов профил
+
             intUsers(userRegistrationViewModel);
 
         }
@@ -101,10 +97,10 @@ public class RegisterPageController {
 
 
     private void intUsers(UserRegistrationViewModel userRegistrationViewModel) {
-        // Зареждане на ролята USER
+
         UserRole userRole = UserRole.USER;
 
-        // Инициализиране на нов потребителски профил
+
         UserEntity newUser = new UserEntity();
         String confirmationCode = generateConfirmationCode();
         String confirmationLink = confirmationLinkService.generateConfirmationLink(newUser);
@@ -115,28 +111,28 @@ public class RegisterPageController {
                 .setActive(false)
                 .setImageUrl("images/userNameIcon1.png")
                 .setUserConfirmationCode(confirmationCode)
-                .setRole(userRole); // Задаване на ролята
+                .setRole(userRole);
 
         setCurrentTimeStamps(newUser);
 
-        // Записване на новия потребителски профил в базата данни
+
         userRepository.save(newUser);
 
-        // Изпращане на потвърждаващ имейл с целия линк за потвърждение на имейл
+
         emailService.sendConfirmationEmail(newUser.getEmail(), confirmationLink + newUser.getUserConfirmationCode());
 
         System.out.println("Email sent to " + newUser.getEmail());
     }
 
-    //Времето на създаване и ъпдейтване
+
     public static void setCurrentTimeStamps(BaseEntity baseEntity){
         baseEntity.setCreated(Instant.now());
         baseEntity.setModified(Instant.now());
     }
 
-    // Генериране на уникален код за потвърждение на имейл
+
     private String generateConfirmationCode() {
-        // Генериране на уникален код за потвърждение (UUID)
+
         return UUID.randomUUID().toString();
     }
 }
