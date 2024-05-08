@@ -32,7 +32,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String redirectToIndex() {
-        return "index";
+        return "redirect:/index";
     }
 
     @GetMapping("/index")

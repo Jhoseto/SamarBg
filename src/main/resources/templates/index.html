@@ -192,18 +192,15 @@
 
 <script>
 
-  // Изберете елементите от DOM
   const openChatButton = document.getElementById('openChatModal');
   const chatPanel = document.getElementById('chatPanel');
 
-  // Добавете слушател за събитие при клик върху иконката за чат
   openChatButton.addEventListener('click', function(event) {
     // Показване на чат панела като модален прозорец
     chatPanel.style.display = 'block';
-    event.stopPropagation(); // За да предотвратим въздействието върху window
+    event.stopPropagation();
   });
 
-  // Добавете слушател за събитие при клик върху област извън чат панела, за да го скриете
   document.addEventListener('click', function(event) {
     const isClickInsideChatPanel = chatPanel.contains(event.target);
     const isClickOnOpenChatButton = (event.target === openChatButton);
@@ -213,8 +210,6 @@
     }
   });
 
-
 </script>
-
 </body>
 </html>
