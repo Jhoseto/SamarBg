@@ -15,6 +15,6 @@ public class CacheService {
 
     @CacheEvict(value = "cacheName", key = "#resourcePath")
     public void evictCacheForResource(String resourcePath) {
-        // Методът с анотация @CacheEvict автоматично изчиства кеша за даден ресурс
+
     }
 }

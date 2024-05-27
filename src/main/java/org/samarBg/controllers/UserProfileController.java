@@ -51,7 +51,7 @@ public class UserProfileController {
     @GetMapping("/getProfileDetail/{username}")
     public String viewUserProfileDetail(@PathVariable String username,
                                         RedirectAttributes redirectAttributes) {
-        // Намираме потребителя по потребителското име
+        // Find user by username
         UserEntity user = userService.findUserByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Потребителят не е намерен."));
 
@@ -67,7 +67,6 @@ public class UserProfileController {
         List<OfferViewModel> userOffers = offerService.getAllOffersForUser(username);
         userProfileViewModel.setUserOffers(userOffers);
 
-        // Пренасочваме с добавяне на атрибут "user"
         redirectAttributes.addFlashAttribute("user", userProfileViewModel);
         return "redirect:/userProfileDetail";
     }

@@ -187,7 +187,33 @@
           <div class="cena" th:text="${offer.price.intValue()} + ' Лв.'">2200 </div>
         </div>
         <a th:href="'tel:' + ${offer.phone}" class="button2 phone w-button" th:text="${offer.phone}"></a>
-        <a href="/images/man-and-horses-2389830_1280.png" class="button2 message w-button">Изпрати съобщение</a>
+        <div data-delay="5000" data-hover="false" data-w-id="69f4df5d-301a-564e-7727-54b023fb6035" class="uui-navbar07_menu-dropdown w-dropdown">
+          <div class="uui-navbar07_dropdown-toggle _22 _12 w-dropdown-toggle">
+            <div class="text-block-24">Изпрати съобщение</div>
+          </div>
+          <nav data-w-id="69f4df5d-301a-564e-7727-54b023fb6039" style="opacity:0;-webkit-transform:translate3d(0, -2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="uui-navbar07_dropdown-list login w-dropdown-list">
+            <div data-w-id="69f4df5d-301a-564e-7727-54b023fb603a" style="opacity:0" class="form-block-6 login w-form">
+              <h1 class="heading-10">Съобщение</h1>
+              <form id="wf-form-registrationForm" name="wf-form-registrationForm" data-name="registrationForm"  data-redirect="213.91.128.33:2662/login"
+                    method="post"
+                    class="form-9" data-wf-page-id="65f1c635749cfd16151f9096" data-wf-element-id="69f4df5d-301a-564e-7727-54b023fb603d">
+                <label class="field-label-12">От</label>
+                <div class="text-block-25 _2">Изпращач</div>
+                <label class="field-label-12 _2">До</label>
+                <div class="text-block-25">Получател</div>
+                <label for="field" class="field-label-13">Текст</label>
+                <textarea required="" placeholder="Въведете текст ..." maxlength="1000" id="field" name="field" data-name="Field" class="textarea-2 w-input"></textarea>
+                <input type="submit" data-wait="Please wait..." class="submit-button-7 w-button" value="Submit">
+              </form>
+              <div class="w-form-done">
+                <div>Thank you! Your submission has been received!</div>
+              </div>
+              <div class="w-form-fail">
+                <div>Oops! Something went wrong while submitting the form.</div>
+              </div>
+            </div>
+          </nav>
+        </div>
       </div>
       <div class="div-block-20">
         <img th:src="${offer.getAuthorProfileImage()}" loading="lazy" width="91" sizes="90.98958587646484px" alt="" class="image-17">
