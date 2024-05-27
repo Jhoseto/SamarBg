@@ -2,10 +2,12 @@ package org.samarBg.controllers;
 
 
 import org.samarBg.models.OfferImageEntity;
+import org.samarBg.models.UserEntity;
 import org.samarBg.models.enums.OfferCategory;
 import org.samarBg.repository.OfferImageRepository;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UpdateOffers;
+import org.samarBg.service.UserService;
 import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,30 +24,35 @@ public class OffersController {
     private final OfferService offerService;
     private final OfferImageRepository offerImageRepository;
     private final UpdateOffers updateOffer;
+    private final UserService userService;
 
 
     public OffersController(OfferService offerService,
                             OfferImageRepository offerImageRepository,
-                            UpdateOffers updateOffer) {
+                            UpdateOffers updateOffer,
+                            UserService userService) {
         this.offerService = offerService;
         this.offerImageRepository = offerImageRepository;
         this.updateOffer = updateOffer;
+        this.userService = userService;
     }
 
 
     @GetMapping("/offerdetail/{offerId}")
     public String showAllOfferDetailPage(@PathVariable Long offerId, Model model) {
         OfferViewModel offer = offerService.findOfferById(offerId);
+        UserEntity user = userService.getCurrentUser();
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
-            // Запазване на обявата с новия брой на прегледите
+            // Update offer view counter
             offerService.saveInExistOffers(offer);
 
+            model.addAttribute("user", user);
             model.addAttribute("offer", offer);
             return "offerdetail";
         } else {
-            return "redirect:/allOffers"; // или друга страница за грешка
+            return "redirect:/allOffers";
         }
     }
 
@@ -55,13 +62,13 @@ public class OffersController {
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
-            // Запазване на обявата с новия брой на прегледите
+            // Update offer view counter
             offerService.saveInExistOffers(offer);
 
             model.addAttribute("offer", offer);
             return "offerdetail";
         } else {
-            return "redirect:/allHorses"; // или друга страница за грешка
+            return "redirect:/allHorses";
         }
     }
 
@@ -71,13 +78,13 @@ public class OffersController {
 
         if (offer != null) {
             offer.setOfferViewCount(offer.getOfferViewCount() + 1);
-            // Запазване на обявата с новия брой на прегледите
+            // Update offer view counter
             offerService.saveInExistOffers(offer);
 
             model.addAttribute("offer", offer);
             return "offerdetail";
         } else {
-            return "redirect:/allAccessories"; // или друга страница за грешка
+            return "redirect:/allAccessories";
         }
     }
 
@@ -98,7 +105,7 @@ public class OffersController {
     public String showOfferDetailPreview(@PathVariable Long offerId, Model model) {
         OfferViewModel offer = offerService.findOfferById(offerId);
 
-        // Намиране на снимките за съответната обява
+        // Find all pictures for current offer
         List<OfferImageEntity> images = offerImageRepository.findByHorseOfferId(offerId);
 
         if (offer != null) {
@@ -106,7 +113,7 @@ public class OffersController {
             model.addAttribute("offers", offer);
             return "offerDetailPreview";
         } else {
-            return "redirect:/addOffers"; // страница за грешка
+            return "redirect:/addOffers";
         }
     }
 
@@ -122,7 +129,7 @@ public class OffersController {
     @GetMapping("/editOffer/{offerId}")
     public String showEditOffer(@PathVariable Long offerId, Model model) {
         OfferViewModel offer = offerService.findOfferById(offerId);
-        // Намиране на снимките за съответната обява
+        // Find all pictures for current offer
         List<OfferImageEntity> images;
         if (offer.getOfferCategory().equals(OfferCategory.HORSES)){
             images = offerImageRepository.findByHorseOfferId(offerId);

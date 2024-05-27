@@ -10,6 +10,9 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "offer_id", nullable = false)
+    private Long offerId;
+
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
     private UserEntity sender;
@@ -24,8 +27,8 @@ public class MessageEntity {
     @Column(name = "timestamp", nullable = false)
     private Date timestamp;
 
-
-
+    @Column(name = "mark_as_read")
+    private int markAsRead;
 
     public Long getId() {
         return id;
@@ -33,6 +36,15 @@ public class MessageEntity {
 
     public MessageEntity setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public Long getOfferId() {
+        return offerId;
+    }
+
+    public MessageEntity setOfferId(Long offerId) {
+        this.offerId = offerId;
         return this;
     }
 
@@ -69,6 +81,15 @@ public class MessageEntity {
 
     public MessageEntity setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+        return this;
+    }
+
+    public int getMarkAsRead() {
+        return markAsRead;
+    }
+
+    public MessageEntity setMarkAsRead(int markAsRead) {
+        this.markAsRead = markAsRead;
         return this;
     }
 }
