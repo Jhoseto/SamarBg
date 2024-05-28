@@ -4,6 +4,7 @@ import org.samarBg.service.MessageService;
 import org.samarBg.views.MessagesViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,11 @@ public class MessagesController {
     public MessagesController(MessageService messageService) {
         this.messageService = messageService;
 
+    }
+
+    @GetMapping("/messages")
+    public String showMessagesPage() {
+        return "/messages";
     }
 
 
