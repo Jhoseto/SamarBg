@@ -29,6 +29,7 @@ public class MessagesController {
     @GetMapping("/messages")
     public String getAllConversations(Model model) {
         UserEntity user = userService.getCurrentUser();
+
         model.addAttribute("allConversations", conversationService.getAllConversationsForUser(user));
         model.addAttribute("currentUser", userService.getCurrentUser());
         return "messages";
@@ -54,11 +55,16 @@ public class MessagesController {
 
     @PostMapping("/sendAnswer")
     public String sendAnswer(@RequestParam Long conversationId,
-                             @RequestParam String senderUsername,
-                             @RequestParam String messageText) {
-
-        messageService.sendMessage(conversationId,senderUsername,messageText);
-
-        return "redirect:/messages";
+                             @RequestParam String senderName,
+                             @RequestParam String messageText,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            messageService.sendMessage(conversationId,senderName,messageText);
+            redirectAttributes.addFlashAttribute("successMessage", "Съобщението ви е изпратено успешно!");
+            return "redirect:/messages";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Грешка при изпращане на съобщението !");
+            return "redirect:/messages";
+        }
     }
 }

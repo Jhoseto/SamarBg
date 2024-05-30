@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,11 +34,6 @@ public class MessageServiceImpl implements MessageService {
         this.offerService = offerService;
     }
 
-
-
-    public List<MessageEntity> getMessagesByConversation(Long conversationId) {
-        return messageRepository.findByConversationId(conversationId);
-    }
 
     @Override
     @Transactional
