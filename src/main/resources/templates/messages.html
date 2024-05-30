@@ -43,7 +43,7 @@
             <div class="uui-navbar07_dropdown-toggle wthdrawal as w-dropdown-toggle">
               <div class="text-block-27 s" th:text="${conversation.offerName}">Име на Обявата</div>
               <div class="text-block-30" th:text="${#dates.format(conversation.getMessages().get(0).timestamp, 'dd.MM.yyyy / HH:mm')}">username</div>
-              <img src="/images/notificationIcon.gif" loading="lazy" width="22" alt="" class="image-22">
+              <img th:if="${conversation.markAsRead == 1}" src="/images/notificationIcon.gif" loading="lazy" width="22" alt="" class="image-22">
             </div>
             <nav class="uui-navbar07_dropdown-list withdrawal s w-dropdown-list">
 

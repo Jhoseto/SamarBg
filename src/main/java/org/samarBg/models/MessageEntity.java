@@ -25,9 +25,6 @@ public class MessageEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
-    @Column(name = "mark_as_read", nullable = false)
-    private int markAsRead;
-
     public Long getId() {
         return id;
     }
@@ -70,15 +67,6 @@ public class MessageEntity {
 
     public MessageEntity setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
-        return this;
-    }
-
-    public int getMarkAsRead() {
-        return markAsRead;
-    }
-
-    public MessageEntity setMarkAsRead(int markAsRead) {
-        this.markAsRead = markAsRead;
         return this;
     }
 }

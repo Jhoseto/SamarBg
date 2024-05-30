@@ -1,5 +1,6 @@
 package org.samarBg.controllers;
 
+import org.samarBg.service.MessageService;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UserService;
 import org.samarBg.views.OfferViewModel;
@@ -19,7 +20,8 @@ public class IndexController {
 
     @Autowired
     public IndexController(OfferService offerService,
-                           UserService userService) {
+                           UserService userService,
+                           MessageService messageService) {
         this.offerService = offerService;
         this.userService = userService;
     }

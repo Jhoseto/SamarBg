@@ -27,6 +27,8 @@ public class ConversationEntity {
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MessageEntity> messages;
 
+    @Column(name = "mark_as_read", nullable = false)
+    private int markAsRead;
 
     public Long getId() {
         return id;
@@ -79,6 +81,15 @@ public class ConversationEntity {
 
     public ConversationEntity setMessages(List<MessageEntity> messages) {
         this.messages = messages;
+        return this;
+    }
+
+    public int getMarkAsRead() {
+        return markAsRead;
+    }
+
+    public ConversationEntity setMarkAsRead(int markAsRead) {
+        this.markAsRead = markAsRead;
         return this;
     }
 }

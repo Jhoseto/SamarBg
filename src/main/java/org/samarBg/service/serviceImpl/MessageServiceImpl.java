@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,6 +49,7 @@ public class MessageServiceImpl implements MessageService {
         conversation.setOfferName(currentOffer.getOfferName());
         conversation.setBuyer(buyer.get());
         conversation.setSeller(seller.get());
+        conversation.setMarkAsRead(1);
 
         conversation = conversationRepository.save(conversation);
 
@@ -66,6 +68,9 @@ public class MessageServiceImpl implements MessageService {
         Optional<ConversationEntity> conversation = conversationRepository.findById(conversationId);
         if (conversation.isPresent()){
             MessageEntity message = new MessageEntity();
+            conversation.get().setMarkAsRead(1);
+            conversationRepository.save(conversation.get());
+
             message.setConversation(conversation.get());
             message.setSender(userService.getCurrentUser());
             message.setContent(messageText);
@@ -75,4 +80,29 @@ public class MessageServiceImpl implements MessageService {
 
         }
     }
+
+    @Override
+    public boolean checkNotificationsForUserPanel(boolean notification) {
+        List<ConversationEntity> allConversations = conversationRepository.findAll();
+
+        for (ConversationEntity conversation : allConversations) {
+            if (conversation.getMarkAsRead() == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int checkNotificationsNumForUserPanel() {
+        List<ConversationEntity> allConversations = conversationRepository.findAll();
+        int notificationNum = 0;
+        for (ConversationEntity conversation : allConversations) {
+            if (conversation.getMarkAsRead() == 1){
+                notificationNum += 1;
+            }
+        }
+        return notificationNum;
+    }
+
 }

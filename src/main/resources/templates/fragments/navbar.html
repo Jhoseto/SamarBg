@@ -68,7 +68,7 @@
                             <img width="44" id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c6-ed2fe49a" alt="" th:src="${@userServiceImpl.getCurrentUser()?.getImageUrl() != null ? @userServiceImpl.getCurrentUser().getImageUrl() : 'images/userNameIcon1.png' }" loading="lazy" class="image-11">
                             <a id="w-node-_9f4ecf65-ecfb-c0a9-f158-1ac91d31a110-ed2fe49a" th:href="${#authorization.expression('isAuthenticated()') ? '/user-detail' : '/index'}" class="link-block-3 w-inline-block">
                                 <div id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c7-ed2fe49a" class="text-block-3" th:text="${@userServiceImpl.getCurrentUser()?.getUsername() != null ? @userServiceImpl.getCurrentUser().getUsername() : 'Гост'}">Гост</div>
-                                <img src="/images/notificationIcon.gif" loading="lazy" width="29" alt="" class="image-23">
+                                <img th:if="${@messageServiceImpl.checkNotificationsForUserPanel(true)}" src="/images/notificationIcon.gif" loading="lazy" width="29" alt="" class="image-23">
                             </a>
                             <div data-delay="0"  id="w-node-_36168b5e-d710-7012-4b61-f02eed2fe4c9-ed2fe49a" class="nav-dropdown w-dropdown">
                                 <div  th:if="${#authorization.expression('isAuthenticated()')}" class="nav-dropdown-toggle profil w-dropdown-toggle" >
@@ -84,7 +84,7 @@
                                     <div class="div-block-78">
                                         <a data-w-id="59c1975b-6995-6583-5f23-96b84d90417a" href="/messages"
                                            class="dropdown-link-3 s w-dropdown-link">Съобщения</a>
-                                        <img src="/images/notificationIcon.gif" loading="lazy" width="22" id="w-node-_3b0a214e-be7a-05ab-63a3-acfb3da4157a-ed2fe49a" alt=""
+                                        <img th:if="${@messageServiceImpl.checkNotificationsForUserPanel(true)}" src="/images/notificationIcon.gif" loading="lazy" width="22" id="w-node-_3b0a214e-be7a-05ab-63a3-acfb3da4157a-ed2fe49a" alt=""
                                              class="image-22 navnotfication block">
                                     </div>
                                     <a href="/user-detail" class="dropdown-link-3 w-dropdown-link">Моите обяви</a>
