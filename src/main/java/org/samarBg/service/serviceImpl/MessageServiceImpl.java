@@ -10,7 +10,9 @@ import org.samarBg.service.UserService;
 import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,7 +41,7 @@ public class MessageServiceImpl implements MessageService {
         Optional<UserEntity> receiver = userRepository.findByUsername(currentOffer.getAuthorName());
 
 
-        if (receiver.isPresent() && sender.getId() != receiver.get().getId()){
+        if (sender.getId() != receiver.get().getId() ){
             MessageEntity messageEntity = new MessageEntity();
             messageEntity.setOfferId(offerId);
             messageEntity.setSender(sender);
@@ -54,5 +56,10 @@ public class MessageServiceImpl implements MessageService {
         } else {
             throw new Exception();
         }
+    }
+
+    @Override
+    public List<MessageEntity> findMessagesByOfferId(Long offerId) {
+        return List.of();
     }
 }

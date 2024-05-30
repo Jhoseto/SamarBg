@@ -1,7 +1,11 @@
 package org.samarBg.models;
 
+import org.samarBg.models.enums.OfferCategory;
+import org.w3c.dom.stylesheets.LinkStyle;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "messages")
@@ -21,7 +25,7 @@ public class MessageEntity {
     @JoinColumn(name = "receiver_id", nullable = false)
     private UserEntity receiver;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content")
     private String content;
 
     @Column(name = "timestamp", nullable = false)

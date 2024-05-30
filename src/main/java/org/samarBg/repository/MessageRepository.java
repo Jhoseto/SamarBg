@@ -1,6 +1,5 @@
 package org.samarBg.repository;
 
-import org.samarBg.models.HorseOfferEntity;
 import org.samarBg.models.MessageEntity;
 import org.samarBg.models.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +9,9 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository  extends JpaRepository<MessageEntity, Long> {
+
+    List<MessageEntity> findAllBySenderOrReceiver(UserEntity sender, UserEntity receiver);
+
 
 
 
