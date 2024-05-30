@@ -36,34 +36,40 @@
         <div th:if="${successMessage}" class="error-message">
           <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
         </div>
-        <!-- Цялата визуализация на съобщенията -->
+
         <div th:each="conversation : ${allConversations}" class="div-block-74">
-          <!-- Заглавието на разговора -->
+
           <div class="uui-navbar07_menu-dropdown-3 asd w-dropdown">
             <div class="uui-navbar07_dropdown-toggle wthdrawal as w-dropdown-toggle">
               <div class="text-block-27 s" th:text="${conversation.offerName}">Име на Обявата</div>
+              <div class="text-block-30" th:text="${#dates.format(conversation.getMessages().get(0).timestamp, 'dd.MM.yyyy / HH:mm')}">username</div>
+              <img src="/images/notificationIcon.gif" loading="lazy" width="22" alt="" class="image-22">
             </div>
             <nav class="uui-navbar07_dropdown-list withdrawal s w-dropdown-list">
-              <!-- Съдържанието на разговора -->
+
               <div class="div-block-75 messages">
                 <div th:each="message : ${conversation.messages}">
                   <div th:if="${message.sender.id == currentUser.id}" class="send">
                     <div class="text-block-28 sendername" th:text="${message.sender.username + ' :'}">Sender Name :</div>
                     <div class="text-block-28 sendertext _2" th:text="${message.content}">Sender text</div>
+                    <div class="text-block-29" th:text="${#dates.format(message.timestamp, 'dd.MM.yyyy / HH:mm')}">date and time</div>
                   </div>
                   <div th:if="${message.sender.id != currentUser.id}" class="receive">
                     <div class="text-block-28 receivername" th:text="${message.sender.username + ' :'}">Receiver Name :</div>
                     <div class="text-block-28 receivertext" th:text="${message.content}">Receiver text</div>
+                    <div class="text-block-29" th:text="${#dates.format(message.timestamp, 'dd.MM.yyyy / HH:mm')}">date and time</div>
                   </div>
                 </div>
               </div>
-              <!-- Форма за изпращане на съобщение -->
+
               <div class="form-block-6 s w-form">
-                <form th:action="@{/sendAnswer}" method="post" class="form-12 s" data-wf-page-id="6654b9b67adb69472b4fc492">
+                <form th:action="@{/sendAnswer}"
+                      method="post"
+                      class="form-12 s" data-wf-page-id="6654b9b67adb69472b4fc492">
                   <input type="hidden" name="conversationId" th:value="${conversation.id}">
                   <input type="hidden" name="offerId" th:value="${conversation.offerId}">
                   <input type="hidden" name="senderName" th:value="${currentUser.username}">
-                  <input class="text-field-8 s w-input" maxlength="256" name="messageText" placeholder="Вашето съобщение..." type="text" id="textInput" required="">
+                  <input class="text-field-8 s w-input" minlength="5" maxlength="256" name="messageText" placeholder="Вашето съобщение..." type="text" id="textInput" required="">
                   <input type="submit" data-wait="Please wait..." class="submit-button-10 w-button" value="Отговор">
                 </form>
               </div>
