@@ -27,15 +27,18 @@ public class MessagesController {
     private final OfferService offerService;
     private final UserService userService;
     private final MessageRepository messageRepository;
-    private final OfferImageRepository offerImageRepository;
+
 
     @Autowired
-    public MessagesController(MessageService messageService, OfferService offerService, UserService userService, MessageRepository messageRepository, OfferImageRepository offerImageRepository) {
+    public MessagesController(MessageService messageService,
+                              OfferService offerService,
+                              UserService userService,
+                              MessageRepository messageRepository) {
         this.messageService = messageService;
         this.offerService = offerService;
         this.userService = userService;
         this.messageRepository = messageRepository;
-        this.offerImageRepository = offerImageRepository;
+
     }
 
 

@@ -1,11 +1,7 @@
 package org.samarBg.models;
 
-import org.samarBg.models.enums.OfferCategory;
-import org.w3c.dom.stylesheets.LinkStyle;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "messages")
@@ -96,4 +92,5 @@ public class MessageEntity {
         this.markAsRead = markAsRead;
         return this;
     }
+
 }

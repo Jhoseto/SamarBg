@@ -10,9 +10,8 @@ import org.samarBg.service.UserService;
 import org.samarBg.views.OfferViewModel;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,7 +58,26 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageEntity> findMessagesByOfferId(Long offerId) {
-        return List.of();
+    public void answerMessage(Long offerId, Long senderId, String messageText) throws Exception {
+        UserEntity sender = userService.getCurrentUser();
+        OfferViewModel currentOffer = offerService.findOfferById(offerId);
+        Optional<UserEntity> receiver = userRepository.findByUsername(currentOffer.getAuthorName());
+
+
+        if (sender.getId() != receiver.get().getId() ){
+            MessageEntity messageEntity = new MessageEntity();
+            messageEntity.setOfferId(offerId);
+            messageEntity.setSender(sender);
+            if (receiver.isPresent()){
+                messageEntity.setReceiver(receiver.get());
+            }
+            messageEntity.setContent(messageText);
+            messageEntity.setMarkAsRead(0);
+            messageEntity.setTimestamp(new Date());
+
+            messageRepository.save(messageEntity);
+        } else {
+            throw new Exception();
+        }
     }
 }
