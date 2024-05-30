@@ -10,24 +10,22 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "offer_id", nullable = false)
-    private Long offerId;
+    @ManyToOne
+    @JoinColumn(name = "conversation_id", nullable = false)
+    private ConversationEntity conversation;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
     private UserEntity sender;
 
-    @ManyToOne
-    @JoinColumn(name = "receiver_id", nullable = false)
-    private UserEntity receiver;
-
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @Column(name = "timestamp", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
-    @Column(name = "mark_as_read")
+    @Column(name = "mark_as_read", nullable = false)
     private int markAsRead;
 
     public Long getId() {
@@ -39,12 +37,12 @@ public class MessageEntity {
         return this;
     }
 
-    public Long getOfferId() {
-        return offerId;
+    public ConversationEntity getConversation() {
+        return conversation;
     }
 
-    public MessageEntity setOfferId(Long offerId) {
-        this.offerId = offerId;
+    public MessageEntity setConversation(ConversationEntity conversation) {
+        this.conversation = conversation;
         return this;
     }
 
@@ -54,15 +52,6 @@ public class MessageEntity {
 
     public MessageEntity setSender(UserEntity sender) {
         this.sender = sender;
-        return this;
-    }
-
-    public UserEntity getReceiver() {
-        return receiver;
-    }
-
-    public MessageEntity setReceiver(UserEntity receiver) {
-        this.receiver = receiver;
         return this;
     }
 
@@ -92,5 +81,4 @@ public class MessageEntity {
         this.markAsRead = markAsRead;
         return this;
     }
-
 }

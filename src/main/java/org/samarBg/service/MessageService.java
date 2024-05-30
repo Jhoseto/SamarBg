@@ -1,9 +1,15 @@
 package org.samarBg.service;
 
 
+import org.samarBg.models.MessageEntity;
+
+import java.util.List;
+
 public interface MessageService {
 
-    void sendMessage(Long offerId, Long senderId, String messageText) throws Exception;
+    List<MessageEntity> getMessagesByConversation(Long conversationId);
 
-    void answerMessage(Long offerId, Long senderId, String messageText) throws Exception;
+    void createMessage(Long offerId, String senderUsername, String messageText);
+
+    void sendMessage(Long conversationId, String senderUsername, String messageText);
 }
