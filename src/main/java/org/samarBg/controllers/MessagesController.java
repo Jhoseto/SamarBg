@@ -3,9 +3,11 @@ package org.samarBg.controllers;
 import org.samarBg.models.ConversationEntity;
 import org.samarBg.models.UserEntity;
 import org.samarBg.repository.ConversationRepository;
+import org.samarBg.repository.UserRepository;
 import org.samarBg.service.ConversationService;
 import org.samarBg.service.MessageService;
 import org.samarBg.service.UserService;
+import org.samarBg.views.ConversationViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -23,24 +26,27 @@ public class MessagesController {
     private final MessageService messageService;
     private final UserService userService;
     private final ConversationRepository conversationRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public MessagesController(ConversationService conversationService,
                               MessageService messageService,
                               UserService userService,
-                              ConversationRepository conversationRepository) {
+                              ConversationRepository conversationRepository, UserRepository userRepository) {
         this.conversationService = conversationService;
         this.messageService = messageService;
         this.userService = userService;
         this.conversationRepository = conversationRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/messages")
     public String getAllConversations(Model model) {
         UserEntity user = userService.getCurrentUser();
+        List<ConversationViewModel> conversation = conversationService.getAllNotificationForConversations(user);
 
-        model.addAttribute("allConversations", conversationService.getAllConversationsForUser(user));
-        model.addAttribute("currentUser", userService.getCurrentUser());
+        model.addAttribute("allConversations", conversation);
+        model.addAttribute("currentUser", user);
         return "messages";
     }
 
@@ -81,11 +87,11 @@ public class MessagesController {
     @ResponseBody
     public ResponseEntity<?> markAsRead(@RequestBody Map<String, Long> payload) {
         Long conversationId = payload.get("conversationId");
-        ConversationEntity conversation = conversationRepository.findById(conversationId).orElse(null);
+        UserEntity user = userService.getCurrentUser();
 
-        if (conversation != null) {
-            conversation.setMarkAsRead(0);
-            conversationRepository.save(conversation);
+        if (conversationId != null) {
+            user.getNotification().remove(conversationId);
+            userRepository.save(user);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conversation not found");

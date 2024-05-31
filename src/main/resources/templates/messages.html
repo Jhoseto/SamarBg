@@ -68,7 +68,7 @@
                   <input type="hidden" name="conversationId" th:value="${conversation.id}">
                   <input type="hidden" name="offerId" th:value="${conversation.offerId}">
                   <input type="hidden" name="senderName" th:value="${currentUser.username}">
-                  <input class="text-field-8 s w-input" minlength="5" maxlength="256" name="messageText" placeholder="Вашето съобщение..." type="text" id="textInput" required="">
+                  <input class="text-field-8 s w-input" minlength="1" maxlength="256" name="messageText" placeholder="Вашето съобщение..." type="tel" id="textInput" required="">
                   <input type="submit" data-wait="Please wait..." class="submit-button-10 w-button" value="Отговор">
                 </form>
               </div>

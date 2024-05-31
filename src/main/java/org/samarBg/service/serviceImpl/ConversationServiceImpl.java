@@ -5,6 +5,7 @@ import org.samarBg.models.MessageEntity;
 import org.samarBg.models.UserEntity;
 import org.samarBg.repository.ConversationRepository;
 import org.samarBg.service.ConversationService;
+import org.samarBg.views.ConversationViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +20,6 @@ public class ConversationServiceImpl implements ConversationService {
         this.conversationRepository = conversationRepository;
     }
 
-    @Override
-    public ConversationEntity createConversation(ConversationEntity conversation) {
-        return conversationRepository.save(conversation);
-
-    }
 
     @Override
     @Transactional
@@ -50,7 +46,34 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
-    public Optional<ConversationEntity> getById(Long conversationId) {
-        return conversationRepository.findById(conversationId);
+    @Transactional
+    public List<ConversationViewModel> getAllNotificationForConversations(UserEntity user) {
+        List<ConversationEntity> allConversation = getAllConversationsForUser(user);
+        List<ConversationViewModel> conversationViewModels = new ArrayList<>();
+
+        for (ConversationEntity conversation : allConversation) {
+            ConversationViewModel con;
+            if (user.getNotification().contains(conversation.getId())){
+                con = new ConversationViewModel(
+                        conversation.getId(),
+                        conversation.getOfferId(),
+                        conversation.getOfferName(),
+                        conversation.getBuyer(),
+                        conversation.getSeller(),
+                        conversation.getMessages(),1);
+            } else {
+                con = new ConversationViewModel(
+                        conversation.getId(),
+                        conversation.getOfferId(),
+                        conversation.getOfferName(),
+                        conversation.getBuyer(),
+                        conversation.getSeller(),
+                        conversation.getMessages(),0);
+            }
+            conversationViewModels.add(con);
+        }
+
+        return conversationViewModels;
     }
+
 }

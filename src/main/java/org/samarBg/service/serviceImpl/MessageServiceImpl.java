@@ -5,6 +5,7 @@ import org.samarBg.models.MessageEntity;
 import org.samarBg.models.UserEntity;
 import org.samarBg.repository.ConversationRepository;
 import org.samarBg.repository.MessageRepository;
+import org.samarBg.repository.UserRepository;
 import org.samarBg.service.MessageService;
 import org.samarBg.service.OfferService;
 import org.samarBg.service.UserService;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,15 +24,17 @@ public class MessageServiceImpl implements MessageService {
     private final UserService userService;
     private final ConversationRepository conversationRepository;
     private final OfferService offerService;
+    private final UserRepository userRepository;
 
     public MessageServiceImpl(MessageRepository messageRepository,
                               UserService userService,
                               ConversationRepository conversationRepository,
-                              OfferService offerService) {
+                              OfferService offerService, UserRepository userRepository) {
         this.messageRepository = messageRepository;
         this.userService = userService;
         this.conversationRepository = conversationRepository;
         this.offerService = offerService;
+        this.userRepository = userRepository;
     }
 
 
@@ -42,16 +44,22 @@ public class MessageServiceImpl implements MessageService {
         MessageEntity message = new MessageEntity();
         ConversationEntity conversation = new ConversationEntity();
         OfferViewModel currentOffer = offerService.findOfferById(offerId);
-        Optional<UserEntity> buyer = userService.findUserByUsername(senderUsername);
-        Optional<UserEntity> seller = userService.findUserByUsername(currentOffer.getAuthorName());
+        Optional<UserEntity> sender = userService.findUserByUsername(senderUsername);
+        Optional<UserEntity> receiver = userService.findUserByUsername(currentOffer.getAuthorName());
 
         conversation.setOfferId(offerId);
         conversation.setOfferName(currentOffer.getOfferName());
-        conversation.setBuyer(buyer.get());
-        conversation.setSeller(seller.get());
-        conversation.setMarkAsRead(1);
-
+        if (sender.isPresent()){
+            conversation.setBuyer(sender.get());
+        }
+        if (receiver.isPresent()){
+            conversation.setSeller(receiver.get());
+        }
         conversation = conversationRepository.save(conversation);
+        if (receiver.isPresent()){
+            receiver.get().getNotification().add(conversation.getId());
+            userRepository.save(receiver.get());
+        }
 
         message.setConversation(conversation);
         message.setSender(userService.getCurrentUser());
@@ -67,10 +75,19 @@ public class MessageServiceImpl implements MessageService {
     public void sendMessage(Long conversationId, String senderUsername, String messageText) {
         Optional<ConversationEntity> conversation = conversationRepository.findById(conversationId);
         if (conversation.isPresent()){
-            MessageEntity message = new MessageEntity();
-            conversation.get().setMarkAsRead(1);
-            conversationRepository.save(conversation.get());
+            UserEntity notificationUser = new UserEntity();
+            Optional<UserEntity> sender = userRepository.findByUsername(senderUsername);
+            if (sender.isPresent()){
+                if (sender.get().getId() == conversation.get().getBuyer().getId()){
+                    notificationUser = conversation.get().getSeller();
+                } else {
+                    notificationUser = conversation.get().getBuyer();
+                }
+            }
+            notificationUser.getNotification().add(conversationId);
+            userRepository.save(notificationUser);
 
+            MessageEntity message = new MessageEntity();
             message.setConversation(conversation.get());
             message.setSender(userService.getCurrentUser());
             message.setContent(messageText);
@@ -82,27 +99,22 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    @Transactional
     public boolean checkNotificationsForUserPanel(boolean notification) {
-        List<ConversationEntity> allConversations = conversationRepository.findAll();
+        UserEntity user = userService.getCurrentUser();
 
-        for (ConversationEntity conversation : allConversations) {
-            if (conversation.getMarkAsRead() == 1) {
-                return true;
-            }
+        if (user.getNotification().isEmpty()){
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
+    @Transactional
     public int checkNotificationsNumForUserPanel() {
-        List<ConversationEntity> allConversations = conversationRepository.findAll();
-        int notificationNum = 0;
-        for (ConversationEntity conversation : allConversations) {
-            if (conversation.getMarkAsRead() == 1){
-                notificationNum += 1;
-            }
-        }
-        return notificationNum;
+        UserEntity user = userService.getCurrentUser();
+
+        return user.getNotification().size();
     }
 
 }

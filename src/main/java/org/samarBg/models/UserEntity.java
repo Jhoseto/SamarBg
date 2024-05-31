@@ -6,6 +6,8 @@ import org.samarBg.models.enums.UserRole;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 /**
  * Represents an entity for users in the application.
@@ -90,6 +92,12 @@ public class UserEntity extends BaseEntity {
      */
     private int onlineStatus;
 
+    /**
+     * List of notification IDs associated with the user.
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column
+    private List<Long> notification;
 
 
     public String getUsername() {
@@ -215,6 +223,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setOnlineStatus(int onlineStatus) {
         this.onlineStatus = onlineStatus;
+        return this;
+    }
+
+    public List<Long> getNotification() {
+        return notification;
+    }
+
+    public UserEntity setNotification(List<Long> notification) {
+        this.notification = notification;
         return this;
     }
 }

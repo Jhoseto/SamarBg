@@ -4809,6 +4809,9 @@ img {
 }
 
 .div-block-75.messages {
+  min-height: 200px;
+  max-height: 200px;
+  padding-top: 10px;
   overflow: auto;
 }
 
