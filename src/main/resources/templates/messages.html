@@ -11,6 +11,7 @@
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <link href="/css/normalize.css" rel="stylesheet" type="text/css">
   <link href="/css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="/css/messages.css" rel="stylesheet" type="text/css">
   <link href="/css/samarbg-5ed359.webflow.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
@@ -31,14 +32,14 @@
     <div class="kutup-large-container">
       <div class="kutup-max-w-width-640px">
         <h2 class="kutup-display-2">Съобщения</h2>
-        <div>
-          <p th:if="${error}" class="error-text" style="color: #dc3838;"></p>
-          <p th:text="${error}" class="error-text" style="color: #dc3838;"></p>
+        <div class="massage-done" style="display: flex; justify-content: center;">
+          <div th:if="${error}" class="error-message">
+            <p th:text="${error}" class="error-text" style="color: #dc3838;"></p>
+          </div>
+          <div th:if="${successMessage}" class="success-message">
+            <p th:text="${successMessage}" class="success-text" style="color: #00ab46; font-size: 16px;"></p>
+          </div>
         </div>
-        <div th:if="${successMessage}" class="error-message">
-          <p th:text="${successMessage}" class="error-text" style="color: #30b02e;" ></p>
-        </div>
-
         <div th:each="conversation : ${allConversations}" class="div-block-74">
           <div class="uui-navbar07_menu-dropdown-3 asd w-dropdown" th:onclick="'markAsRead(\'' + ${conversation.id} + '\')'">
             <div class="uui-navbar07_dropdown-toggle wthdrawal as w-dropdown-toggle">
@@ -114,6 +115,37 @@
             .catch(error => console.error('Error:', error));
   }
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add the fade class initially to ensure the transition works
+    var errorMessage = document.querySelector('.error-message');
+    var successMessage = document.querySelector('.success-message');
 
+    if (errorMessage) {
+      errorMessage.classList.add('fade');
+    }
+
+    if (successMessage) {
+      successMessage.classList.add('fade');
+    }
+
+    // Function to hide the messages after 5 seconds
+    function hideMessages() {
+      if (errorMessage) {
+        setTimeout(function() {
+          errorMessage.classList.add('fade-out');
+        }, 3000);
+      }
+
+      if (successMessage) {
+        setTimeout(function() {
+          successMessage.classList.add('fade-out');
+        }, 3000);
+      }
+    }
+
+    hideMessages();
+  });
+</script>
 </body>
 </html>

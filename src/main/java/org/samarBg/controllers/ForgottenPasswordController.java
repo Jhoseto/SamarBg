@@ -48,7 +48,7 @@ public class ForgottenPasswordController {
         ModelAndView modelAndView = new ModelAndView();
 
         Optional<UserEntity> userOptional = userRepository.findByEmail(email);
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             modelAndView.addObject("error", "Грешка: Потребителят с този имейл адрес не съществува.");
             modelAndView.setViewName("forgotten_password");
             return modelAndView;
@@ -87,6 +87,7 @@ public class ForgottenPasswordController {
         for (int i = 0; i < 2; i++) {
             char randomChar = upperCaseLetters.charAt(random.nextInt(upperCaseLetters.length()));
             password.insert(random.nextInt(password.length()), randomChar);
+
         }
 
         return password.toString();

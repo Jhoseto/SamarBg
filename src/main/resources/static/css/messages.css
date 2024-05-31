@@ -1,0 +1,39 @@
+.massage-done {
+    display: flex;
+    justify-content: center;
+}
+
+.error-message {
+    background-color: rgba(255, 255, 255, 0); /* Цвят на фона с лека прозрачност */
+    padding: 10px;
+    border-radius: 20px; /* Заоблени ъгли */
+    margin-bottom: 10px;
+}
+
+/* Стил за текста на грешното съобщение */
+.error-text {
+    color: #dc3838;
+}
+
+/* Стил за успешното съобщение */
+.success-message {
+    background-color: rgba(255, 255, 255, 0); /* Цвят на фона с лека прозрачност */
+    padding: 10px;
+    border-radius: 10px; /* Заоблени ъгли */
+    margin-bottom: 10px;
+}
+
+/* Стил за текста на успешното съобщение */
+.success-text {
+    color: #00ab46;
+    font-size: 16px;
+}
+
+.fade {
+    opacity: 1;
+    transition: opacity 2s ease-in-out; /* Променено на 2 секунди */
+}
+
+.fade-out {
+    opacity: 0;
+}

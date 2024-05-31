@@ -83,13 +83,13 @@ public class UserSettingsController {
                     settingsFormOneViewModel.getCity()
             );
 
-            redirectAttributes.addFlashAttribute("messageFormOne", "New settings saved successfully!");
+            redirectAttributes.addFlashAttribute("messageFormOne", "Новите настройки са запазени успешно !");
             return "redirect:/user-settings";
         } else {
-            redirectAttributes.addFlashAttribute("errorFormOne", "Error saving settings!");
+            redirectAttributes.addFlashAttribute("errorFormOne", "Грешка при запазване на настройките !");
         }
 
-        redirectAttributes.addFlashAttribute("errorFormOne", "Error in user session! Please log in to your profile.");
+        redirectAttributes.addFlashAttribute("errorFormOne", "Грешка в сесията... Моля влезте в вашия профил !");
         return "redirect:/login";
     }
 
@@ -114,29 +114,29 @@ public class UserSettingsController {
 
         // Validate file format
         if (file == null || !file.getContentType().startsWith("image")) {
-            redirectAttributes.addFlashAttribute("errorImg", "File must be an image (jpg, png, bmp, gif).");
+            redirectAttributes.addFlashAttribute("errorImg", "Файлът трябва да бъде в формат (jpg, png, bmp, gif).");
             return "redirect:/user-settings";
         }
 
         // Validate file size
         if (file.getSize() > 5 * 1024 * 1024) { // 5 MB
-            redirectAttributes.addFlashAttribute("errorImg", "File size must be less than 5 MB.");
+            redirectAttributes.addFlashAttribute("errorImg", "Размерът на файла трябва да бъде ПО-МАЛЪК от 5 MB.");
             return "redirect:/user-settings";
         }
 
         // Validate file extension
         String originalFilename = file.getOriginalFilename();
         if (originalFilename != null && !originalFilename.matches("^[^.]*\\.[^.]*$")) {
-            redirectAttributes.addFlashAttribute("errorImg", "Invalid file format.");
+            redirectAttributes.addFlashAttribute("errorImg", "Невалиден файлов формат !");
             return "redirect:/user-settings";
         }
 
         try {
             userSettingsService.uploadProfileImage(email, file);
-            redirectAttributes.addFlashAttribute("messageImg", "File uploaded successfully!");
+            redirectAttributes.addFlashAttribute("messageImg", "Файлът е качен успешно !");
         } catch (IOException e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("errorImg", "Error uploading file.");
+            redirectAttributes.addFlashAttribute("errorImg", "Грешка при качване на файла !");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorImg", e.getMessage());
         }
@@ -173,7 +173,7 @@ public class UserSettingsController {
 
                 // Check if passwords match
                 if (!changePasswordViewModel.isPasswordsMatch()) {
-                    redirectAttributes.addFlashAttribute("errorChangePassword", "Passwords do not match.");
+                    redirectAttributes.addFlashAttribute("errorChangePassword", "Паролата не съвпада !");
                     return "redirect:/user-settings";
                 }
 
@@ -185,12 +185,12 @@ public class UserSettingsController {
                 userRepository.save(user);
                 user.setModified(Instant.now());
 
-                redirectAttributes.addFlashAttribute("successMessageChangePassword", "Password changed successfully.");
+                redirectAttributes.addFlashAttribute("successMessageChangePassword", "Паролата е сменена Успешно !");
             } else {
-                redirectAttributes.addFlashAttribute("errorChangePassword", "Incorrect old password. Please try again.");
+                redirectAttributes.addFlashAttribute("errorChangePassword", "Грешна стара парола... Моля опитайте отново !");
             }
         } else {
-            redirectAttributes.addFlashAttribute("error", "Server error! Please log in to your profile again.");
+            redirectAttributes.addFlashAttribute("error", "Грешка ... Моля влезте във вашият профил !");
             return "redirect:/login";
         }
 
