@@ -60,6 +60,7 @@ public final class HorseOfferMapper {
                 offer.setSex(horse.getSex());
                 offer.setPrice(horse.getPrice());
                 offer.setPhone(horse.getPhone());
+                offer.setHiddenPhone(horse.isHiddenPhone());
                 offer.setOfferName(horse.getOfferName());
                 offer.setCity(horse.getCity());
                 offer.setDescription(horse.getDescription());

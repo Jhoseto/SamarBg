@@ -51,7 +51,7 @@ public class HorseOfferEntity extends BaseEntity {
      * Flag indicating whether the phone number should be hidden in the listing.
      */
     @Column
-    private Boolean hiddenPhone;
+    private boolean hiddenPhone;
 
     /**
      * The city associated with the offer location.
@@ -157,11 +157,11 @@ public class HorseOfferEntity extends BaseEntity {
         return this;
     }
 
-    public Boolean getHiddenPhone() {
+    public boolean isHiddenPhone() {
         return hiddenPhone;
     }
 
-    public HorseOfferEntity setHiddenPhone(Boolean hiddenPhone) {
+    public HorseOfferEntity setHiddenPhone(boolean hiddenPhone) {
         this.hiddenPhone = hiddenPhone;
         return this;
     }

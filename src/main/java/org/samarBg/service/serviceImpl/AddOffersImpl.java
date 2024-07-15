@@ -9,7 +9,7 @@ import org.samarBg.repository.AccessoriesOfferRepository;
 import org.samarBg.repository.HorseOfferRepository;
 import org.samarBg.service.AddOffersService;
 import org.samarBg.service.UserService;
-import org.samarBg.views.AddAccessoriesViewModel;
+import org.samarBg.views.AddOfferAccessoriesViewModel;
 import org.samarBg.views.AddOfferHorseViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -79,7 +79,7 @@ public class AddOffersImpl implements AddOffersService{
     }
 
     @Override
-    public Long addAccessoriesOffer(AddAccessoriesViewModel addAccessoriesViewModel, List<String> imageUrls) {
+    public Long addAccessoriesOffer(AddOfferAccessoriesViewModel addOfferAccessoriesViewModel, List<String> imageUrls) {
         AccessoryOfferEntity accessoriesOffer = new AccessoryOfferEntity();
 
         // Getting userName for current user from CurrentUserService
@@ -93,18 +93,18 @@ public class AddOffersImpl implements AddOffersService{
             images.add(offerImage);
         }
 
-        accessoriesOffer.setOfferName(addAccessoriesViewModel.getOfferName());
+        accessoriesOffer.setOfferName(addOfferAccessoriesViewModel.getOfferName());
         accessoriesOffer.setCategory(OfferCategory.ACCESSORIES);
         accessoriesOffer.setBasicImageUrl(imageUrls.get(0)); // Променено получаването на основната снимка
         accessoriesOffer.setImages(images);
-        accessoriesOffer.setAccessoriesCategory(addAccessoriesViewModel.getAccessoriesCategory());
-        accessoriesOffer.setPrice(addAccessoriesViewModel.getPrice());
-        accessoriesOffer.setPhone(addAccessoriesViewModel.getPhone());
-        accessoriesOffer.setHiddenPhone(addAccessoriesViewModel.isHiddenPhone());
-        accessoriesOffer.setCity(addAccessoriesViewModel.getCity());
-        accessoriesOffer.setDescription(addAccessoriesViewModel.getDescription());
+        accessoriesOffer.setAccessoriesCategory(addOfferAccessoriesViewModel.getAccessoriesCategory());
+        accessoriesOffer.setPrice(addOfferAccessoriesViewModel.getPrice());
+        accessoriesOffer.setPhone(addOfferAccessoriesViewModel.getPhone());
+        accessoriesOffer.setHiddenPhone(addOfferAccessoriesViewModel.isHiddenPhone());
+        accessoriesOffer.setCity(addOfferAccessoriesViewModel.getCity());
+        accessoriesOffer.setDescription(addOfferAccessoriesViewModel.getDescription());
         accessoriesOffer.setIsActive(0);
-        accessoriesOffer.setVideoLink(addAccessoriesViewModel.getVideoLink());
+        accessoriesOffer.setVideoLink(addOfferAccessoriesViewModel.getVideoLink());
 
         setCurrentTimeStamps(accessoriesOffer);
         accessoriesOffer.setAuthorName(username);

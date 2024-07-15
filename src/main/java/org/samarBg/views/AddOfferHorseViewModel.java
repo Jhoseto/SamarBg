@@ -49,7 +49,7 @@ public class AddOfferHorseViewModel {
     @NotNull
     @Size(min = 9, max = 15, message = "Моля въведете реален телефонен номер")
     private String phone;
-    boolean hiddenPhone;
+    private boolean hiddenPhone;
     @NotNull(message = "Моля изберете населено място")
     private City city;
     @NotNull(message = "Моля напишете описание на обявата ")
@@ -134,6 +134,7 @@ public class AddOfferHorseViewModel {
         this.hiddenPhone = hiddenPhone;
         return this;
     }
+
 
     public City getCity() {
         return city;

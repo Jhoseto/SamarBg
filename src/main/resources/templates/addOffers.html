@@ -1,5 +1,4 @@
-<!DOCTYPE html><!--  This site was created in Webflow. https://www.webflow.com  -->
-<!--  Last Published: Tue Mar 26 2024 18:04:30 GMT+0000 (Coordinated Universal Time)  -->
+<!DOCTYPE html>
 <html data-wf-page="66029e96641cd7e1c5196efe" data-wf-site="65dbafc99f6b400b3852fc07" lang="bg" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
@@ -19,56 +18,14 @@
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/webclip.png" rel="apple-touch-icon">
   <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const fileInputs = document.querySelectorAll('.file-input');
-    const modal = document.getElementById('modal');
-    const modalImage = document.getElementById('modal-image');
-    const closeBtn = document.querySelector('.close');
-    fileInputs.forEach(function(input) {
-        input.addEventListener('change', function() {
-            const previewId = this.id.replace('file-upload', 'file-preview');
-            const preview = document.getElementById(previewId);
-            preview.innerHTML = '';
-            const files = this.files;
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('preview-image');
-                    img.setAttribute('alt', file.name);
-                    img.addEventListener('click', function() {
-                        modal.style.display = 'block';
-                        modalImage.src = e.target.result;
-                    });
-                    preview.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    });
-    // Close modal when clicking on close button
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-    // Close modal when clicking outside the modal content
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-});
-</script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const fileInputs2 = document.querySelectorAll('.file-input2');
-      const modal2 = document.getElementById('modal2');
-      const modalImage2 = document.getElementById('modal-image2');
-      const closeBtn2 = document.querySelector('.close2');
+    document.addEventListener("DOMContentLoaded", function () {
+      const fileInputs = document.querySelectorAll('.file-input');
+      const modal = document.getElementById('modal');
+      const modalImage = document.getElementById('modal-image');
+      const closeBtn = document.querySelector('.close');
 
-      fileInputs2.forEach(function(input) {
-        input.addEventListener('change', function() {
+      fileInputs.forEach(function (input) {
+        input.addEventListener('change', function () {
           const previewId = this.id.replace('file-upload', 'file-preview');
           const preview = document.getElementById(previewId);
           preview.innerHTML = '';
@@ -78,13 +35,63 @@ document.addEventListener("DOMContentLoaded", function() {
             const file = files[i];
             const reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.classList.add('preview-image');
+              img.setAttribute('alt', file.name);
+
+              img.addEventListener('click', function () {
+                modal.style.display = 'block';
+                modalImage.src = e.target.result;
+              });
+
+              preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+
+      // Close modal when clicking on close button
+      closeBtn.addEventListener('click', function () {
+        modal.style.display = 'none';
+      });
+
+      // Close modal when clicking outside the modal content
+      window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const fileInputs2 = document.querySelectorAll('.file-input2');
+      const modal2 = document.getElementById('modal2');
+      const modalImage2 = document.getElementById('modal-image2');
+      const closeBtn2 = document.querySelector('.close2');
+
+      fileInputs2.forEach(function (input) {
+        input.addEventListener('change', function () {
+          const previewId = this.id.replace('file-upload', 'file-preview');
+          const preview = document.getElementById(previewId);
+          preview.innerHTML = '';
+          const files = this.files;
+
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
               const img = document.createElement('img');
               img.src = e.target.result;
               img.classList.add('preview-image2');
               img.setAttribute('alt', file.name);
 
-              img.addEventListener('click', function() {
+              img.addEventListener('click', function () {
                 modal2.style.display = 'block';
                 modalImage2.src = e.target.result;
               });
@@ -98,12 +105,12 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
       // Close modal when clicking on close button
-      closeBtn2.addEventListener('click', function() {
+      closeBtn2.addEventListener('click', function () {
         modal2.style.display = 'none';
       });
 
       // Close modal when clicking outside the modal content
-      window.addEventListener('click', function(event) {
+      window.addEventListener('click', function (event) {
         if (event.target === modal2) {
           modal2.style.display = 'none';
         }
@@ -371,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function() {
                            required pattern="[0-9]+(\.[0-9]+)?"
                            title="Моля, въведете реален телефонен номер">>
                     <label class="w-checkbox checkbox-field">
-                      <input th:checkbox="*{hiddenPhone}" type="checkbox" name="checkbox-3" id="checkbox-3" data-name="Checkbox 3" class="w-checkbox-input">
+                      <input th:field="*{hiddenPhone}" type="checkbox" name="checkbox-3" id="checkbox-3" data-name="Checkbox 3" class="w-checkbox-input">
                       <span class="checkbox-label w-form-label" for="checkbox-3">Скрий телефона в обявата</span>
                     </label>
                   </div>
@@ -520,7 +527,8 @@ document.addEventListener("DOMContentLoaded", function() {
                            required pattern="[0-9]+(\.[0-9]+)?"
                            title="Моля, въведете реален телефонен номер">
                     <label class="w-checkbox checkbox-field">
-                      <input th:field="*{hiddenPhone}" type="checkbox" name="checkbox-4" id="checkbox-4" data-name="Checkbox 4" class="w-checkbox-input"><span class="checkbox-label w-form-label" for="checkbox-4">Скрий телефона в обявата</span></label></div>
+                      <input th:field="*{hiddenPhone}" type="checkbox" name="checkbox-4" id="checkbox-4" data-name="Checkbox 4" class="w-checkbox-input">
+                      <span class="checkbox-label w-form-label" for="checkbox-4">Скрий телефона в обявата</span></label></div>
                   <div class="div-block-34 _1">
                     <label for="FieldPhone-5" class="field-label-9 _1 _4 _3">Цена</label>
                     <input th:field="*{price}" class="text-field-4 _4 w-input" maxlength="256" name="FieldPrice" data-name="Field Price" placeholder="Въведете цяло число в Лева..." type="text" id="FieldPrice"

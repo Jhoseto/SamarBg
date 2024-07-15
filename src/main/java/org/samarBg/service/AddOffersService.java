@@ -1,6 +1,6 @@
 package org.samarBg.service;
 
-import org.samarBg.views.AddAccessoriesViewModel;
+import org.samarBg.views.AddOfferAccessoriesViewModel;
 import org.samarBg.views.AddOfferHorseViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,11 +26,11 @@ public interface AddOffersService {
     /**
      * Adds a new accessories offer.
      *
-     * @param addAccessoriesViewModel model for adding an accessories offer
+     * @param addOfferAccessoriesViewModel model for adding an accessories offer
      * @param imageUrls               list of URLs of the images of the offer
      * @return the ID of the added offer
      */
-    Long addAccessoriesOffer(AddAccessoriesViewModel addAccessoriesViewModel, List<String> imageUrls);
+    Long addAccessoriesOffer(AddOfferAccessoriesViewModel addOfferAccessoriesViewModel, List<String> imageUrls);
 
     /**
      * Uploads images to the server.

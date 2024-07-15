@@ -61,6 +61,7 @@ public final class AccessoryOfferMapper {
                 offer.setPrice(accessory.getPrice());
                 offer.setOfferName(accessory.getOfferName());
                 offer.setPhone(accessory.getPhone());
+                offer.setHiddenPhone(accessory.isHiddenPhone());
                 offer.setCity(accessory.getCity());
                 offer.setDescription(accessory.getDescription());
                 offer.setAuthorName(accessory.getAuthorName());

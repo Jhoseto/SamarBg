@@ -45,6 +45,7 @@ public class OfferViewModel {
     private Sex sex;
     private BigDecimal price;
     private String phone;
+    private boolean hiddenPhone;
     private City city;
     private String offerName;
     private String description;
@@ -142,6 +143,15 @@ public class OfferViewModel {
 
     public OfferViewModel setPhone(String phone) {
         this.phone = phone;
+        return this;
+    }
+
+    public boolean isHiddenPhone() {
+        return hiddenPhone;
+    }
+
+    public OfferViewModel setHiddenPhone(boolean hiddenPhone) {
+        this.hiddenPhone = hiddenPhone;
         return this;
     }
 

@@ -186,7 +186,8 @@
           <div class="textcena">ЦЕНА:</div>
           <div class="cena" th:text="${offer.price.intValue()} + ' Лв.'">2200 </div>
         </div>
-        <a th:href="'tel:' + ${offer.phone}" class="button2 phone w-button" th:text="${offer.phone}"></a>
+        <a th:if="${!offer.isHiddenPhone()}" th:href="'tel:' + ${offer.phone}" class="button2 phone w-button" th:text="${offer.phone}">Телефон</a>
+        <a th:if="${offer.isHiddenPhone()}" th:href="'' + ${offer.phone}" class="button2 phone w-button" th:text="${offer.phone.substring(0, 4) + '******'}">Телефон</a>
         <div data-delay="5000" data-hover="false" data-w-id="69f4df5d-301a-564e-7727-54b023fb6035" class="uui-navbar07_menu-dropdown w-dropdown">
           <div data-w-id="69f4df5d-301a-564e-7727-54b023fb6036" style="opacity:0" class="uui-navbar07_dropdown-toggle _22 w-dropdown-toggle">
             <div class="text-block-24">Изпрати съобщение</div>

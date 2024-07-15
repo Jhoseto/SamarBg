@@ -30,7 +30,7 @@ import java.util.List;
  *     <li><b>videoLink:</b> The link to a video showcasing the accessories.</li>
  * </ul>
  */
-public class AddAccessoriesViewModel {
+public class AddOfferAccessoriesViewModel {
     @NotNull
     @Size(min = 5, max = 50, message = "Невалидно име на обявата! Въведете минимум 5 и максимум 50 символа.")
     private String offerName;
@@ -50,7 +50,7 @@ public class AddAccessoriesViewModel {
     @Size(min = 9, max = 15, message = "Моля въведете реален телефонен номер")
     private String phone;
 
-    boolean hiddenPhone;
+    private boolean hiddenPhone;
 
     @NotNull(message = "Моля изберете населено място")
     private City city;
@@ -75,7 +75,7 @@ public class AddAccessoriesViewModel {
         return offerName;
     }
 
-    public AddAccessoriesViewModel setOfferName(String offerName) {
+    public AddOfferAccessoriesViewModel setOfferName(String offerName) {
         this.offerName = offerName;
         return this;
     }
@@ -84,7 +84,7 @@ public class AddAccessoriesViewModel {
         return basicImageUrl;
     }
 
-    public AddAccessoriesViewModel setBasicImageUrl(String basicImageUrl) {
+    public AddOfferAccessoriesViewModel setBasicImageUrl(String basicImageUrl) {
         this.basicImageUrl = basicImageUrl;
         return this;
     }
@@ -93,7 +93,7 @@ public class AddAccessoriesViewModel {
         return images;
     }
 
-    public AddAccessoriesViewModel setImages(List<MultipartFile> images) {
+    public AddOfferAccessoriesViewModel setImages(List<MultipartFile> images) {
         this.images = images;
         return this;
     }
@@ -102,7 +102,7 @@ public class AddAccessoriesViewModel {
         return accessoriesCategory;
     }
 
-    public AddAccessoriesViewModel setAccessoriesCategory(AccessoriesCategory accessoriesCategory) {
+    public AddOfferAccessoriesViewModel setAccessoriesCategory(AccessoriesCategory accessoriesCategory) {
         this.accessoriesCategory = accessoriesCategory;
         return this;
     }
@@ -111,7 +111,7 @@ public class AddAccessoriesViewModel {
         return price;
     }
 
-    public AddAccessoriesViewModel setPrice(BigDecimal price) {
+    public AddOfferAccessoriesViewModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -120,7 +120,7 @@ public class AddAccessoriesViewModel {
         return phone;
     }
 
-    public AddAccessoriesViewModel setPhone(String phone) {
+    public AddOfferAccessoriesViewModel setPhone(String phone) {
         this.phone = phone;
         return this;
     }
@@ -129,7 +129,7 @@ public class AddAccessoriesViewModel {
         return hiddenPhone;
     }
 
-    public AddAccessoriesViewModel setHiddenPhone(boolean hiddenPhone) {
+    public AddOfferAccessoriesViewModel setHiddenPhone(boolean hiddenPhone) {
         this.hiddenPhone = hiddenPhone;
         return this;
     }
@@ -138,7 +138,7 @@ public class AddAccessoriesViewModel {
         return city;
     }
 
-    public AddAccessoriesViewModel setCity(City city) {
+    public AddOfferAccessoriesViewModel setCity(City city) {
         this.city = city;
         return this;
     }
@@ -147,7 +147,7 @@ public class AddAccessoriesViewModel {
         return description;
     }
 
-    public AddAccessoriesViewModel setDescription(String description) {
+    public AddOfferAccessoriesViewModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -156,7 +156,7 @@ public class AddAccessoriesViewModel {
         return authorName;
     }
 
-    public AddAccessoriesViewModel setAuthorName(String authorName) {
+    public AddOfferAccessoriesViewModel setAuthorName(String authorName) {
         this.authorName = authorName;
         return this;
     }
@@ -165,7 +165,7 @@ public class AddAccessoriesViewModel {
         return offerViewCount;
     }
 
-    public AddAccessoriesViewModel setOfferViewCount(int offerViewCount) {
+    public AddOfferAccessoriesViewModel setOfferViewCount(int offerViewCount) {
         this.offerViewCount = offerViewCount;
         return this;
     }
@@ -174,7 +174,7 @@ public class AddAccessoriesViewModel {
         return createDate;
     }
 
-    public AddAccessoriesViewModel setCreateDate(Instant createDate) {
+    public AddOfferAccessoriesViewModel setCreateDate(Instant createDate) {
         this.createDate = createDate;
         return this;
     }
@@ -183,7 +183,7 @@ public class AddAccessoriesViewModel {
         return modifiedDate;
     }
 
-    public AddAccessoriesViewModel setModifiedDate(Instant modifiedDate) {
+    public AddOfferAccessoriesViewModel setModifiedDate(Instant modifiedDate) {
         this.modifiedDate = modifiedDate;
         return this;
     }
@@ -192,7 +192,7 @@ public class AddAccessoriesViewModel {
         return videoLink;
     }
 
-    public AddAccessoriesViewModel setVideoLink(String videoLink) {
+    public AddOfferAccessoriesViewModel setVideoLink(String videoLink) {
         this.videoLink = videoLink;
         return this;
     }

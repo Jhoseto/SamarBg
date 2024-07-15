@@ -51,7 +51,7 @@ public class AccessoryOfferEntity extends BaseEntity {
      * Flag indicating whether the phone number should be hidden.
      */
     @Column
-    private Boolean hiddenPhone;
+    private boolean hiddenPhone;
 
     /**
      * The city associated with the accessory offer.
@@ -155,11 +155,11 @@ public class AccessoryOfferEntity extends BaseEntity {
         return this;
     }
 
-    public Boolean getHiddenPhone() {
+    public boolean isHiddenPhone() {
         return hiddenPhone;
     }
 
-    public AccessoryOfferEntity setHiddenPhone(Boolean hiddenPhone) {
+    public AccessoryOfferEntity setHiddenPhone(boolean hiddenPhone) {
         this.hiddenPhone = hiddenPhone;
         return this;
     }
